@@ -1,6 +1,6 @@
 <?php
 
-// config for StarfolkSoftware/Tithe
+// config for Tithe/Tithe
 return [
     'subscriber_uses_uuid' => false,
 ];

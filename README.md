@@ -15,17 +15,11 @@ You can install the package via composer:
 composer require starfolksoftware/tithe
 ```
 
-You can publish and run the migrations with:
+You can publish, publish the config and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="tithe-migrations"
+php artisan redo:install
 php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="tithe-config"
 ```
 
 This is the contents of the published config file:
@@ -41,16 +35,13 @@ Optionally, you can publish the views using
 php artisan vendor:publish --tag="tithe-views"
 ```
 
-## Upgrades
+## Configurations
 
-If you already use this package and need to move to a newer version, don't forget to publish the upgrade migrations:
+To disable migrations, add the following in the service provider:
 
-```bash
-php artisan vendor:publish --tag="soulbscription-migrations-upgrades-1.x-2.x"
-php artisan migrate
+```php
+Redo::ignoreMigrations();
 ```
-
-> Check out the available upgrade migrations by looking at the [upgrades folder](https://github.com/lucasdotvin/laravel-soulbscription/tree/develop/database/migrations/upgrades).
 
 ## Usage
 

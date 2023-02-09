@@ -4,7 +4,7 @@ namespace Tithe;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Tithe\Commands\TitheCommand;
+use Tithe\Commands\InstallCommand;
 
 class TitheServiceProvider extends PackageServiceProvider
 {
@@ -18,8 +18,8 @@ class TitheServiceProvider extends PackageServiceProvider
         $package
             ->name('tithe')
             ->hasConfigFile()
-            ->hasViews()
+            // ->hasViews()
             ->hasMigration('create_tithe_table')
-            ->hasCommand(TitheCommand::class);
+            ->hasCommand(InstallCommand::class);
     }
 }

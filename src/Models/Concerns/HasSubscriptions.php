@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use InvalidArgumentException;
 use LogicException;
+use OutOfBoundsException;
+use OverflowException;
 use Tithe\Events\FeatureConsumed;
 use Tithe\Events\FeatureTicketCreated;
 use Tithe\Models\Feature;
 use Tithe\Models\FeatureTicket;
 use Tithe\Models\Plan;
 use Tithe\Models\Subscription;
-use OutOfBoundsException;
-use OverflowException;
 
 trait HasSubscriptions
 {
@@ -382,8 +382,8 @@ trait HasSubscriptions
         }
 
         return $this->loadedTicketFeatures = Feature::with([
-                'tickets' => fn (HasMany $query) => $query->withoutExpired()->whereMorphedTo('subscriber', $this),
-            ])
+            'tickets' => fn (HasMany $query) => $query->withoutExpired()->whereMorphedTo('subscriber', $this),
+        ])
             ->whereHas(
                 'tickets',
                 fn (Builder $query) => $query->withoutExpired()->whereMorphedTo('subscriber', $this),
