@@ -18,12 +18,19 @@ class InstallCommand extends Command
         $this->callSilent('vendor:publish', ['--tag' => 'tithe-migrations', '--force' => true]);
 
         // Models...
+        copy(__DIR__.'/../../stubs/app/Models/Plan.php', app_path('Models/Plan.php'));
+        copy(__DIR__.'/../../stubs/app/Models/Feature.php', app_path('Models/Feature.php'));
+        copy(__DIR__.'/../../stubs/app/Models/FeaturePlan.php', app_path('Models/FeaturePlan.php'));
         copy(__DIR__.'/../../stubs/app/Models/Subscription.php', app_path('Models/Subscription.php'));
 
         // Factories
+        copy(__DIR__.'/../../stubs/database/factories/PlanFactory.php', app_path('../database/factories/PlanFactory.php'));
+        copy(__DIR__.'/../../stubs/database/factories/FeatureFactory.php', app_path('../database/factories/FeatureFactory.php'));
         copy(__DIR__.'/../../stubs/database/factories/SubscriptionFactory.php', app_path('../database/factories/SubscriptionFactory.php'));
 
         // Policies...
+        copy(__DIR__.'/../../stubs/app/Policies/PlanPolicy.php', app_path('Policies/PlanPolicy.php'));
+        copy(__DIR__.'/../../stubs/app/Policies/FeaturePolicy.php', app_path('Policies/FeaturePolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/SubscriptionPolicy.php', app_path('Policies/SubscriptionPolicy.php'));
 
         // Service Providers...
