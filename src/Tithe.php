@@ -89,6 +89,34 @@ final class Tithe
     public static $subscriptionRenewalModel = 'App\\Models\\SubscriptionRenewal';
 
     /**
+     * The feature model table name.
+     *
+     * @var string
+     */
+    public static $featureTableName = 'features';
+
+    /**
+     * The feature model that should be used by Tithe.
+     *
+     * @var string
+     */
+    public static $featureModel = 'App\\Models\\Feature';
+
+    /**
+     * The feature plan pivot model table name.
+     *
+     * @var string
+     */
+    public static $featurePlanTableName = 'feature_plan';
+
+    /**
+     * The feature plan pivot model that should be used by Tithe.
+     *
+     * @var string
+     */
+    public static $featurePlanModel = 'App\\Models\\FeaturePlan';
+
+    /**
      * Configure Tithe to not run its migrations.
      *
      * @return static
@@ -272,13 +300,83 @@ final class Tithe
     }
 
     /**
-     * Get a new instance of the subscription model.
+     * Get a new instance of the subscription renewal model.
      *
      * @return mixed
      */
     public static function newSubscriptionRenewalModel()
     {
         $model = static::subscriptionRenewalModel();
+
+        return new $model();
+    }
+
+    /**
+     * Get the name of the feature model used by the application.
+     *
+     * @return string
+     */
+    public static function featureModel()
+    {
+        return static::$featureModel;
+    }
+
+    /**
+     * Specify the feature model that should be used by Tithe.
+     *
+     * @param  string  $model
+     * @return static
+     */
+    public static function useFeatureModel(string $model)
+    {
+        static::$featureModel = $model;
+
+        return new static();
+    }
+
+    /**
+     * Get a new instance of the feature model.
+     *
+     * @return mixed
+     */
+    public static function newFeatureModel()
+    {
+        $model = static::featureModel();
+
+        return new $model();
+    }
+
+    /**
+     * Get the name of the feature plan pivot model used by the application.
+     *
+     * @return string
+     */
+    public static function featurePlanModel()
+    {
+        return static::$featurePlanModel;
+    }
+
+    /**
+     * Specify the feature plan pivot model that should be used by Tithe.
+     *
+     * @param  string  $model
+     * @return static
+     */
+    public static function useFeaturePlanModel(string $model)
+    {
+        static::$featurePlanModel = $model;
+
+        return new static();
+    }
+
+    /**
+     * Get a new instance of the feature plan pivot model.
+     *
+     * @return mixed
+     */
+    public static function newFeaturePlanModel()
+    {
+        $model = static::featurePlanModel();
 
         return new $model();
     }

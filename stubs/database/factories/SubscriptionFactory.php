@@ -18,7 +18,7 @@ class SubscriptionFactory extends Factory
     public function definition()
     {
         return [
-            'plan_id' => Tithe::planModel()->factory(),
+            'plan_id' => (Tithe::planModel())::factory(),
             'canceled_at' => null,
             'started_at' => $this->faker->dateTime(),
             'suppressed_at' => null,

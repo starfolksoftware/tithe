@@ -105,7 +105,7 @@ return new class extends Migration
             $table->unique(['subscriber_id', 'card_id'], 'auth_subscriber_card_unique');
         });
 
-        Schema::create('features', function (Blueprint $table) {
+        Schema::create(Tithe::$featureTableName, function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->boolean('consumable');
@@ -139,7 +139,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('feature_plan', function (Blueprint $table) {
+        Schema::create(Tithe::$featurePlanTableName, function (Blueprint $table) {
             $table->id();
             $table->decimal('charges')->nullable();
             $table->unsignedBigInteger('feature_id');
