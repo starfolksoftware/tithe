@@ -5,8 +5,8 @@ namespace Tithe\Events;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Tithe\Models\Feature;
-use Tithe\Models\FeatureTicket;
+use Tithe\Feature;
+use Tithe\FeatureTicket;
 
 class FeatureTicketCreated
 {

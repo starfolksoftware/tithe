@@ -18,7 +18,7 @@ class TitheServiceProvider extends PackageServiceProvider
         $package
             ->name('tithe')
             ->hasConfigFile()
-            // ->hasViews()
+            ->hasViews()
             ->hasMigration('create_tithe_table')
             ->hasCommand(InstallCommand::class);
     }

@@ -18,18 +18,18 @@ class InstallCommand extends Command
         $this->callSilent('vendor:publish', ['--tag' => 'tithe-migrations', '--force' => true]);
 
         // Models...
-        // copy(__DIR__.'/../../stubs/app/Models/Recurrence.php', app_path('Models/Recurrence.php'));
+        copy(__DIR__.'/../../stubs/app/Models/Subscription.php', app_path('Models/Subscription.php'));
 
         // Factories
-        // copy(__DIR__.'/../../stubs/database/factories/RecurrenceFactory.php', app_path('../database/factories/RecurrenceFactory.php'));
+        copy(__DIR__.'/../../stubs/database/factories/SubscriptionFactory.php', app_path('../database/factories/SubscriptionFactory.php'));
 
         // Policies...
-        // copy(__DIR__.'/../../stubs/app/Policies/RecurrencePolicy.php', app_path('Policies/RecurrencePolicy.php'));
+        copy(__DIR__.'/../../stubs/app/Policies/SubscriptionPolicy.php', app_path('Policies/SubscriptionPolicy.php'));
 
         // Service Providers...
-        // copy(__DIR__.'/../../stubs/app/Providers/RedoServiceProvider.php', app_path('Providers/RedoServiceProvider.php'));
+        copy(__DIR__.'/../../stubs/app/Providers/TitheServiceProvider.php', app_path('Providers/TitheServiceProvider.php'));
 
-        $this->installServiceProviderAfter('RouteServiceProvider', 'RedoServiceProvider');
+        $this->installServiceProviderAfter('RouteServiceProvider', 'TitheServiceProvider');
 
         $this->comment('All done');
 

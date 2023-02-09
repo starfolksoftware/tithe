@@ -1,6 +1,6 @@
 <?php
 
-namespace Tithe\Models\Concerns;
+namespace Tithe;
 
 use Illuminate\Support\Carbon;
 use Tithe\Enums\PeriodicityType;

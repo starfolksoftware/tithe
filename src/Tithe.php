@@ -30,7 +30,7 @@ final class Tithe
      *
      * @var bool
      */
-    public static $supportsSoftDeletes = false;
+    public static $supportsSoftDeletes = true;
 
     /**
      * Indicates whether Tithe prorates especially when upgrading to higher plans.
@@ -45,6 +45,48 @@ final class Tithe
      * @var bool
      */
     public static $emailsInvoices = true;
+
+    /**
+     * The plan model table name.
+     * 
+     * @var string
+     */
+    public static $planTableName = 'plans';
+
+    /**
+     * The plan model that should be used by Tithe.
+     *
+     * @var string
+     */
+    public static $planModel = 'App\\Models\\Plan';
+
+    /**
+     * The subscription model table name.
+     * 
+     * @var string
+     */
+    public static $subscriptionTableName = 'subscriptions';
+
+    /**
+     * The subscripton model that should be used by Tithe.
+     *
+     * @var string
+     */
+    public static $subscriptionModel = 'App\\Models\\Subscription';
+
+    /**
+     * The subscription renewal model table name.
+     * 
+     * @var string
+     */
+    public static $subscriptionRenewalTableName = 'subscription_renewals';
+
+    /**
+     * The subscripton model that should be used by Tithe.
+     *
+     * @var string
+     */
+    public static $subscriptionRenewalModel = 'App\\Models\\SubscriptionRenewal';
 
     /**
      * Configure Tithe to not run its migrations.
@@ -121,5 +163,123 @@ final class Tithe
         static::$emailsInvoices = $value;
 
         return new static();
+    }
+
+    /**
+     * Sets the subscription model's table name.
+     * 
+     * @param string $name
+     * @return static
+     */
+    public static function subscriptionTableName(string $name)
+    {
+        static::$subscriptionTableName = $name;
+
+        return new static();
+    }
+
+    /**
+     * Get the name of the plan model used by the application.
+     *
+     * @return string
+     */
+    public static function planModel()
+    {
+        return static::$planModel;
+    }
+
+    /**
+     * Specify the plan model that should be used by Tithe.
+     *
+     * @param  string  $model
+     * @return static
+     */
+    public static function usePlanModel(string $model)
+    {
+        static::$planModel = $model;
+
+        return new static();
+    }
+
+    /**
+     * Get a new instance of the plan model.
+     *
+     * @return mixed
+     */
+    public static function newPlanModel()
+    {
+        $model = static::planModel();
+
+        return new $model();
+    }
+
+    /**
+     * Get the name of the subscription model used by the application.
+     *
+     * @return string
+     */
+    public static function subscriptionModel()
+    {
+        return static::$subscriptionModel;
+    }
+
+    /**
+     * Specify the subscription model that should be used by Tithe.
+     *
+     * @param  string  $model
+     * @return static
+     */
+    public static function useSubscriptionModel(string $model)
+    {
+        static::$subscriptionModel = $model;
+
+        return new static();
+    }
+
+    /**
+     * Get a new instance of the subscription model.
+     *
+     * @return mixed
+     */
+    public static function newSubscriptionModel()
+    {
+        $model = static::subscriptionModel();
+
+        return new $model();
+    }
+
+    /**
+     * Get the name of the subscription renewal model used by the application.
+     *
+     * @return string
+     */
+    public static function subscriptionRenewalModel()
+    {
+        return static::$subscriptionRenewalModel;
+    }
+
+    /**
+     * Specify the subscription renewal model that should be used by Tithe.
+     *
+     * @param  string  $model
+     * @return static
+     */
+    public static function useSubscriptionRenewalModel(string $model)
+    {
+        static::$subscriptionRenewalModel = $model;
+
+        return new static();
+    }
+
+    /**
+     * Get a new instance of the subscription model.
+     *
+     * @return mixed
+     */
+    public static function newSubscriptionRenewalModel()
+    {
+        $model = static::subscriptionRenewalModel();
+
+        return new $model();
     }
 }

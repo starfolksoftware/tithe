@@ -4,7 +4,7 @@ namespace Tithe\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tithe\Enums\PeriodicityType;
-use Tithe\Models\Plan;
+use Tithe\Plan;
 
 class PlanFactory extends Factory
 {

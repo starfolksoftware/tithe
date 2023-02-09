@@ -1,6 +1,6 @@
 <?php
 
-namespace Tithe\Models\Scopes;
+namespace Tithe\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

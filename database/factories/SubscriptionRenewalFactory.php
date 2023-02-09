@@ -3,8 +3,8 @@
 namespace Tithe\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tithe\Models\Subscription;
-use Tithe\Models\SubscriptionRenewal;
+use Tithe\Subscription;
+use Tithe\SubscriptionRenewal;
 
 class SubscriptionRenewalFactory extends Factory
 {

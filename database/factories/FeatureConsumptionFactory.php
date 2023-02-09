@@ -3,8 +3,8 @@
 namespace Tithe\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tithe\Models\Feature;
-use Tithe\Models\FeatureConsumption;
+use Tithe\Feature;
+use Tithe\FeatureConsumption;
 
 class FeatureConsumptionFactory extends Factory
 {
