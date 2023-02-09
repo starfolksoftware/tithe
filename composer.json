@@ -1,0 +1,72 @@
+{
+    "name": "starfolksoftware/tithe",
+    "description": "Tithe provides subscription billing services to your Laravel applications",
+    "keywords": [
+        "starfolksoftware",
+        "laravel",
+        "tithe"
+    ],
+    "homepage": "https://github.com/starfolksoftware/tithe",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Faruk Nasir",
+            "email": "faruk@starfolksoftware.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "spatie/laravel-package-tools": "^1.14.0",
+        "illuminate/contracts": "^9.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.0",
+        "nunomaduro/collision": "^6.0",
+        "nunomaduro/larastan": "^2.0.1",
+        "orchestra/testbench": "^7.0",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tithe\\": "src",
+            "Tithe\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tithe\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tithe\\TitheServiceProvider"
+            ],
+            "aliases": {
+                "Tithe": "Tithe\\Facades\\Tithe"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

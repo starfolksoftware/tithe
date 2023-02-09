@@ -1,0 +1,178 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('plans', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('display_name')->nullable();
+            $table->unsignedBigInteger('periodicity');
+            $table->string('periodicity_type');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('amount');
+            $table->string('currency')->default('NGN');
+            $table->json('taxes')->nullable(); // ['name' => 'VAT', 'amount' => '7500']
+            $table->json('meta')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+        Schema::create('subscriptions', function (Blueprint $table) {
+            $table->id();
+
+            if (config('tithe.subscriber_uses_uuid')) {
+                $table->uuidMorphs('subscriber');
+            } else {
+                $table->numericMorphs('subscriber');
+            }
+
+            $table->unsignedBigInteger('plan_id');
+            $table->date('started_at');
+            $table->timestamp('canceled_at')->nullable();
+            $table->timestamp('expired_at')->nullable();
+            $table->timestamp('grace_days_ended_at')->nullable();
+            $table->timestamp('suppressed_at')->nullable();
+            $table->boolean('was_switched')->default(false);
+            $table->json('meta')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+        Schema::create('subscription_invoices', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('subscription_id');
+            $table->json('line_items')->nullable();
+            $table->unsignedBigInteger('total');
+            $table->timestamp('due_date');
+            $table->enum('status', ['paid', 'unpaid', 'void'])->default('unpaid');
+            $table->timestamp('paid_at')->nullable();
+            $table->json('meta')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('subscription_invoice_payments', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('invoice_id');
+            $table->unsignedBigInteger('amount')->nullable();
+            $table->string('paystack_transaction_id')->unique();
+            $table->unsignedBigInteger('authorization_id');
+            $table->string('reference')->unique();
+            $table->datetime('paid_at');
+            $table->json('meta')->nullable();
+            $table->timestamps();
+        });
+
+        schema::create('credit_cards', function (Blueprint $table) {
+            $table->id();
+            $table->string('signature')->unique();
+            $table->string('type');
+            $table->string('last4');
+            $table->integer('exp_month');
+            $table->year('exp_year');
+            $table->string('bin')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('account_name')->nullable();
+            $table->string('country_code')->nullable();
+            $table->timestamps();
+        });
+
+        schema::create('credit_card_authorizations', function (Blueprint $table) {
+            $table->id();
+            if (config('tithe.subscriber_uses_uuid')) {
+                $table->foreignUuid('subscriber_id');
+            } else {
+                $table->unsignedBigInteger('subscriber_id');
+            }
+            $table->unsignedBigInteger('card_id');
+            $table->string('email');
+            $table->json('auth');
+            $table->string('code');
+            $table->boolean('default')->default(false);
+            $table->timestamps();
+
+            $table->unique(['subscriber_id', 'card_id'], 'auth_subscriber_card_unique');
+        });
+
+        Schema::create('features', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->boolean('consumable');
+            $table->boolean('quota')->default(false);
+            $table->boolean('postpaid')->default(false);
+            $table->unsignedBigInteger('periodicity')->nullable();
+            $table->string('periodicity_type')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+        Schema::create('feature_consumptions', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedDecimal('consumption')->nullable();
+            $table->timestamp('expired_at')->nullable();
+            $table->unsignedBigInteger('feature_id');
+            $table->timestamps();
+
+            if (config('tithe.subscriber_uses_uuid')) {
+                $table->uuidMorphs('subscriber');
+            } else {
+                $table->numericMorphs('subscriber');
+            }
+        });
+
+        Schema::create('subscription_renewals', function (Blueprint $table) {
+            $table->id();
+            $table->boolean('overdue');
+            $table->boolean('renewal');
+            $table->unsignedBigInteger('subscription_id');
+            $table->timestamps();
+        });
+
+        Schema::create('feature_plan', function (Blueprint $table) {
+            $table->id();
+            $table->decimal('charges')->nullable();
+            $table->unsignedBigInteger('feature_id');
+            $table->unsignedBigInteger('plan_id');
+            $table->timestamps();
+        });
+
+        Schema::create('feature_tickets', function (Blueprint $table) {
+            $table->id();
+            $table->decimal('charges')->nullable();
+            $table->timestamp('expired_at')->nullable();
+            $table->unsignedBigInteger('feature_id');
+            $table->timestamps();
+
+            if (config('tithe.subscriber_uses_uuid')) {
+                $table->uuidMorphs('subscriber');
+            } else {
+                $table->numericMorphs('subscriber');
+            }
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('plans');
+        Schema::dropIfExists('subscriptions');
+        Schema::dropIfExists('features');
+        Schema::dropIfExists('subscription_renewals');
+        Schema::dropIfExists('feature_plan');
+        Schema::dropIfExists('feature_tickets');
+    }
+};
