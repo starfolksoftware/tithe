@@ -5,7 +5,7 @@ namespace Tithe\Events;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Tithe\Models\Subscription;
+use Tithe\Subscription;
 
 class SubscriptionSuppressed
 {

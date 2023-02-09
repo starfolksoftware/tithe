@@ -1,8 +1,8 @@
 <?php
 
-namespace Tithe\Models\Concerns;
+namespace Tithe;
 
-use Tithe\Models\Scopes\StartingScope;
+use Tithe\Scopes\StartingScope;
 
 trait Starts
 {

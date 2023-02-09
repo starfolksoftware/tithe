@@ -5,8 +5,8 @@ namespace Tithe\Events;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Tithe\Models\Feature;
-use Tithe\Models\FeatureConsumption;
+use Tithe\Feature;
+use Tithe\FeatureConsumption;
 
 class FeatureConsumed
 {

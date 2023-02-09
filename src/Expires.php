@@ -1,8 +1,8 @@
 <?php
 
-namespace Tithe\Models\Concerns;
+namespace Tithe;
 
-use Tithe\Models\Scopes\ExpiringScope;
+use Tithe\Scopes\ExpiringScope;
 
 trait Expires
 {

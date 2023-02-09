@@ -1,24 +1,24 @@
 <?php
 
-namespace Tithe\Database\Factories;
+namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tithe\Plan;
-use Tithe\Subscription;
+use Tithe\Tithe;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>
+ */
 class SubscriptionFactory extends Factory
 {
-    protected $model = Subscription::class;
-
     /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function definition()
     {
         return [
-            'plan_id' => Plan::factory(),
+            'plan_id' => Tithe::planModel()->factory(),
             'canceled_at' => null,
             'started_at' => $this->faker->dateTime(),
             'suppressed_at' => null,
