@@ -2,8 +2,8 @@
 
 namespace Tithe\Database\Factories;
 
-use Tithe\Enums\PeriodicityType;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Tithe\Enums\PeriodicityType;
 use Tithe\Models\Plan;
 
 class PlanFactory extends Factory
@@ -18,9 +18,9 @@ class PlanFactory extends Factory
     public function definition()
     {
         return [
-            'grace_days'       => 0,
-            'name'             => $this->faker->words(asText: true),
-            'periodicity'      => $this->faker->randomDigitNotNull(),
+            'grace_days' => 0,
+            'name' => $this->faker->words(asText: true),
+            'periodicity' => $this->faker->randomDigitNotNull(),
             'periodicity_type' => $this->faker->randomElement([
                 PeriodicityType::Year,
                 PeriodicityType::Month,

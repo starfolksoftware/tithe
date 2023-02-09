@@ -13,14 +13,14 @@ final class Tithe
 
     /**
      * Indicates the default currency.
-     * 
+     *
      * @var string
      */
     public static $currency = 'NGN';
 
     /**
      * Indicates if a subscriber id is a uuid.
-     * 
+     *
      * @var bool
      */
     public static $subscriberUsesUuid = false;
@@ -61,7 +61,7 @@ final class Tithe
     /**
      * Configure Tithe to use the provided currency.
      *
-     * @param string $currency
+     * @param  string  $currency
      * @return static
      */
     public static function currency(string $currency)
@@ -74,7 +74,7 @@ final class Tithe
     /**
      * Configure Tithe subscriber model to use uuid.
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return static
      */
     public static function subscriberUsesUuid($value = true)

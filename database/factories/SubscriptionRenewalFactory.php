@@ -2,8 +2,9 @@
 
 namespace Tithe\Database\Factories;
 
-use Tithe\Models\{Subscription, SubscriptionRenewal};
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Tithe\Models\Subscription;
+use Tithe\Models\SubscriptionRenewal;
 
 class SubscriptionRenewalFactory extends Factory
 {
@@ -18,8 +19,8 @@ class SubscriptionRenewalFactory extends Factory
     {
         return [
             'subscription_id' => Subscription::factory(),
-            'overdue'         => $this->faker->boolean(),
-            'renewal'         => $this->faker->boolean(),
+            'overdue' => $this->faker->boolean(),
+            'renewal' => $this->faker->boolean(),
         ];
     }
 }
