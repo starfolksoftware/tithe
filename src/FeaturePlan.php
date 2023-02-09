@@ -17,7 +17,7 @@ abstract class FeaturePlan extends Pivot
 
     /**
      * The feature
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function feature()
@@ -27,7 +27,7 @@ abstract class FeaturePlan extends Pivot
 
     /**
      * The plan
-     * 
+     *
      * @return @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function plan()

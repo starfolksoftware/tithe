@@ -58,7 +58,7 @@ abstract class Plan extends Model
 
     /**
      * The subscriptions of the plan
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function subscriptions()
@@ -68,8 +68,8 @@ abstract class Plan extends Model
 
     /**
      * Calculate grace days ending date
-     * 
-     * @param \Illuminate\Support\Carbon $subscriptionExpiresAt
+     *
+     * @param  \Illuminate\Support\Carbon  $subscriptionExpiresAt
      * @return \Illuminate\Support\Carbon
      */
     public function calculateGraceDaysEnd(Carbon $subscriptionExpiresAt)
@@ -79,7 +79,7 @@ abstract class Plan extends Model
 
     /**
      * The has_grace_days attribute
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
     public function hasGraceDays(): Attribute
