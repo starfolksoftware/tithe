@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use Tithe\Events;
-use Tithe\Tithe;
 
 abstract class Subscription extends Model
 {
@@ -62,7 +60,7 @@ abstract class Subscription extends Model
 
     /**
      * The subscription plan.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function plan()
@@ -72,7 +70,7 @@ abstract class Subscription extends Model
 
     /**
      * The subscription renewals.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function renewals()
@@ -82,7 +80,7 @@ abstract class Subscription extends Model
 
     /**
      * The subscriber.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function subscriber()
@@ -92,8 +90,8 @@ abstract class Subscription extends Model
 
     /**
      * Scope the records to subscriptions that are not active
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeNotActive(Builder $query)
@@ -112,8 +110,8 @@ abstract class Subscription extends Model
 
     /**
      * Scope the records to subscriptions that are canceled
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeCanceled(Builder $query)
@@ -123,8 +121,8 @@ abstract class Subscription extends Model
 
     /**
      * Scope the records to subscriptions that are not canceled
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeNotCanceled(Builder $query)
@@ -134,7 +132,7 @@ abstract class Subscription extends Model
 
     /**
      * Marks the subscription as switched.
-     * 
+     *
      * @return $this
      */
     public function markAsSwitched(): self
@@ -146,8 +144,8 @@ abstract class Subscription extends Model
 
     /**
      * Starts a subscription immediately or at a provided date.
-     * 
-     * @param \Illuminate\Support\Carbon|null $startDate
+     *
+     * @param  \Illuminate\Support\Carbon|null  $startDate
      * @return $this
      */
     public function start(?Carbon $startDate = null): self
@@ -168,8 +166,8 @@ abstract class Subscription extends Model
 
     /**
      * Renews a subscription immediately or at a provided date.
-     * 
-     * @param \Illuminate\Support\Carbon|null $startDate
+     *
+     * @param  \Illuminate\Support\Carbon|null  $startDate
      * @return $this
      */
     public function renew(?Carbon $expirationDate = null): self
@@ -192,8 +190,8 @@ abstract class Subscription extends Model
 
     /**
      * Cancels a subscription immediately or at a provided date.
-     * 
-     * @param \Illuminate\Support\Carbon|null $startDate
+     *
+     * @param  \Illuminate\Support\Carbon|null  $startDate
      * @return $this
      */
     public function cancel(?Carbon $cancelDate = null): self
@@ -210,8 +208,8 @@ abstract class Subscription extends Model
 
     /**
      * Suppresses a subscription immediately or at a provided date.
-     * 
-     * @param \Illuminate\Support\Carbon|null $suppressAt
+     *
+     * @param  \Illuminate\Support\Carbon|null  $suppressAt
      * @return $this
      */
     public function suppress(?Carbon $suppressAt = null)
@@ -228,13 +226,13 @@ abstract class Subscription extends Model
 
     /**
      * Get the is_overdue attribute.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
     public function isOverdue(): Attribute
     {
         if ($this->grace_days_ended_at) {
-            return Attribute::make(fn () => $this->expired_at->isPast() && 
+            return Attribute::make(fn () => $this->expired_at->isPast() &&
                 $this->grace_days_ended_at->isPast());
         }
 
@@ -243,8 +241,8 @@ abstract class Subscription extends Model
 
     /**
      * Returns the expiration date of a recently renewed subscription
-     * 
-     * @param \Illuminate\Support\Carbon|null $expirationDate
+     *
+     * @param  \Illuminate\Support\Carbon|null  $expirationDate
      * @return \Illuminate\Support\Carbon
      */
     private function getRenewedExpiration(?Carbon $expirationDate = null)

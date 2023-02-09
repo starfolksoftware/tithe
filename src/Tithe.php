@@ -48,7 +48,7 @@ final class Tithe
 
     /**
      * The plan model table name.
-     * 
+     *
      * @var string
      */
     public static $planTableName = 'plans';
@@ -62,7 +62,7 @@ final class Tithe
 
     /**
      * The subscription model table name.
-     * 
+     *
      * @var string
      */
     public static $subscriptionTableName = 'subscriptions';
@@ -76,7 +76,7 @@ final class Tithe
 
     /**
      * The subscription renewal model table name.
-     * 
+     *
      * @var string
      */
     public static $subscriptionRenewalTableName = 'subscription_renewals';
@@ -167,8 +167,8 @@ final class Tithe
 
     /**
      * Sets the subscription model's table name.
-     * 
-     * @param string $name
+     *
+     * @param  string  $name
      * @return static
      */
     public static function subscriptionTableName(string $name)

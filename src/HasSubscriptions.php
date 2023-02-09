@@ -13,10 +13,6 @@ use OutOfBoundsException;
 use OverflowException;
 use Tithe\Events\FeatureConsumed;
 use Tithe\Events\FeatureTicketCreated;
-use Tithe\Feature;
-use Tithe\FeatureTicket;
-use Tithe\Plan;
-use Tithe\Subscription;
 
 trait HasSubscriptions
 {
