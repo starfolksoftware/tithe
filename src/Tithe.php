@@ -75,20 +75,6 @@ final class Tithe
     public static $subscriptionModel = 'App\\Models\\Subscription';
 
     /**
-     * The subscription renewal model table name.
-     *
-     * @var string
-     */
-    public static $subscriptionRenewalTableName = 'subscription_renewals';
-
-    /**
-     * The subscripton model that should be used by Tithe.
-     *
-     * @var string
-     */
-    public static $subscriptionRenewalModel = 'App\\Models\\SubscriptionRenewal';
-
-    /**
      * The feature model table name.
      *
      * @var string
@@ -129,6 +115,20 @@ final class Tithe
      * @var string
      */
     public static $featureConsumptionModel = 'App\\Models\\FeatureConsumption';
+
+    /**
+     * The subscription renewal model table name.
+     *
+     * @var string
+     */
+    public static $subscriptionRenewalTableName = 'subscription_renewals';
+
+    /**
+     * The subscripton model that should be used by Tithe.
+     *
+     * @var string
+     */
+    public static $subscriptionRenewalModel = 'App\\Models\\SubscriptionRenewal';
 
     /**
      * Configure Tithe to not run its migrations.
@@ -301,31 +301,6 @@ final class Tithe
     }
 
     /**
-     * Specify the subscription renewal model that should be used by Tithe.
-     *
-     * @param  string  $model
-     * @return static
-     */
-    public static function useSubscriptionRenewalModel(string $model)
-    {
-        static::$subscriptionRenewalModel = $model;
-
-        return new static();
-    }
-
-    /**
-     * Get a new instance of the subscription renewal model.
-     *
-     * @return mixed
-     */
-    public static function newSubscriptionRenewalModel()
-    {
-        $model = static::subscriptionRenewalModel();
-
-        return new $model();
-    }
-
-    /**
      * Get the name of the feature model used by the application.
      *
      * @return string
@@ -426,6 +401,31 @@ final class Tithe
     public static function newFeatureConsumptionModel()
     {
         $model = static::featureConsumptionModel();
+
+        return new $model();
+    }
+
+    /**
+     * Specify the subscription renewal model that should be used by Tithe.
+     *
+     * @param  string  $model
+     * @return static
+     */
+    public static function useSubscriptionRenewalModel(string $model)
+    {
+        static::$subscriptionRenewalModel = $model;
+
+        return new static();
+    }
+
+    /**
+     * Get a new instance of the subscription renewal model.
+     *
+     * @return mixed
+     */
+    public static function newSubscriptionRenewalModel()
+    {
+        $model = static::subscriptionRenewalModel();
 
         return new $model();
     }

@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Feature;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Tithe\Tithe;
 
 class FeatureConsumptionFactory extends Factory
 {
@@ -15,7 +15,7 @@ class FeatureConsumptionFactory extends Factory
     public function definition()
     {
         return [
-            'feature_id'      => Feature::factory(),
+            'feature_id'      => (Tithe::featureModel())::factory(),
             'consumption'     => $this->faker->randomFloat(),
             'expired_at'      => $this->faker->dateTime(),
             'subscriber_id'   => $this->faker->randomNumber(),
