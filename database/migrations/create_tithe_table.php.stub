@@ -38,7 +38,7 @@ return new class extends Migration
                 $table->numericMorphs('subscriber');
             }
 
-            $table->unsignedBigInteger('plan_id');
+            $table->foreignIdFor(Tithe::planModel());
             $table->date('started_at');
             $table->timestamp('canceled_at')->nullable();
             $table->timestamp('expired_at')->nullable();
@@ -48,61 +48,6 @@ return new class extends Migration
             $table->json('meta')->nullable();
             $table->softDeletes();
             $table->timestamps();
-        });
-
-        Schema::create('subscription_invoices', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('subscription_id');
-            $table->json('line_items')->nullable();
-            $table->unsignedBigInteger('total');
-            $table->timestamp('due_date');
-            $table->enum('status', ['paid', 'unpaid', 'void'])->default('unpaid');
-            $table->timestamp('paid_at')->nullable();
-            $table->json('meta')->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('subscription_invoice_payments', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('invoice_id');
-            $table->unsignedBigInteger('amount')->nullable();
-            $table->string('paystack_transaction_id')->unique();
-            $table->unsignedBigInteger('authorization_id');
-            $table->string('reference')->unique();
-            $table->datetime('paid_at');
-            $table->json('meta')->nullable();
-            $table->timestamps();
-        });
-
-        schema::create('credit_cards', function (Blueprint $table) {
-            $table->id();
-            $table->string('signature')->unique();
-            $table->string('type');
-            $table->string('last4');
-            $table->integer('exp_month');
-            $table->year('exp_year');
-            $table->string('bin')->nullable();
-            $table->string('bank')->nullable();
-            $table->string('account_name')->nullable();
-            $table->string('country_code')->nullable();
-            $table->timestamps();
-        });
-
-        schema::create('credit_card_authorizations', function (Blueprint $table) {
-            $table->id();
-            if (Tithe::$subscriberUsesUuid) {
-                $table->foreignUuid('subscriber_id');
-            } else {
-                $table->unsignedBigInteger('subscriber_id');
-            }
-            $table->unsignedBigInteger('card_id');
-            $table->string('email');
-            $table->json('auth');
-            $table->string('code');
-            $table->boolean('default')->default(false);
-            $table->timestamps();
-
-            $table->unique(['subscriber_id', 'card_id'], 'auth_subscriber_card_unique');
         });
 
         Schema::create(Tithe::$featureTableName, function (Blueprint $table) {
@@ -117,11 +62,19 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('feature_consumptions', function (Blueprint $table) {
+        Schema::create(Tithe::$featurePlanTableName, function (Blueprint $table) {
+            $table->id();
+            $table->decimal('charges')->nullable();
+            $table->foreignIdFor(Tithe::featureModel());
+            $table->foreignIdFor(Tithe::planModel());
+            $table->timestamps();
+        });
+
+        Schema::create(Tithe::$featureConsumptionTableName, function (Blueprint $table) {
             $table->id();
             $table->unsignedDecimal('consumption')->nullable();
             $table->timestamp('expired_at')->nullable();
-            $table->unsignedBigInteger('feature_id');
+            $table->foreignIdFor(Tithe::featureModel());
             $table->timestamps();
 
             if (Tithe::$subscriberUsesUuid) {
@@ -135,30 +88,62 @@ return new class extends Migration
             $table->id();
             $table->boolean('overdue');
             $table->boolean('renewal');
-            $table->unsignedBigInteger('subscription_id');
+            $table->foreignIdFor(Tithe::subscriptionModel());
             $table->timestamps();
         });
 
-        Schema::create(Tithe::$featurePlanTableName, function (Blueprint $table) {
+        Schema::create(Tithe::$subscriptionInvoiceTableName, function (Blueprint $table) {
             $table->id();
-            $table->decimal('charges')->nullable();
-            $table->unsignedBigInteger('feature_id');
-            $table->unsignedBigInteger('plan_id');
+            $table->foreignIdFor(Tithe::subscriptionModel());
+            $table->json('line_items')->nullable();
+            $table->unsignedBigInteger('total');
+            $table->timestamp('due_date');
+            $table->enum('status', ['paid', 'unpaid', 'void'])->default('unpaid');
+            $table->timestamp('paid_at')->nullable();
+            $table->json('meta')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('feature_tickets', function (Blueprint $table) {
+        Schema::create(Tithe::$subscriptionInvoicePaymentTableName, function (Blueprint $table) {
             $table->id();
-            $table->decimal('charges')->nullable();
-            $table->timestamp('expired_at')->nullable();
-            $table->unsignedBigInteger('feature_id');
+            $table->foreignIdFor(Tithe::subscriptionInvoiceModel());
+            $table->string('transaction_id')->unique();
+            $table->foreignIdFor(Tithe::creditCardAuthorizationModel());
+            $table->string('reference')->unique();
+            $table->datetime('paid_at');
+            $table->json('meta')->nullable();
             $table->timestamps();
+        });
 
+        schema::create(Tithe::$creditCardTableName, function (Blueprint $table) {
+            $table->id();
+            $table->string('signature')->unique();
+            $table->string('type');
+            $table->string('last4');
+            $table->integer('exp_month');
+            $table->year('exp_year');
+            $table->string('bin')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('account_name')->nullable();
+            $table->string('country_code')->nullable();
+            $table->timestamps();
+        });
+
+        schema::create(Tithe::$creditCardAuthorizationTableName, function (Blueprint $table) {
+            $table->id();
             if (Tithe::$subscriberUsesUuid) {
-                $table->uuidMorphs('subscriber');
+                $table->foreignUuid('subscriber_id');
             } else {
-                $table->numericMorphs('subscriber');
+                $table->unsignedBigInteger('subscriber_id');
             }
+            $table->foreignIdFor(Tithe::creditCardModel());
+            $table->string('email');
+            $table->json('auth');
+            $table->string('code');
+            $table->boolean('default')->default(false);
+            $table->timestamps();
+
+            $table->unique(['subscriber_id', 'card_id'], 'auth_subscriber_card_unique');
         });
     }
 
@@ -169,11 +154,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plans');
-        Schema::dropIfExists('subscriptions');
-        Schema::dropIfExists('features');
-        Schema::dropIfExists('subscription_renewals');
-        Schema::dropIfExists('feature_plan');
-        Schema::dropIfExists('feature_tickets');
+        Schema::dropIfExists(Tithe::$planTableName);
+        Schema::dropIfExists(Tithe::$subscriptionTableName);
+        Schema::dropIfExists(Tithe::$featureTableName);
+        Schema::dropIfExists(Tithe::$subscriptionRenewalTableName);
+        Schema::dropIfExists(Tithe::$featurePlanTableName);
+        Schema::dropIfExists(Tithe::$featureTicketTableName);
     }
 };

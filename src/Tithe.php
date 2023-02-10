@@ -117,6 +117,20 @@ final class Tithe
     public static $featurePlanModel = 'App\\Models\\FeaturePlan';
 
     /**
+     * The feature consumption model table name.
+     *
+     * @var string
+     */
+    public static $featureConsumptionTableName = 'feature_consumptions';
+
+    /**
+     * The feature consumption model that should be used by Tithe.
+     *
+     * @var string
+     */
+    public static $featureConsumptionModel = 'App\\Models\\FeatureConsumption';
+
+    /**
      * Configure Tithe to not run its migrations.
      *
      * @return static
@@ -377,6 +391,41 @@ final class Tithe
     public static function newFeaturePlanModel()
     {
         $model = static::featurePlanModel();
+
+        return new $model();
+    }
+
+    /**
+     * Get the name of the feature consumption model used by the application.
+     *
+     * @return string
+     */
+    public static function featureConsumptionModel()
+    {
+        return static::$featureConsumptionModel;
+    }
+
+    /**
+     * Specify the feature consumption model that should be used by Tithe.
+     *
+     * @param  string  $model
+     * @return static
+     */
+    public static function useFeatureConsumptionModel(string $model)
+    {
+        static::$featureConsumptionModel = $model;
+
+        return new static();
+    }
+
+    /**
+     * Get a new instance of the feature consumption model.
+     *
+     * @return mixed
+     */
+    public static function newFeatureConsumptionModel()
+    {
+        $model = static::featureConsumptionModel();
 
         return new $model();
     }
