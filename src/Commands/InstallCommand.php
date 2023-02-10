@@ -20,6 +20,7 @@ class InstallCommand extends Command
         // Models...
         copy(__DIR__.'/../../stubs/app/Models/Plan.php', app_path('Models/Plan.php'));
         copy(__DIR__.'/../../stubs/app/Models/Subscription.php', app_path('Models/Subscription.php'));
+        copy(__DIR__.'/../../stubs/app/Models/SubscriptionInvoice.php', app_path('Models/SubscriptionInvoice.php'));
         copy(__DIR__.'/../../stubs/app/Models/SubscriptionRenewal.php', app_path('Models/SubscriptionRenewal.php'));
         copy(__DIR__.'/../../stubs/app/Models/Feature.php', app_path('Models/Feature.php'));
         copy(__DIR__.'/../../stubs/app/Models/FeaturePlan.php', app_path('Models/FeaturePlan.php'));
@@ -29,6 +30,7 @@ class InstallCommand extends Command
         // Factories
         copy(__DIR__.'/../../stubs/database/factories/PlanFactory.php', app_path('../database/factories/PlanFactory.php'));
         copy(__DIR__.'/../../stubs/database/factories/SubscriptionFactory.php', app_path('../database/factories/SubscriptionFactory.php'));
+        copy(__DIR__.'/../../stubs/database/factories/SubscriptionInvoiceFactory.php', app_path('../database/factories/SubscriptionInvoiceFactory.php'));
         copy(__DIR__.'/../../stubs/database/factories/SubscriptionRenewalFactory.php', app_path('../database/factories/SubscriptionRenewalFactory.php'));
         copy(__DIR__.'/../../stubs/database/factories/FeatureFactory.php', app_path('../database/factories/FeatureFactory.php'));
         copy(__DIR__.'/../../stubs/database/factories/FeatureConsumptionFactory.php', app_path('../database/factories/FeatureConsumptionFactory.php'));
@@ -37,6 +39,7 @@ class InstallCommand extends Command
         // Policies...
         copy(__DIR__.'/../../stubs/app/Policies/PlanPolicy.php', app_path('Policies/PlanPolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/SubscriptionPolicy.php', app_path('Policies/SubscriptionPolicy.php'));
+        copy(__DIR__.'/../../stubs/app/Policies/SubscriptionInvoicePolicy.php', app_path('Policies/SubscriptionInvoicePolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/SubscriptionRenewalPolicy.php', app_path('Policies/SubscriptionRenewalPolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/FeaturePolicy.php', app_path('Policies/FeaturePolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/FeatureConsumptionPolicy.php', app_path('Policies/FeatureConsumptionPolicy.php'));

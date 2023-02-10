@@ -26,13 +26,6 @@ final class Tithe
     public static $subscriberUsesUuid = false;
 
     /**
-     * Indicates whether Tithe soft deletes recurrences.
-     *
-     * @var bool
-     */
-    public static $supportsSoftDeletes = true;
-
-    /**
      * Indicates whether Tithe prorates especially when upgrading to higher plans.
      *
      * @var bool
@@ -131,6 +124,20 @@ final class Tithe
     public static $subscriptionRenewalModel = 'App\\Models\\SubscriptionRenewal';
 
     /**
+     * The subscription invoice model table name.
+     *
+     * @var string
+     */
+    public static $subscriptionInvoiceTableName = 'subscription_invoices';
+
+    /**
+     * The subscription invoice model that should be used by Tithe.
+     *
+     * @var string
+     */
+    public static $subscriptionInvoiceModel = 'App\\Models\\SubscriptionInvoice';
+
+    /**
      * Configure Tithe to not run its migrations.
      *
      * @return static
@@ -164,19 +171,6 @@ final class Tithe
     public static function subscriberUsesUuid($value = true)
     {
         static::$subscriberUsesUuid = $value;
-
-        return new static();
-    }
-
-    /**
-     * Configure Tithe to support soft delete.
-     *
-     * @param  bool  $value
-     * @return static
-     */
-    public static function supportsSoftDeletes(bool $value = true)
-    {
-        static::$supportsSoftDeletes = $value;
 
         return new static();
     }
@@ -291,16 +285,6 @@ final class Tithe
     }
 
     /**
-     * Get the name of the subscription renewal model used by the application.
-     *
-     * @return string
-     */
-    public static function subscriptionRenewalModel()
-    {
-        return static::$subscriptionRenewalModel;
-    }
-
-    /**
      * Get the name of the feature model used by the application.
      *
      * @return string
@@ -406,6 +390,16 @@ final class Tithe
     }
 
     /**
+     * Get the name of the subscription renewal model used by the application.
+     *
+     * @return string
+     */
+    public static function subscriptionRenewalModel()
+    {
+        return static::$subscriptionRenewalModel;
+    }
+
+    /**
      * Specify the subscription renewal model that should be used by Tithe.
      *
      * @param  string  $model
@@ -426,6 +420,41 @@ final class Tithe
     public static function newSubscriptionRenewalModel()
     {
         $model = static::subscriptionRenewalModel();
+
+        return new $model();
+    }
+
+    /**
+     * Get the name of the subscription invoice model used by the application.
+     *
+     * @return string
+     */
+    public static function subscriptionInvoiceModel()
+    {
+        return static::$subscriptionInvoiceModel;
+    }
+
+    /**
+     * Specify the subscription invoice model that should be used by Tithe.
+     *
+     * @param  string  $model
+     * @return static
+     */
+    public static function useSubscriptionInvoiceModel(string $model)
+    {
+        static::$subscriptionInvoiceModel = $model;
+
+        return new static();
+    }
+
+    /**
+     * Get a new instance of the subscription invoice model.
+     *
+     * @return mixed
+     */
+    public static function newSubscriptionInvoiceModel()
+    {
+        $model = static::subscriptionInvoiceModel();
 
         return new $model();
     }

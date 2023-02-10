@@ -21,6 +21,16 @@ abstract class FeatureConsumption extends Model
     ];
 
     /**
+     * Returns the model's table name
+     * 
+     * @return string
+     */
+    public function getTable()
+    {
+        return Tithe::$featureConsumptionTableName;
+    }
+
+    /**
      * The feature the consumption belongs to.
      * 
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo

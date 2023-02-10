@@ -20,12 +20,6 @@ it('can configure tithe subscriber model id to use uuid', function () {
     expect(Tithe::$subscriberUsesUuid)->toBe(true);
 });
 
-it('can turn on support for soft delete', function () {
-    Tithe::supportsSoftDeletes();
-
-    expect(Tithe::$supportsSoftDeletes)->toBeTrue();
-});
-
 it('con configure Tithe to support proration by default', function () {
     Tithe::prorates();
 

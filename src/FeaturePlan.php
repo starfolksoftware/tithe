@@ -16,6 +16,16 @@ abstract class FeaturePlan extends Pivot
     ];
 
     /**
+     * Returns the model's table name
+     * 
+     * @return string
+     */
+    public function getTable()
+    {
+        return Tithe::$featurePlanTableName;
+    }
+
+    /**
      * The feature
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

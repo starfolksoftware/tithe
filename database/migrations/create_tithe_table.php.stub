@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('currency')->default('NGN');
             $table->json('taxes')->nullable(); // ['name' => 'VAT', 'amount' => '7500']
             $table->json('meta')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -46,7 +45,6 @@ return new class extends Migration
             $table->timestamp('suppressed_at')->nullable();
             $table->boolean('was_switched')->default(false);
             $table->json('meta')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -58,7 +56,6 @@ return new class extends Migration
             $table->boolean('postpaid')->default(false);
             $table->unsignedBigInteger('periodicity')->nullable();
             $table->string('periodicity_type')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
 
