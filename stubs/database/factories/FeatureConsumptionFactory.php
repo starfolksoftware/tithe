@@ -15,7 +15,7 @@ class FeatureConsumptionFactory extends Factory
     public function definition()
     {
         return [
-            'feature_id'      => (Tithe::featureModel())::factory(),
+            'feature_id'      => Tithe::newFeatureModel()->factory(),
             'consumption'     => $this->faker->randomFloat(),
             'expired_at'      => $this->faker->dateTime(),
             'subscriber_id'   => $this->faker->randomNumber(),

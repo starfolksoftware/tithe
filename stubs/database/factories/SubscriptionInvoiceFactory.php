@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Tithe\Enums\SubscriptionInvoiceStatusEnum;
 use Tithe\Tithe;
 
 /**
@@ -17,20 +18,30 @@ class SubscriptionFactory extends Factory
      */
     public function definition()
     {
+        $lineItems = [
+            ['name' => $this->faker->word(), 'amount' => $this->faker->randomDigitNotZero() * 100]
+        ];
+
         return [
-            'subscription_id' => '',
-            'line_items' => '',
-            'total' => '',
-            'due_date' => '',
-            'status' => '',
-            'meta' => ''
+            'subscription_id' => Tithe::newSubscriptionModel()->factory(),
+            'line_items' => $lineItems,
+            'total' => collect($lineItems)->sum('amount'),
+            'due_date' => now(),
+            'status' => SubscriptionInvoiceStatusEnum::UNPAID->value,
+            'meta' => []
         ];
     }
 
-    public function canceled()
+    /**
+     * Of the given status
+     * 
+     * @param \Tithe\Enums\SubscriptionInvoiceStatusEnum $status
+     * @return static
+     */
+    public function status(SubscriptionInvoiceStatusEnum $status)
     {
         return $this->state(fn (array $attributes) => [
-            'canceled_at' => $this->faker->dateTime(),
+            'status' => $status->value,
         ]);
     }
 }

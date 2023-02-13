@@ -129,9 +129,9 @@ return new class extends Migration
         schema::create(Tithe::$creditCardAuthorizationTableName, function (Blueprint $table) {
             $table->id();
             if (Tithe::$subscriberUsesUuid) {
-                $table->foreignUuid('subscriber_id');
+                $table->uuidMorphs('subscriber');
             } else {
-                $table->unsignedBigInteger('subscriber_id');
+                $table->numericMorphs('subscriber');
             }
             $table->foreignIdFor(Tithe::creditCardModel());
             $table->string('email');
@@ -153,9 +153,13 @@ return new class extends Migration
     {
         Schema::dropIfExists(Tithe::$planTableName);
         Schema::dropIfExists(Tithe::$subscriptionTableName);
+        Schema::dropIfExists(Tithe::$subscriptionInvoiceTableName);
+        Schema::dropIfExists(Tithe::$subscriptionInvoicePaymentTableName);
         Schema::dropIfExists(Tithe::$featureTableName);
         Schema::dropIfExists(Tithe::$subscriptionRenewalTableName);
         Schema::dropIfExists(Tithe::$featurePlanTableName);
         Schema::dropIfExists(Tithe::$featureTicketTableName);
+        Schema::dropIfExists(Tithe::$creditCardTableName);
+        Schema::dropIfExists(Tithe::$creditCardAuthorizationTableName);
     }
 };

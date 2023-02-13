@@ -15,7 +15,7 @@ class SubscriptionRenewalFactory extends Factory
     public function definition()
     {
         return [
-            'subscription_id' => (Tithe::subscriptionModel())::factory(),
+            'subscription_id' => Tithe::newSubscriptionModel()->factory(),
             'overdue'         => $this->faker->boolean(),
             'renewal'         => $this->faker->boolean(),
         ];

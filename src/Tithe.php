@@ -138,6 +138,48 @@ final class Tithe
     public static $subscriptionInvoiceModel = 'App\\Models\\SubscriptionInvoice';
 
     /**
+     * The subscription invoice payment model table name.
+     *
+     * @var string
+     */
+    public static $subscriptionInvoicePaymentTableName = 'subscription_invoice_payments';
+
+    /**
+     * The subscription invoice payment model that should be used by Tithe.
+     *
+     * @var string
+     */
+    public static $subscriptionInvoicePaymentModel = 'App\\Models\\SubscriptionInvoicePayment';
+
+    /**
+     * The credit card model table name.
+     *
+     * @var string
+     */
+    public static $creditCardTableName = 'credit_cards';
+
+    /**
+     * The credit card model that should be used by Tithe.
+     *
+     * @var string
+     */
+    public static $creditCardModel = 'App\\Models\\CreditCard';
+
+    /**
+     * The credit card authorizations model table name.
+     *
+     * @var string
+     */
+    public static $creditCardAuthorizationTableName = 'credit_card_authorizations';
+
+    /**
+     * The credit card authorizations model that should be used by Tithe.
+     *
+     * @var string
+     */
+    public static $creditCardAuthorizationModel = 'App\\Models\\CreditCardAuthorization';
+
+    /**
      * Configure Tithe to not run its migrations.
      *
      * @return static
@@ -455,6 +497,111 @@ final class Tithe
     public static function newSubscriptionInvoiceModel()
     {
         $model = static::subscriptionInvoiceModel();
+
+        return new $model();
+    }
+
+    /**
+     * Get the name of the subscription invoice payment model used by the application.
+     *
+     * @return string
+     */
+    public static function subscriptionInvoicePaymentModel()
+    {
+        return static::$subscriptionInvoicePaymentModel;
+    }
+
+    /**
+     * Specify the subscription invoice payment model that should be used by Tithe.
+     *
+     * @param  string  $model
+     * @return static
+     */
+    public static function useSubscriptionInvoicePaymentModel(string $model)
+    {
+        static::$subscriptionInvoicePaymentModel = $model;
+
+        return new static();
+    }
+
+    /**
+     * Get a new instance of the subscription invoice payment model.
+     *
+     * @return mixed
+     */
+    public static function newSubscriptionInvoicePaymentModel()
+    {
+        $model = static::subscriptionInvoicePaymentModel();
+
+        return new $model();
+    }
+
+    /**
+     * Get the name of the credit card model used by the application.
+     *
+     * @return string
+     */
+    public static function creditCardModel()
+    {
+        return static::$creditCardModel;
+    }
+
+    /**
+     * Specify the credit card model that should be used by Tithe.
+     *
+     * @param  string  $model
+     * @return static
+     */
+    public static function useCreditCardModel(string $model)
+    {
+        static::$creditCardModel = $model;
+
+        return new static();
+    }
+
+    /**
+     * Get a new instance of the credit card model.
+     *
+     * @return mixed
+     */
+    public static function newCreditCardModel()
+    {
+        $model = static::creditCardModel();
+
+        return new $model();
+    }
+
+    /**
+     * Get the name of the credit card authorization model used by the application.
+     *
+     * @return string
+     */
+    public static function creditCardAuthorizationModel()
+    {
+        return static::$creditCardAuthorizationModel;
+    }
+
+    /**
+     * Specify the credit card authorization model that should be used by Tithe.
+     *
+     * @param  string  $model
+     * @return static
+     */
+    public static function useCreditCardAuthorizationModel(string $model)
+    {
+        static::$creditCardAuthorizationModel = $model;
+
+        return new static();
+    }
+
+    /**
+     * Get a new instance of the credit card authorization model.
+     *
+     * @return mixed
+     */
+    public static function newCreditCardAuthorizationModel()
+    {
+        $model = static::creditCardAuthorizationModel();
 
         return new $model();
     }
