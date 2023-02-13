@@ -31,7 +31,7 @@ abstract class SubscriptionRenewal extends Model
 
     /**
      * Returns the model's table name
-     * 
+     *
      * @return string
      */
     public function getTable()
@@ -41,7 +41,7 @@ abstract class SubscriptionRenewal extends Model
 
     /**
      * The subscription that owns the renewal
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function subscription()

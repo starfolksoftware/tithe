@@ -27,7 +27,6 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/app/Models/FeatureConsumption.php', app_path('Models/FeatureConsumption.php'));
         copy(__DIR__.'/../../stubs/app/Models/CreditCard.php', app_path('Models/CreditCard.php'));
         copy(__DIR__.'/../../stubs/app/Models/CreditCardAuthorization.php', app_path('Models/CreditCardAuthorization.php'));
-        
 
         // Factories
         copy(__DIR__.'/../../stubs/database/factories/PlanFactory.php', app_path('../database/factories/PlanFactory.php'));
@@ -39,7 +38,6 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/database/factories/FeatureConsumptionFactory.php', app_path('../database/factories/FeatureConsumptionFactory.php'));
         copy(__DIR__.'/../../stubs/database/factories/CreditCardFactory.php', app_path('../database/factories/CreditCardFactory.php'));
         copy(__DIR__.'/../../stubs/database/factories/CreditCardAuthorizationFactory.php', app_path('../database/factories/CreditCardAuthorizationFactory.php'));
-        
 
         // Policies...
         copy(__DIR__.'/../../stubs/app/Policies/PlanPolicy.php', app_path('Policies/PlanPolicy.php'));
@@ -51,7 +49,6 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/app/Policies/FeatureConsumptionPolicy.php', app_path('Policies/FeatureConsumptionPolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/CreditCardPolicy.php', app_path('Policies/CreditCardPolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/CreditCardAuthorizationPolicy.php', app_path('Policies/CreditCardAuthorizationPolicy.php'));
-        
 
         // Service Providers...
         copy(__DIR__.'/../../stubs/app/Providers/TitheServiceProvider.php', app_path('Providers/TitheServiceProvider.php'));

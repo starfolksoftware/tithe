@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 abstract class CreditCardAuthorization extends Model
 {
     use HasFactory;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -60,7 +60,7 @@ abstract class CreditCardAuthorization extends Model
     public function payments()
     {
         return $this->hasMany(
-            Tithe::subscriptionInvoiceModel(), 
+            Tithe::subscriptionInvoiceModel(),
             Tithe::newSubscriptionInvoiceModel()->getForeignKey()
         );
     }

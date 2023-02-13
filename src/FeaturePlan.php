@@ -17,7 +17,7 @@ abstract class FeaturePlan extends Pivot
 
     /**
      * Returns the model's table name
-     * 
+     *
      * @return string
      */
     public function getTable()

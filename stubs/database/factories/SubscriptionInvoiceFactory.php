@@ -19,7 +19,7 @@ class SubscriptionFactory extends Factory
     public function definition()
     {
         $lineItems = [
-            ['name' => $this->faker->word(), 'amount' => $this->faker->randomDigitNotZero() * 100]
+            ['name' => $this->faker->word(), 'amount' => $this->faker->randomDigitNotZero() * 100],
         ];
 
         return [
@@ -28,14 +28,14 @@ class SubscriptionFactory extends Factory
             'total' => collect($lineItems)->sum('amount'),
             'due_date' => now(),
             'status' => SubscriptionInvoiceStatusEnum::UNPAID->value,
-            'meta' => []
+            'meta' => [],
         ];
     }
 
     /**
      * Of the given status
-     * 
-     * @param \Tithe\Enums\SubscriptionInvoiceStatusEnum $status
+     *
+     * @param  \Tithe\Enums\SubscriptionInvoiceStatusEnum  $status
      * @return static
      */
     public function status(SubscriptionInvoiceStatusEnum $status)

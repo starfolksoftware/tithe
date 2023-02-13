@@ -67,7 +67,7 @@ abstract class CreditCard extends Model
 
     /**
      * Get the is expired attribute.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
     public function isExpired(): Attribute

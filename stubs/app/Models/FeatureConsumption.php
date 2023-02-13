@@ -6,5 +6,4 @@ use Tithe\FeatureConsumption as TitheFeatureConsumption;
 
 class FeatureConsumption extends TitheFeatureConsumption
 {
-    
 }

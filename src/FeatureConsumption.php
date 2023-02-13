@@ -22,7 +22,7 @@ abstract class FeatureConsumption extends Model
 
     /**
      * Returns the model's table name
-     * 
+     *
      * @return string
      */
     public function getTable()
@@ -32,7 +32,7 @@ abstract class FeatureConsumption extends Model
 
     /**
      * The feature the consumption belongs to.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function feature()
@@ -42,7 +42,7 @@ abstract class FeatureConsumption extends Model
 
     /**
      * The subscriber making the consumption.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function subscriber()

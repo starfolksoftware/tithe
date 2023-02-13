@@ -6,5 +6,4 @@ use Tithe\SubscriptionInvoice as TitheSubscriptionInvoice;
 
 class SubscriptionInvoice extends TitheSubscriptionInvoice
 {
-    
 }

@@ -22,7 +22,7 @@ abstract class SubscriptionInvoice extends Model
         'due_date',
         'status',
         'paid_at',
-        'meta'
+        'meta',
     ];
 
     /**
@@ -40,7 +40,7 @@ abstract class SubscriptionInvoice extends Model
 
     /**
      * Returns the model's table name
-     * 
+     *
      * @return string
      */
     public function getTable()

@@ -6,5 +6,4 @@ use Tithe\CreditCard as TitheCreditCard;
 
 class CreditCard extends TitheCreditCard
 {
-    
 }

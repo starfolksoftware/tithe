@@ -16,8 +16,8 @@ class SubscriptionRenewalFactory extends Factory
     {
         return [
             'subscription_id' => Tithe::newSubscriptionModel()->factory(),
-            'overdue'         => $this->faker->boolean(),
-            'renewal'         => $this->faker->boolean(),
+            'overdue' => $this->faker->boolean(),
+            'renewal' => $this->faker->boolean(),
         ];
     }
 }
