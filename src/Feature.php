@@ -31,6 +31,7 @@ abstract class Feature extends Pivot
      * @var array<string, string>
      */
     protected $casts = [
+        'quota' => 'bool',
         'meta' => 'array',
     ];
 
