@@ -4,7 +4,7 @@ namespace Tithe\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tithe\Plan;
-use Tithe\Subscription;
+use Tithe\Tests\Mocks\Subscription;
 
 class SubscriptionFactory extends Factory
 {

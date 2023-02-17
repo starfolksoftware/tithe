@@ -4,7 +4,7 @@ namespace Tithe\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tithe\Enums\PeriodicityType;
-use Tithe\Plan;
+use Tithe\Tests\Mocks\Plan;
 
 class PlanFactory extends Factory
 {
@@ -27,6 +27,7 @@ class PlanFactory extends Factory
                 PeriodicityType::Week,
                 PeriodicityType::Day,
             ]),
+            'amount' => $this->faker->randomDigitNotZero() * 1000,
         ];
     }
 

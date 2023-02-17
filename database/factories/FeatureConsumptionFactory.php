@@ -4,7 +4,7 @@ namespace Tithe\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tithe\Feature;
-use Tithe\FeatureConsumption;
+use Tithe\Tests\Mocks\FeatureConsumption;
 
 class FeatureConsumptionFactory extends Factory
 {

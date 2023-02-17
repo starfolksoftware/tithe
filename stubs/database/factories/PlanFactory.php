@@ -24,6 +24,7 @@ class PlanFactory extends Factory
                 PeriodicityType::Week,
                 PeriodicityType::Day,
             ]),
+            'amount' => $this->faker->randomDigitNotZero() * 1000,
         ];
     }
 

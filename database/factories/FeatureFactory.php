@@ -4,7 +4,7 @@ namespace Tithe\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tithe\Enums\PeriodicityType;
-use Tithe\Feature;
+use Tithe\Tests\Mocks\Feature;
 
 class FeatureFactory extends Factory
 {

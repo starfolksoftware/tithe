@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Tithe\Scopes\ExpiringWithGraceDaysScope;
+use Tithe\Scopes\StartingScope;
+use Tithe\Scopes\SuppressingScope;
 
 abstract class Subscription extends Model
 {
@@ -100,12 +103,11 @@ abstract class Subscription extends Model
             ExpiringWithGraceDaysScope::class,
             StartingScope::class,
             SuppressingScope::class,
-        ])
-            ->where(function (Builder $query) {
-                $query->where(fn (Builder $query) => $query->onlyExpired())
-                    ->orWhere(fn (Builder $query) => $query->onlyNotStarted())
-                    ->orWhere(fn (Builder $query) => $query->onlySuppressed());
-            });
+        ])->where(function (Builder $query) {
+            $query->where(fn (Builder $query) => $query->onlyExpired())
+                ->orWhere(fn (Builder $query) => $query->onlyNotStarted())
+                ->orWhere(fn (Builder $query) => $query->onlySuppressed());
+        });
     }
 
     /**
@@ -135,7 +137,7 @@ abstract class Subscription extends Model
      *
      * @return $this
      */
-    public function markAsSwitched(): self
+    public function markSwitched(): self
     {
         return $this->fill([
             'was_switched' => true,

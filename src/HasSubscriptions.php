@@ -157,7 +157,7 @@ trait HasSubscriptions
     // {
     //     if ($immediately) {
     //         $this->subscription
-    //             ->markAsSwitched()
+    //             ->markSwitched()
     //             ->suppress()
     //             ->save();
 
@@ -165,7 +165,7 @@ trait HasSubscriptions
     //     }
 
     //     $this->subscription
-    //         ->markAsSwitched()
+    //         ->markSwitched()
     //         ->save();
 
     //     $startDate = $this->subscription->expired_at;

@@ -2,8 +2,8 @@
 
 namespace Tithe\Database\Factories;
 
-use App\Models\CreditCard;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Tithe\Tests\Mocks\CreditCard;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>

@@ -2,9 +2,9 @@
 
 namespace Tithe\Database\Factories;
 
-use App\Models\SubscriptionInvoice;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tithe\Enums\SubscriptionInvoiceStatusEnum;
+use Tithe\Tests\Mocks\SubscriptionInvoice;
 use Tithe\Tithe;
 
 /**
