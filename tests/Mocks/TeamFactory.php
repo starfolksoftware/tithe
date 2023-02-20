@@ -1,17 +1,16 @@
 <?php
 
-namespace Tithe\Database\Factories;
+namespace Tithe\Tests\Mocks;
 
-use App\Models\CreditCardAuthorization;
+use App\Models\CreditCard;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tithe\Tithe;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>
  */
-class CreditCardAuthorizationFactory extends Factory
+class TeamFactory extends Factory
 {
-    protected $model = CreditCardAuthorization::class;
+    protected $model = Team::class;
 
     /**
      * Define the model's default state.
@@ -20,6 +19,8 @@ class CreditCardAuthorizationFactory extends Factory
      */
     public function definition()
     {
-        return [];
+        return [
+            'name' => $this->faker->word(),
+        ];
     }
 }

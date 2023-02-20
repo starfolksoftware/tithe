@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Tithe\Database\Factories;
 
 use App\Models\SubscriptionInvoicePayment;
 use Illuminate\Database\Eloquent\Factories\Factory;

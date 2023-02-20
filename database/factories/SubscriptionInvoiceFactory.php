@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Tithe\Database\Factories;
 
 use App\Models\SubscriptionInvoice;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,7 +26,7 @@ class SubscriptionInvoiceFactory extends Factory
         ];
 
         return [
-            'subscription_id' => Tithe::newSubscriptionModel()->factory(),
+            'subscription_id' => Tithe::newSubscriptionModel()::factory(),
             'line_items' => $lineItems,
             'total' => collect($lineItems)->sum('amount'),
             'due_date' => now(),

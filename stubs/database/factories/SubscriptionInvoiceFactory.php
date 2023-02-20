@@ -23,7 +23,7 @@ class SubscriptionFactory extends Factory
         ];
 
         return [
-            'subscription_id' => Tithe::newSubscriptionModel()->factory(),
+            'subscription_id' => Tithe::newSubscriptionModel()::factory(),
             'line_items' => $lineItems,
             'total' => collect($lineItems)->sum('amount'),
             'due_date' => now(),

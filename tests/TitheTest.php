@@ -2,6 +2,10 @@
 
 use Tithe\Tithe;
 
+beforeAll(function () {
+    setTestModels();
+});
+
 it('can disable migrations', function () {
     Tithe::ignoreMigrations();
 
