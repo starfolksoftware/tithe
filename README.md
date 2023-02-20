@@ -445,10 +445,10 @@ Tickets are a simple way to allow your subscribers to acquire charges for a feat
 In order to use this feature, you have to enable tickets in your configuration files. First, publish the package configs:
 
 ```bash
-php artisan vendor:publish --tag="soulbscription-config"
+php artisan vendor:publish --tag="tithe-config"
 ```
 
-Finally, open the `soulbscription.php` file and set the `feature_tickets` flag to `true`. That's it, you now can use tickets!
+Finally, open the `tithe.php` file and set the `feature_tickets` flag to `true`. That's it, you now can use tickets!
 
 #### Creating Tickets
 

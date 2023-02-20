@@ -3,9 +3,9 @@
 namespace Tithe;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Model;
 
-abstract class Feature extends Pivot
+abstract class Feature extends Model
 {
     use HandlesRecurrence;
     use HasFactory;
@@ -53,7 +53,8 @@ abstract class Feature extends Pivot
     public function plans()
     {
         return $this->belongsToMany(Tithe::planModel())
-            ->using(Tithe::featurePlanModel());
+            ->using(Tithe::featurePlanModel())
+            ->withPivot(['charges']);
     }
 
     /**
@@ -63,6 +64,6 @@ abstract class Feature extends Pivot
      */
     public function tickets()
     {
-        return $this->hasMany(Tithe::ticketModel());
+        return $this->hasMany(Tithe::featureTicketModel());
     }
 }

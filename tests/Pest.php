@@ -17,6 +17,7 @@ function setTestModels(): void
         ->useSubscriptionModel(Mocks\Subscription::class)
         ->useFeatureModel(Mocks\Feature::class)
         ->useFeaturePlanModel(Mocks\FeaturePlan::class)
+        ->useFeatureTicketModel(Mocks\FeatureTicket::class)
         ->useFeatureConsumptionModel(Mocks\FeatureConsumption::class)
         ->useSubscriptionRenewalModel(Mocks\SubscriptionRenewal::class)
         ->useSubscriptionInvoiceModel(Mocks\SubscriptionInvoice::class)

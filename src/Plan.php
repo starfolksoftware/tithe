@@ -52,7 +52,7 @@ abstract class Plan extends Model
     public function features()
     {
         return $this->belongsToMany(Tithe::featureModel())
-            ->using(FeaturePlan::class)
+            ->using(Tithe::featurePlanModel())
             ->withPivot(['charges']);
     }
 

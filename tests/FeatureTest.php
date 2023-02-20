@@ -80,7 +80,7 @@ test('feature model is not of quota by default', function () {
     $feature = Tithe::newFeatureModel()::create($creationPayload);
 
     $this->assertDatabaseHas('features', [
-        // 'id' => $feature->id,
+        'id' => $feature->id,
         'quota' => 0,
     ]);
 });
