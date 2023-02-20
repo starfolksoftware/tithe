@@ -1,7 +1,7 @@
 <?php
 
-use Tithe\Tithe;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tithe\Tithe;
 
 beforeAll(function () {
     setTestModels();

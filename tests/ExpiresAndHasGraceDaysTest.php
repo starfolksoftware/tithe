@@ -1,9 +1,9 @@
 <?php
 
+use Illuminate\Foundation\Testing\WithFaker;
 use Tithe\ExpiresAndHasGraceDays;
 use Tithe\Scopes\ExpiringWithGraceDaysScope;
 use Tithe\Tithe;
-use Illuminate\Foundation\Testing\WithFaker;
 
 beforeAll(function () {
     setTestModels();

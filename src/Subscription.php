@@ -53,8 +53,6 @@ abstract class Subscription extends Model
 
     /**
      * Returns the table name.
-     *
-     * @return string
      */
     public function getTable(): string
     {
@@ -94,7 +92,6 @@ abstract class Subscription extends Model
     /**
      * Scope the records to subscriptions that are not active
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeNotActive(Builder $query)
@@ -113,7 +110,6 @@ abstract class Subscription extends Model
     /**
      * Scope the records to subscriptions that are canceled
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeCanceled(Builder $query)
@@ -124,7 +120,6 @@ abstract class Subscription extends Model
     /**
      * Scope the records to subscriptions that are not canceled
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeNotCanceled(Builder $query)
@@ -147,7 +142,6 @@ abstract class Subscription extends Model
     /**
      * Starts a subscription immediately or at a provided date.
      *
-     * @param  \Illuminate\Support\Carbon|null  $startDate
      * @return $this
      */
     public function start(?Carbon $startDate = null): self
@@ -211,7 +205,6 @@ abstract class Subscription extends Model
     /**
      * Suppresses a subscription immediately or at a provided date.
      *
-     * @param  \Illuminate\Support\Carbon|null  $suppressAt
      * @return $this
      */
     public function suppress(?Carbon $suppressAt = null)
@@ -228,8 +221,6 @@ abstract class Subscription extends Model
 
     /**
      * Get the is_overdue attribute.
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
     public function isOverdue(): Attribute
     {
@@ -244,7 +235,6 @@ abstract class Subscription extends Model
     /**
      * Returns the expiration date of a recently renewed subscription
      *
-     * @param  \Illuminate\Support\Carbon|null  $expirationDate
      * @return \Illuminate\Support\Carbon
      */
     private function getRenewedExpiration(?Carbon $expirationDate = null)

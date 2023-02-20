@@ -40,8 +40,6 @@ abstract class SubscriptionInvoicePayment extends Model
 
     /**
      * Returns the table name.
-     *
-     * @return string
      */
     public function getTable(): string
     {

@@ -6,5 +6,4 @@ use Tithe\FeatureTicket as TitheFeatureTicket;
 
 class FeatureTicket extends TitheFeatureTicket
 {
-    
 }

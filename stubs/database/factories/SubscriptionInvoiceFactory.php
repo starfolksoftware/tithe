@@ -35,7 +35,6 @@ class SubscriptionFactory extends Factory
     /**
      * Of the given status
      *
-     * @param  \Tithe\Enums\SubscriptionInvoiceStatusEnum  $status
      * @return static
      */
     public function status(SubscriptionInvoiceStatusEnum $status)
