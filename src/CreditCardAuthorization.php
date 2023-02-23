@@ -66,11 +66,11 @@ abstract class CreditCardAuthorization extends Model
     }
 
     /**
-     * Get Card
+     * Get Credit Card
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function card()
+    public function creditCard()
     {
         return $this->belongsTo(
             Tithe::creditCardModel(),

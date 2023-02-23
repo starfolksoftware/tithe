@@ -19,6 +19,10 @@ class SubscriptionInvoicePaymentFactory extends Factory
      */
     public function definition()
     {
-        return [];
+        return [
+            'transaction_id' => uniqid(),
+            'reference' => uniqid(),
+            'paid_at' => now(),
+        ];
     }
 }

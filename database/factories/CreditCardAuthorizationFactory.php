@@ -19,6 +19,10 @@ class CreditCardAuthorizationFactory extends Factory
      */
     public function definition()
     {
-        return [];
+        return [
+            'email' => $this->faker->email(),
+            'auth' => [],
+            'code' => uniqid(),
+        ];
     }
 }
