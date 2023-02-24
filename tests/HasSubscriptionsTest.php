@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Tithe\Tithe;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Event;
@@ -12,6 +11,7 @@ use Tithe\Events\SubscriptionScheduled;
 use Tithe\Events\SubscriptionStarted;
 use Tithe\Events\SubscriptionSuppressed;
 use Tithe\Tests\Mocks\Team;
+use Tithe\Tithe;
 
 beforeAll(function () {
     setTestModels();

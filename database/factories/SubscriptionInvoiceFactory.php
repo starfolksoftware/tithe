@@ -21,7 +21,7 @@ class SubscriptionInvoiceFactory extends Factory
     public function definition()
     {
         $lineItems = [
-            ['name' => $this->faker->word(), 'amount' => $this->faker->randomDigitNotZero() * 100]
+            ['name' => $this->faker->word(), 'amount' => $this->faker->randomDigitNotZero() * 100],
         ];
 
         return [

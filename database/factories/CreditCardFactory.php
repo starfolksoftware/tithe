@@ -20,7 +20,7 @@ class CreditCardFactory extends Factory
     public function definition()
     {
         return [
-            'signature' => md5(now()->toDateTimeString()) . ($this->faker->randomDigitNotZero() * now()->millisecond),
+            'signature' => md5(now()->toDateTimeString()).($this->faker->randomDigitNotZero() * now()->millisecond),
             'type' => $this->faker->randomElement(['Mastercard', 'Visa', 'Verve', 'Afrigo']),
             'last4' => '2345',
             'exp_month' => 12,

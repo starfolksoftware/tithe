@@ -36,8 +36,6 @@ abstract class Plan extends Model
 
     /**
      * Returns the table name.
-     *
-     * @return string
      */
     public function getTable(): string
     {
@@ -69,7 +67,6 @@ abstract class Plan extends Model
     /**
      * Calculate grace days ending date
      *
-     * @param  \Illuminate\Support\Carbon  $subscriptionExpiresAt
      * @return \Illuminate\Support\Carbon
      */
     public function calculateGraceDaysEnd(Carbon $subscriptionExpiresAt)
@@ -79,8 +76,6 @@ abstract class Plan extends Model
 
     /**
      * The has_grace_days attribute
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
     public function hasGraceDays(): Attribute
     {

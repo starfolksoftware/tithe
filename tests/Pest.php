@@ -8,8 +8,6 @@ uses(TestCase::class)->in(__DIR__);
 
 /**
  * Set default models for testing.
- * 
- * @return void
  */
 function setTestModels(): void
 {

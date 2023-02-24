@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\QueryException;
-use Tithe\Tithe;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tithe\Tests\Mocks\Team;
+use Tithe\Tithe;
 
 beforeAll(function () {
     setTestModels();
@@ -45,7 +45,7 @@ test('a subscriber can not authorize the same card twice', function () {
 test('credit card model can detect expired card', function () {
     $creditCard = Tithe::newCreditCardModel()::factory()->create([
         'exp_month' => 12,
-        'exp_year' => 2011
+        'exp_year' => 2011,
     ]);
 
     expect($creditCard->expired())->toBeTrue();

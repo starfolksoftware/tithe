@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Database\QueryException;
-use Tithe\Tithe;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tithe\Tests\Mocks\Team;
+use Tithe\Tithe;
 
 beforeAll(function () {
     setTestModels();

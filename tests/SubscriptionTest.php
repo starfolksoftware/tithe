@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Event;
 use Tithe\Events\SubscriptionCanceled;
@@ -8,7 +9,6 @@ use Tithe\Events\SubscriptionStarted;
 use Tithe\Events\SubscriptionSuppressed;
 use Tithe\Tests\Mocks\Team;
 use Tithe\Tithe;
-use Illuminate\Foundation\Testing\WithFaker;
 
 beforeAll(function () {
     setTestModels();
@@ -16,7 +16,7 @@ beforeAll(function () {
 
 uses(WithFaker::class);
 
-test("subscriber can renew subscription", function () {
+test('subscriber can renew subscription', function () {
     Event::fake();
 
     Carbon::setTestNow(now());
@@ -27,7 +27,7 @@ test("subscriber can renew subscription", function () {
         ->for($plan)
         ->for($subscriber, 'subscriber')
         ->create([
-            'expired_at' => now()->addDay()
+            'expired_at' => now()->addDay(),
         ]);
 
     $expectedExpiredAt = $plan->calculateNextRecurrenceEnd($subscription->expired_at)->toDateTimestring();
@@ -41,10 +41,10 @@ test("subscriber can renew subscription", function () {
     ]);
 });
 
-test("subscriber model renews based on current date if overdue", function () {
+test('subscriber model renews based on current date if overdue', function () {
     Event::fake();
     Carbon::setTestNow(now());
-    
+
     $plan = Tithe::newPlanModel()::factory()->create();
     $subscriber = Team::factory()->create();
     $subscription = Tithe::newSubscriptionModel()::factory()

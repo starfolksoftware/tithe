@@ -29,8 +29,6 @@ abstract class FeatureTicket extends Model
 
     /**
      * Returns the table name.
-     *
-     * @return string
      */
     public function getTable(): string
     {
@@ -39,7 +37,7 @@ abstract class FeatureTicket extends Model
 
     /**
      * Returns the feature.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function feature()
@@ -49,7 +47,7 @@ abstract class FeatureTicket extends Model
 
     /**
      * Returns the subscriber.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function subscriber()

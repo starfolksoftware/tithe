@@ -1,9 +1,9 @@
 <?php
 
-use Tithe\Tithe;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
 use Tithe\Enums\PeriodicityType;
+use Tithe\Tithe;
 
 beforeAll(function () {
     setTestModels();

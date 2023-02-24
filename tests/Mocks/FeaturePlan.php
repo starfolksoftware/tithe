@@ -6,5 +6,4 @@ use Tithe\FeaturePlan as TitheFeaturePlan;
 
 class FeaturePlan extends TitheFeaturePlan
 {
-    
 }

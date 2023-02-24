@@ -2,7 +2,6 @@
 
 namespace Tithe\Tests\Mocks;
 
-use App\Models\CreditCard;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

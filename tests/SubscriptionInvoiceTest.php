@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Database\QueryException;
-use Tithe\Tithe;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tithe\Enums\SubscriptionInvoiceStatusEnum;
 use Tithe\Tests\Mocks\Team;
+use Tithe\Tithe;
 
 beforeAll(function () {
     setTestModels();
@@ -60,15 +59,15 @@ test('subscription invoice model scopes', function () {
         ->create(['status' => 'void']);
 
     expect(Tithe::subscriptionInvoiceModel()::paid()->count())
-        ->toBe(10);    
+        ->toBe(10);
     expect(Tithe::subscriptionInvoiceModel()::unpaid()->count())
-        ->toBe(8);    
+        ->toBe(8);
     expect(Tithe::subscriptionInvoiceModel()::void()->count())
-        ->toBe(2);    
+        ->toBe(2);
     expect(Tithe::subscriptionInvoiceModel()::voidOrUnpaid()->count())
-        ->toBe(10);    
+        ->toBe(10);
     expect(Tithe::subscriptionInvoiceModel()::pastDue()->count())
-        ->toBe(3);    
+        ->toBe(3);
 });
 
 test('subscription invoice can be marked as void, paid and unpaid', function () {

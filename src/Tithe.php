@@ -41,7 +41,7 @@ final class Tithe
 
     /**
      * Indicates whether the package supports tickets.
-     * 
+     *
      * @var bool
      */
     public static $supportsFeatureTicketing = false;
@@ -208,7 +208,6 @@ final class Tithe
     /**
      * Configure Tithe to use the provided currency.
      *
-     * @param  string  $currency
      * @return static
      */
     public static function currency(string $currency)
@@ -234,7 +233,6 @@ final class Tithe
     /**
      * Configure Tithe to support proration.
      *
-     * @param  bool  $value
      * @return static
      */
     public static function prorates(bool $value = true)
@@ -247,7 +245,6 @@ final class Tithe
     /**
      * Configure Tithe to indicate if invoices are sent to set emails.
      *
-     * @param  bool  $value
      * @return static
      */
     public static function emailsInvoices(bool $value = true)
@@ -260,7 +257,6 @@ final class Tithe
     /**
      * Configure Tithe to indicate if feature tickets are supported.
      *
-     * @param  bool  $value
      * @return static
      */
     public static function supportsFeatureTicketing(bool $value = true)
@@ -273,7 +269,6 @@ final class Tithe
     /**
      * Sets the subscription model's table name.
      *
-     * @param  string  $name
      * @return static
      */
     public static function subscriptionTableName(string $name)
@@ -296,7 +291,6 @@ final class Tithe
     /**
      * Specify the plan model that should be used by Tithe.
      *
-     * @param  string  $model
      * @return static
      */
     public static function usePlanModel(string $model)
@@ -331,7 +325,6 @@ final class Tithe
     /**
      * Specify the subscription model that should be used by Tithe.
      *
-     * @param  string  $model
      * @return static
      */
     public static function useSubscriptionModel(string $model)
@@ -366,7 +359,6 @@ final class Tithe
     /**
      * Specify the feature model that should be used by Tithe.
      *
-     * @param  string  $model
      * @return static
      */
     public static function useFeatureModel(string $model)
@@ -401,7 +393,6 @@ final class Tithe
     /**
      * Specify the feature ticket model that should be used by Tithe.
      *
-     * @param  string  $model
      * @return static
      */
     public static function useFeatureTicketModel(string $model)
@@ -436,7 +427,6 @@ final class Tithe
     /**
      * Specify the feature plan pivot model that should be used by Tithe.
      *
-     * @param  string  $model
      * @return static
      */
     public static function useFeaturePlanModel(string $model)
@@ -471,7 +461,6 @@ final class Tithe
     /**
      * Specify the feature consumption model that should be used by Tithe.
      *
-     * @param  string  $model
      * @return static
      */
     public static function useFeatureConsumptionModel(string $model)
@@ -506,7 +495,6 @@ final class Tithe
     /**
      * Specify the subscription renewal model that should be used by Tithe.
      *
-     * @param  string  $model
      * @return static
      */
     public static function useSubscriptionRenewalModel(string $model)
@@ -541,7 +529,6 @@ final class Tithe
     /**
      * Specify the subscription invoice model that should be used by Tithe.
      *
-     * @param  string  $model
      * @return static
      */
     public static function useSubscriptionInvoiceModel(string $model)
@@ -576,7 +563,6 @@ final class Tithe
     /**
      * Specify the credit card model that should be used by Tithe.
      *
-     * @param  string  $model
      * @return static
      */
     public static function useCreditCardModel(string $model)
@@ -611,7 +597,6 @@ final class Tithe
     /**
      * Specify the credit card authorization model that should be used by Tithe.
      *
-     * @param  string  $model
      * @return static
      */
     public static function useCreditCardAuthorizationModel(string $model)
