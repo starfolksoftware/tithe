@@ -33,7 +33,6 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/database/factories/PlanFactory.php', app_path('../database/factories/PlanFactory.php'));
         copy(__DIR__.'/../../stubs/database/factories/SubscriptionFactory.php', app_path('../database/factories/SubscriptionFactory.php'));
         copy(__DIR__.'/../../stubs/database/factories/SubscriptionInvoiceFactory.php', app_path('../database/factories/SubscriptionInvoiceFactory.php'));
-        copy(__DIR__.'/../../stubs/database/factories/SubscriptionInvoicePaymentFactory.php', app_path('../database/factories/SubscriptionInvoicePaymentFactory.php'));
         copy(__DIR__.'/../../stubs/database/factories/SubscriptionRenewalFactory.php', app_path('../database/factories/SubscriptionRenewalFactory.php'));
         copy(__DIR__.'/../../stubs/database/factories/FeatureFactory.php', app_path('../database/factories/FeatureFactory.php'));
         copy(__DIR__.'/../../stubs/database/factories/FeatureTicketFactory.php', app_path('../database/factories/FeatureTicketFactory.php'));
@@ -45,7 +44,6 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/app/Policies/PlanPolicy.php', app_path('Policies/PlanPolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/SubscriptionPolicy.php', app_path('Policies/SubscriptionPolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/SubscriptionInvoicePolicy.php', app_path('Policies/SubscriptionInvoicePolicy.php'));
-        copy(__DIR__.'/../../stubs/app/Policies/SubscriptionInvoicePaymentPolicy.php', app_path('Policies/SubscriptionInvoicePaymentPolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/SubscriptionRenewalPolicy.php', app_path('Policies/SubscriptionRenewalPolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/FeaturePolicy.php', app_path('Policies/FeaturePolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/FeatureTicketPolicy.php', app_path('Policies/FeatureTicketPolicy.php'));

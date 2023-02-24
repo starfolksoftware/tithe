@@ -104,23 +104,17 @@ return new class extends Migration
 
         Schema::create(Tithe::$subscriptionInvoiceTableName, function (Blueprint $table) {
             $table->id();
+            if (Tithe::$subscriberUsesUuid) {
+                $table->uuidMorphs('subscriber');
+            } else {
+                $table->numericMorphs('subscriber');
+            }
             $table->foreignIdFor(Tithe::subscriptionModel());
             $table->json('line_items')->nullable();
             $table->unsignedBigInteger('total');
             $table->timestamp('due_date');
             $table->enum('status', ['paid', 'unpaid', 'void'])->default('unpaid');
             $table->timestamp('paid_at')->nullable();
-            $table->json('meta')->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create(Tithe::$subscriptionInvoicePaymentTableName, function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(Tithe::subscriptionInvoiceModel());
-            $table->string('transaction_id')->unique();
-            $table->foreignIdFor(Tithe::creditCardAuthorizationModel());
-            $table->string('reference')->unique();
-            $table->datetime('paid_at');
             $table->json('meta')->nullable();
             $table->timestamps();
         });

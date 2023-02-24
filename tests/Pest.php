@@ -21,7 +21,6 @@ function setTestModels(): void
         ->useFeatureConsumptionModel(Mocks\FeatureConsumption::class)
         ->useSubscriptionRenewalModel(Mocks\SubscriptionRenewal::class)
         ->useSubscriptionInvoiceModel(Mocks\SubscriptionInvoice::class)
-        ->useSubscriptionInvoicePaymentModel(Mocks\SubscriptionInvoicePayment::class)
         ->useCreditCardModel(Mocks\CreditCard::class)
         ->useCreditCardAuthorizationModel(Mocks\CreditCardAuthorization::class);
 }

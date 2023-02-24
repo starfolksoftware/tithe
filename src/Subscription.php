@@ -82,6 +82,16 @@ abstract class Subscription extends Model
     }
 
     /**
+     * Get the subscription invoices
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptionInvoices()
+    {
+        return $this->hasMany(Tithe::subscriptionInvoiceModel());
+    }
+
+    /**
      * The subscriber.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo

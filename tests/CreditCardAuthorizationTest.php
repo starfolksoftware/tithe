@@ -11,19 +11,21 @@ beforeAll(function () {
 
 uses(WithFaker::class);
 
-test('credit card auth model can retrieve payments', function () {
-    $subscriptionInvoice = Tithe::newSubscriptionInvoiceModel()::factory()->create();
+test('authorization can return credit card', function () {
+    $creditCard = Tithe::newCreditCardModel()::factory()->create();
 
     $subscriber = Team::factory()->create();
 
-    $payments = Tithe::newSubscriptionInvoicePaymentModel()::factory()
-        ->for($subscriptionInvoice)
+    $authorizations = Tithe::newCreditCardAuthorizationModel()::factory()
+        ->for($creditCard)
         ->for($subscriber, 'subscriber')
         ->create();
 
-    $this->assertEquals(1, $creditCard->payments()->count());
+    $this->assertEquals(1, $creditCard->authorizations()->count());
+    expect($creditCard->authorizations()->first()->subscriber->id)
+        ->toBe($subscriber->id);
 
-    $payments->each(function ($authorization) use ($creditCard) {
-        $this->assertTrue($creditCard->payments->contains($authorization));
+    $authorizations->each(function ($authorization) use ($creditCard) {
+        expect($authorization->creditCard->id)->toBe($creditCard->id);
     });
 });

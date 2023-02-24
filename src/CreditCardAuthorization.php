@@ -53,19 +53,6 @@ abstract class CreditCardAuthorization extends Model
     }
 
     /**
-     * Get payments
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function payments()
-    {
-        return $this->hasMany(
-            Tithe::subscriptionInvoiceModel(),
-            Tithe::newSubscriptionInvoiceModel()->getForeignKey()
-        );
-    }
-
-    /**
      * Get Credit Card
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
