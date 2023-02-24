@@ -11,6 +11,14 @@ use Tithe\Scopes\ExpiringWithGraceDaysScope;
 use Tithe\Scopes\StartingScope;
 use Tithe\Scopes\SuppressingScope;
 
+/**
+ * Tithe\Subscription
+ *
+ * @property mixed $startDate
+ * @property mixed $isOverdue
+ * @property mixed $expired_at
+ * @property mixed $grace_days_ended_at
+ */
 abstract class Subscription extends Model
 {
     use ExpiresAndHasGraceDays;
@@ -111,9 +119,9 @@ abstract class Subscription extends Model
             StartingScope::class,
             SuppressingScope::class,
         ])->where(function (Builder $query) {
-            $query->where(fn (Builder $query) => $query->onlyExpired())
-                ->orWhere(fn (Builder $query) => $query->onlyNotStarted())
-                ->orWhere(fn (Builder $query) => $query->onlySuppressed());
+            $query->where(fn (Builder $query): Builder => $query->onlyExpired())
+                ->orWhere(fn (Builder $query): Builder => $query->onlyNotStarted())
+                ->orWhere(fn (Builder $query): Builder => $query->onlySuppressed());
         });
     }
 
@@ -152,6 +160,7 @@ abstract class Subscription extends Model
     /**
      * Starts a subscription immediately or at a provided date.
      *
+     * @param \Illuminate\Support\Carbon|null $startDate
      * @return $this
      */
     public function start(?Carbon $startDate = null): self
@@ -173,7 +182,7 @@ abstract class Subscription extends Model
     /**
      * Renews a subscription immediately or at a provided date.
      *
-     * @param  \Illuminate\Support\Carbon|null  $startDate
+     * @param  \Illuminate\Support\Carbon|null  $expirationDate
      * @return $this
      */
     public function renew(?Carbon $expirationDate = null): self
@@ -197,7 +206,7 @@ abstract class Subscription extends Model
     /**
      * Cancels a subscription immediately or at a provided date.
      *
-     * @param  \Illuminate\Support\Carbon|null  $startDate
+     * @param  \Illuminate\Support\Carbon|null  $cancelDate
      * @return $this
      */
     public function cancel(?Carbon $cancelDate = null): self

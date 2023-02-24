@@ -5,9 +5,6 @@ namespace Tithe\Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tithe\Tests\Mocks\CreditCardAuthorization;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>
- */
 class CreditCardAuthorizationFactory extends Factory
 {
     protected $model = CreditCardAuthorization::class;

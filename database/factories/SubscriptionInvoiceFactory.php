@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Tithe\Tests\Mocks\SubscriptionInvoice;
 use Tithe\Tithe;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>
- */
 class SubscriptionInvoiceFactory extends Factory
 {
     protected $model = SubscriptionInvoice::class;

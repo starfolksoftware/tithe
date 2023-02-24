@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Tithe\Enums\SubscriptionInvoiceStatusEnum;
 
+/**
+ * Tithe\SubscriptionInvoice
+ *
+ * @property string $status
+ * @property mixed $paid_at
+ */
 abstract class SubscriptionInvoice extends Model
 {
     use HasFactory;
