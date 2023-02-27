@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
+/**
+ * Tithe\Plan
+ *
+ * @property mixed $grace_days
+ */
 abstract class Plan extends Model
 {
     use HandlesRecurrence;

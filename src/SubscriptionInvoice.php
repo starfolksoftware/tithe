@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Tithe\Enums\SubscriptionInvoiceStatusEnum;
 
+/**
+ * Tithe\SubscriptionInvoice
+ *
+ * @property string $status
+ * @property mixed $paid_at
+ */
 abstract class SubscriptionInvoice extends Model
 {
     use HasFactory;
@@ -17,6 +23,8 @@ abstract class SubscriptionInvoice extends Model
      * @var array<string>
      */
     protected $fillable = [
+        'subscriber_id',
+        'subscriber_type',
         'line_items',
         'total',
         'due_date',
@@ -59,13 +67,13 @@ abstract class SubscriptionInvoice extends Model
     }
 
     /**
-     * Get the payments of the authorization
+     * The subscriber.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function payments()
+    public function subscriber()
     {
-        return $this->hasMany(Tithe::subscriptionPaymentModel());
+        return $this->morphTo('subscriber');
     }
 
     /**
@@ -121,7 +129,10 @@ abstract class SubscriptionInvoice extends Model
      */
     public function scopePastDue($query)
     {
-        $query->whereNotNull('due_date')->where('due_date', '>', Carbon::now());
+        $query
+            ->whereNotNull('due_date')
+            ->where('due_date', '<', Carbon::now())
+            ->where('status', SubscriptionInvoiceStatusEnum::UNPAID->value);
     }
 
     /**
@@ -129,8 +140,14 @@ abstract class SubscriptionInvoice extends Model
      *
      * @return $this
      */
-    public function void()
+    public function markVoid()
     {
+        throw_if(
+            $this->status === SubscriptionInvoiceStatusEnum::PAID->value,
+            'Exception',
+            'A paid invoice can not be voided'
+        );
+
         $this->status = SubscriptionInvoiceStatusEnum::VOID->value;
         $this->save();
 
@@ -149,29 +166,5 @@ abstract class SubscriptionInvoice extends Model
         $this->save();
 
         return $this;
-    }
-
-    /**
-     * mark invoice as unpaid.
-     *
-     * @return $this
-     */
-    public function markUnpaid()
-    {
-        $this->status = SubscriptionInvoiceStatusEnum::UNPAID->value;
-        $this->paid_at = null;
-        $this->save();
-
-        return $this;
-    }
-
-    /**
-     * Get the Subscriber model instance.
-     *
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function owner()
-    {
-        return $this->subscription->subscriber;
     }
 }

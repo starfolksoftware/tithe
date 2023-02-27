@@ -166,13 +166,6 @@ final class Tithe
     public static $subscriptionInvoicePaymentTableName = 'subscription_invoice_payments';
 
     /**
-     * The subscription invoice payment model that should be used by Tithe.
-     *
-     * @var string
-     */
-    public static $subscriptionInvoicePaymentModel = 'App\\Models\\SubscriptionInvoicePayment';
-
-    /**
      * The credit card model table name.
      *
      * @var string
@@ -553,40 +546,6 @@ final class Tithe
     public static function newSubscriptionInvoiceModel()
     {
         $model = static::subscriptionInvoiceModel();
-
-        return new $model();
-    }
-
-    /**
-     * Get the name of the subscription invoice payment model used by the application.
-     *
-     * @return string
-     */
-    public static function subscriptionInvoicePaymentModel()
-    {
-        return static::$subscriptionInvoicePaymentModel;
-    }
-
-    /**
-     * Specify the subscription invoice payment model that should be used by Tithe.
-     *
-     * @return static
-     */
-    public static function useSubscriptionInvoicePaymentModel(string $model)
-    {
-        static::$subscriptionInvoicePaymentModel = $model;
-
-        return new static();
-    }
-
-    /**
-     * Get a new instance of the subscription invoice payment model.
-     *
-     * @return mixed
-     */
-    public static function newSubscriptionInvoicePaymentModel()
-    {
-        $model = static::subscriptionInvoicePaymentModel();
 
         return new $model();
     }

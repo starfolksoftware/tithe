@@ -38,7 +38,7 @@ abstract class FeaturePlan extends Pivot
     /**
      * The plan
      *
-     * @return @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function plan()
     {

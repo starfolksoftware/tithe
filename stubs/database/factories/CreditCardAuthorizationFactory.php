@@ -4,9 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>
- */
 class CreditCardAuthorizationFactory extends Factory
 {
     /**
@@ -16,6 +13,10 @@ class CreditCardAuthorizationFactory extends Factory
      */
     public function definition()
     {
-        return [];
+        return [
+            'email' => $this->faker->email(),
+            'auth' => [],
+            'code' => uniqid(),
+        ];
     }
 }

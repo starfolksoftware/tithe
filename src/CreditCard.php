@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Tithe\CreditCard
+ *
+ * @property mixed $exp_month
+ * @property mixed $exp_year
+ */
 abstract class CreditCard extends Model
 {
     use HasFactory;
@@ -31,7 +37,7 @@ abstract class CreditCard extends Model
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string,string>
      */
     protected $casts = [];
 

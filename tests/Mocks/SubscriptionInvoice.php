@@ -2,7 +2,7 @@
 
 namespace Tithe\Tests\Mocks;
 
-use Tithe\Database\Factories\SubscriptionInvoicePaymentFactory;
+use Tithe\Database\Factories\SubscriptionInvoiceFactory;
 use Tithe\SubscriptionInvoice as TitheSubscriptionInvoice;
 
 class SubscriptionInvoice extends TitheSubscriptionInvoice
@@ -14,6 +14,6 @@ class SubscriptionInvoice extends TitheSubscriptionInvoice
      */
     protected static function newFactory()
     {
-        return SubscriptionInvoicePaymentFactory::new();
+        return SubscriptionInvoiceFactory::new();
     }
 }

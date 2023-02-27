@@ -5,9 +5,6 @@ namespace Tithe\Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tithe\Tests\Mocks\CreditCardAuthorization;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>
- */
 class CreditCardAuthorizationFactory extends Factory
 {
     protected $model = CreditCardAuthorization::class;
@@ -15,10 +12,14 @@ class CreditCardAuthorizationFactory extends Factory
     /**
      * Define the model's default state.
      *
-     * @return array<string, mixed>
+     * @return array
      */
     public function definition()
     {
-        return [];
+        return [
+            'email' => $this->faker->email(),
+            'auth' => [],
+            'code' => uniqid(),
+        ];
     }
 }

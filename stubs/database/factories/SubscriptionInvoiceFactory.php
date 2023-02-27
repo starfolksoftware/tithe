@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Tithe\Enums\SubscriptionInvoiceStatusEnum;
 use Tithe\Tithe;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>
- */
 class SubscriptionFactory extends Factory
 {
     /**

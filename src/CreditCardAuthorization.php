@@ -25,7 +25,7 @@ abstract class CreditCardAuthorization extends Model
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string,string>
      */
     protected $casts = [
         'auth' => 'array',
@@ -53,24 +53,11 @@ abstract class CreditCardAuthorization extends Model
     }
 
     /**
-     * Get payments
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function payments()
-    {
-        return $this->hasMany(
-            Tithe::subscriptionInvoiceModel(),
-            Tithe::newSubscriptionInvoiceModel()->getForeignKey()
-        );
-    }
-
-    /**
-     * Get Card
+     * Get Credit Card
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function card()
+    public function creditCard()
     {
         return $this->belongsTo(
             Tithe::creditCardModel(),

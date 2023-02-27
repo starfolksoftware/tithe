@@ -3,13 +3,9 @@
 namespace Tithe\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tithe\Enums\SubscriptionInvoiceStatusEnum;
 use Tithe\Tests\Mocks\SubscriptionInvoice;
 use Tithe\Tithe;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>
- */
 class SubscriptionInvoiceFactory extends Factory
 {
     protected $model = SubscriptionInvoice::class;
@@ -17,7 +13,7 @@ class SubscriptionInvoiceFactory extends Factory
     /**
      * Define the model's default state.
      *
-     * @return array<string, mixed>
+     * @return array
      */
     public function definition()
     {
@@ -30,20 +26,9 @@ class SubscriptionInvoiceFactory extends Factory
             'line_items' => $lineItems,
             'total' => collect($lineItems)->sum('amount'),
             'due_date' => now(),
-            'status' => SubscriptionInvoiceStatusEnum::UNPAID->value,
             'meta' => [],
+            'subscriber_id' => $this->faker->randomNumber(),
+            'subscriber_type' => $this->faker->word(),
         ];
-    }
-
-    /**
-     * Of the given status
-     *
-     * @return static
-     */
-    public function status(SubscriptionInvoiceStatusEnum $status)
-    {
-        return $this->state(fn (array $attributes) => [
-            'status' => $status->value,
-        ]);
     }
 }
