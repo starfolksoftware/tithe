@@ -160,7 +160,6 @@ abstract class Subscription extends Model
     /**
      * Starts a subscription immediately or at a provided date.
      *
-     * @param \Illuminate\Support\Carbon|null $startDate
      * @return $this
      */
     public function start(?Carbon $startDate = null): self
@@ -182,7 +181,6 @@ abstract class Subscription extends Model
     /**
      * Renews a subscription immediately or at a provided date.
      *
-     * @param  \Illuminate\Support\Carbon|null  $expirationDate
      * @return $this
      */
     public function renew(?Carbon $expirationDate = null): self
@@ -206,7 +204,6 @@ abstract class Subscription extends Model
     /**
      * Cancels a subscription immediately or at a provided date.
      *
-     * @param  \Illuminate\Support\Carbon|null  $cancelDate
      * @return $this
      */
     public function cancel(?Carbon $cancelDate = null): self
