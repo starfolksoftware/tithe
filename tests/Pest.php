@@ -11,7 +11,8 @@ uses(TestCase::class)->in(__DIR__);
  */
 function setTestModels(): void
 {
-    Tithe::usePlanModel(Mocks\Plan::class)
+    Tithe::useUserModel(Mocks\TitheUser::class)
+        ->usePlanModel(Mocks\Plan::class)
         ->useSubscriptionModel(Mocks\Subscription::class)
         ->useFeatureModel(Mocks\Feature::class)
         ->useFeaturePlanModel(Mocks\FeaturePlan::class)

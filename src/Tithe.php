@@ -47,6 +47,20 @@ final class Tithe
     public static $supportsFeatureTicketing = false;
 
     /**
+     * The user model table name.
+     *
+     * @var string
+     */
+    public static $userTableName = 'tithe_users';
+
+    /**
+     * The user model that should be used by Tithe.
+     *
+     * @var string
+     */
+    public static $userModel = 'App\\Models\\TitheUser';
+
+    /**
      * The plan model table name.
      *
      * @var string
@@ -276,6 +290,40 @@ final class Tithe
         static::$subscriptionTableName = $name;
 
         return new static();
+    }
+
+    /**
+     * Get the name of the user model used by the application.
+     *
+     * @return string
+     */
+    public static function userModel()
+    {
+        return static::$userModel;
+    }
+
+    /**
+     * Specify the user model that should be used by Tithe.
+     *
+     * @return static
+     */
+    public static function useUserModel(string $model)
+    {
+        static::$userModel = $model;
+
+        return new static();
+    }
+
+    /**
+     * Get a new instance of the user model.
+     *
+     * @return mixed
+     */
+    public static function newUserModel()
+    {
+        $model = static::userModel();
+
+        return new $model();
     }
 
     /**
@@ -616,5 +664,25 @@ final class Tithe
         $model = static::creditCardAuthorizationModel();
 
         return new $model();
+    }
+
+    /**
+     * Generate a Gravatar for a given email.
+     *
+     * @param  string  $email
+     * @param  int  $size
+     * @param  string  $default
+     * @param  string  $rating
+     * @return string
+     */
+    public static function gravatar(
+        string $email,
+        int $size = 200,
+        string $default = 'retro',
+        string $rating = 'g'
+    ): string {
+        $hash = md5(trim(\Illuminate\Support\Str::lower($email)));
+
+        return "https://secure.gravatar.com/avatar/{$hash}?s={$size}&d={$default}&r={$rating}";
     }
 }

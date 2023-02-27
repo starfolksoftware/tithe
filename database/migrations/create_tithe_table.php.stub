@@ -149,6 +149,19 @@ return new class extends Migration
 
             $table->unique(['subscriber_id', 'card_id'], 'auth_subscriber_card_unique');
         });
+
+        Schema::create(Tithe::$userTableName, function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('username')->unique()->nullable();
+            $table->string('password');
+            $table->string('avatar')->nullable();
+            $table->tinyInteger('role')->nullable();
+            $table->rememberToken();
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -168,5 +181,6 @@ return new class extends Migration
         Schema::dropIfExists(Tithe::$featureTicketTableName);
         Schema::dropIfExists(Tithe::$creditCardTableName);
         Schema::dropIfExists(Tithe::$creditCardAuthorizationTableName);
+        Schema::dropIfExists(Tithe::$userTableName);
     }
 };
