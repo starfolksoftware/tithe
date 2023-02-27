@@ -33,7 +33,7 @@ abstract class FeatureConsumption extends Model
     /**
      * The feature the consumption belongs to.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function feature()
     {

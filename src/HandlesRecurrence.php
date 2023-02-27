@@ -5,6 +5,12 @@ namespace Tithe;
 use Illuminate\Support\Carbon;
 use Tithe\Enums\PeriodicityType;
 
+/**
+ * Tithe\HandlesRecurrence
+ *
+ * @property mixed $periodicity_type
+ * @property mixed $periodicity
+ */
 trait HandlesRecurrence
 {
     public function calculateNextRecurrenceEnd(Carbon|string $start = null): Carbon

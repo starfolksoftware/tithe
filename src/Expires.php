@@ -4,6 +4,11 @@ namespace Tithe;
 
 use Tithe\Scopes\ExpiringScope;
 
+/**
+ * Tithe\Expires
+ *
+ * @property mixed $expired_at
+ */
 trait Expires
 {
     public static function bootExpires()
