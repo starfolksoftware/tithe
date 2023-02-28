@@ -24,19 +24,14 @@ class CreateUserCommand extends Command
      */
     protected $description = 'Create a new user for Tithe';
 
-    /** @var string $userName */
     protected string $userName;
 
-    /** @var string $email */
     protected string $email;
 
-    /** @var string $password */
     protected string $password;
 
-    /** @var string $role */
     protected string $role; // admin, support
 
-    /** @var ProgressBar $bar */
     protected ProgressBar $bar;
 
     /**
@@ -60,8 +55,8 @@ class CreateUserCommand extends Command
         $this->bar->advance();
         $this->newLine(3);
 
-        $this->role = ($this->argument('role') && in_array($this->argument('role'), TitheUserEnum::toCollection()->keys()->toArray())) ??  $this->choice(
-            'What is the role of the user?', 
+        $this->role = ($this->argument('role') && in_array($this->argument('role'), TitheUserEnum::toCollection()->keys()->toArray())) ?? $this->choice(
+            'What is the role of the user?',
             ['admin', 'support'],
             0
         );

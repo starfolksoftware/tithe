@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Tithe\TitheUser
- *
  */
 abstract class TitheUser extends Model
 {
@@ -46,8 +45,6 @@ abstract class TitheUser extends Model
 
     /**
      * Gets database name of the model.
-     * 
-     * @return string
      */
     public function getTable(): string
     {

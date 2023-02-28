@@ -11,8 +11,6 @@ enum TitheUserEnum: string
 
     /**
      * Returns the display name of the active enum.
-     *
-     * @return string
      */
     public function displayName(): string
     {
@@ -36,8 +34,6 @@ enum TitheUserEnum: string
 
     /**
      * To array.
-     *
-     * @return array
      */
     public static function toArray(): array
     {

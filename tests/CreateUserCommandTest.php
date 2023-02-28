@@ -21,5 +21,5 @@ test('a user can be created using the command', function (string $name, string $
     expect(Tithe::userModel()::count())->toBe(1);
 })->with([
     ['Faruk Nasir', 'faruk@starfolksoftware.com', '12345678', 'admin'],
-    ['Taylor Otwell', 'taylor@starfolksoftware.com', '12345678', 'support']
+    ['Taylor Otwell', 'taylor@starfolksoftware.com', '12345678', 'support'],
 ]);

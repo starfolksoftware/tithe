@@ -668,12 +668,6 @@ final class Tithe
 
     /**
      * Generate a Gravatar for a given email.
-     *
-     * @param  string  $email
-     * @param  int  $size
-     * @param  string  $default
-     * @param  string  $rating
-     * @return string
      */
     public static function gravatar(
         string $email,
