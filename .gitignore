@@ -6,6 +6,7 @@ coverage
 docs
 phpunit.xml
 phpstan.neon
+tailwindcss
 testbench.yaml
 vendor
 node_modules
