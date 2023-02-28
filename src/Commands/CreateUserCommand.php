@@ -4,6 +4,7 @@ namespace Tithe\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Tithe\Enums\TitheUserEnum;
 use Tithe\Tithe;
 
@@ -14,9 +15,7 @@ class CreateUserCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'tithe:user
-                    { role : The role to be assigned (admin, support) }
-                    { --email= : Email associated with the user }';
+    protected $signature = 'create:tithe-user {name?} {email?} {password?} {role?}';
 
     /**
      * The console command description.
@@ -25,6 +24,21 @@ class CreateUserCommand extends Command
      */
     protected $description = 'Create a new user for Tithe';
 
+    /** @var string $userName */
+    protected string $userName;
+
+    /** @var string $email */
+    protected string $email;
+
+    /** @var string $password */
+    protected string $password;
+
+    /** @var string $role */
+    protected string $role; // admin, support
+
+    /** @var ProgressBar $bar */
+    protected ProgressBar $bar;
+
     /**
      * Execute the console command.
      *
@@ -32,47 +46,41 @@ class CreateUserCommand extends Command
      */
     public function handle()
     {
-        if (! filter_var($this->option('email'), FILTER_VALIDATE_EMAIL)) {
-            $this->error('Please enter a valid email.');
+        $this->bar = $this->output->createProgressBar(11);
 
-            return;
-        }
+        $this->userName = $this->argument('name') ?? $this->ask('What is the name?');
+        $this->bar->advance();
+        $this->newLine(3);
 
-        $email = $this->option('email');
-        $password = 'password';
+        $this->email = $this->argument('email') ?? $this->ask('What is the email?');
+        $this->bar->advance();
+        $this->newLine(3);
+
+        $this->password = $this->argument('password') ?? $this->secret('What is the password?');
+        $this->bar->advance();
+        $this->newLine(3);
+
+        $this->role = ($this->argument('role') && in_array($this->argument('role'), TitheUserEnum::toCollection()->keys()->toArray())) ??  $this->choice(
+            'What is the role of the user?', 
+            ['admin', 'support'],
+            0
+        );
+        $this->bar->advance();
+        $this->newLine(3);
 
         $user = Tithe::newUserModel();
         $user->fill([
-            'email' => $email,
-            'password' => Hash::make($password),
-            'avatar' => Tithe::gravatar($email),
+            'name' => $this->userName,
+            'email' => $this->email,
+            'password' => Hash::make($this->password),
+            'avatar' => Tithe::gravatar($this->email),
+            'role' => $this->role,
         ]);
-
-        switch ($this->argument('role')) {
-            case 'admin':
-                $user->fill([
-                    'name' => 'New Admin',
-                    'role' => TitheUserEnum::ADMIN->value,
-                ]);
-                break;
-
-            case 'support':
-                $user->fill([
-                    'name' => 'New Support',
-                    'role' => TitheUserEnum::SUPPORT->value,
-                ]);
-                break;
-
-            default:
-                $this->error('Please enter a valid role.');
-
-                return;
-        }
 
         $user->save();
 
         $this->info('New user created.');
-        $this->table(['Email', 'Password'], [[$email, $password]]);
+        $this->table(['Email', 'Password'], [[$this->email, $this->password]]);
         $this->info('First things first, login at <info>'.route('tithe.login').'</info> and update your credentials.');
     }
 }
