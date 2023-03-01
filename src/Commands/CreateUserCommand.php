@@ -55,11 +55,13 @@ class CreateUserCommand extends Command
         $this->bar->advance();
         $this->newLine(3);
 
-        $this->role = ($this->argument('role') && in_array($this->argument('role'), TitheUserRoleEnum::toCollection()->keys()->toArray())) ?? $this->choice(
-            'What is the role of the user?',
-            ['admin', 'support'],
-            0
-        );
+        $this->role = ($this->argument('role') && in_array($this->argument('role'), TitheUserRoleEnum::toCollection()->keys()->toArray())) ? 
+            $this->argument('role') : 
+            $this->choice(
+                'What is the role of the user?',
+                ['admin', 'support'],
+                0
+            );
         $this->bar->advance();
         $this->newLine(3);
 

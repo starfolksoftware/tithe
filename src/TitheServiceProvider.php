@@ -7,6 +7,11 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Tithe\Commands\CreateUserCommand;
 use Tithe\Commands\InstallCommand;
 
+/**
+ * Tithe\TitheServiceProvider
+ * 
+ * @property mixed $config
+ */
 class TitheServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void

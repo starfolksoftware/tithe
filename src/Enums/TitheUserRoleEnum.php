@@ -23,7 +23,7 @@ enum TitheUserRoleEnum: string
     /**
      * To collection.
      *
-     * @return \Illuminate\Support\Collection<TKey, TValue>
+     * @return \Illuminate\Support\Collection
      */
     public static function toCollection(): Collection
     {

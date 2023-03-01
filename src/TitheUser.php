@@ -8,6 +8,8 @@ use Tithe\Enums\TitheUserRoleEnum;
 
 /**
  * Tithe\TitheUser
+ * 
+ * @property mixed $role
  */
 abstract class TitheUser extends Model
 {
@@ -30,7 +32,7 @@ abstract class TitheUser extends Model
     /**
      * The attributes that should be hidden for arrays.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',

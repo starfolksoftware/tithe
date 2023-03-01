@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -43,7 +44,9 @@ class PasswordResetLinkController extends Controller
         $token = Str::random();
 
         if ($user) {
-            cache(["password.reset.{$user->id}" => $token],
+            Cache::set(
+                ["password.reset.{$user->id}"],
+                $token,
                 now()->addMinutes(60)
             );
 

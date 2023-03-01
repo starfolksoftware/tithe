@@ -6,6 +6,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Tithe\Enums\TitheUserRoleEnum;
 
+/**
+ * Tithe\Http\Middleware\Admin
+ * 
+ * @method isOfRole()
+ */
 class Admin
 {
     /**
