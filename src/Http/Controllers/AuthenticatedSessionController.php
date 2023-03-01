@@ -2,7 +2,6 @@
 
 namespace Tithe\Http\Controllers;
 
-use Tithe\Http\Requests\LoginRequest;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Tithe\Http\Requests\LoginRequest;
 
 class AuthenticatedSessionController extends Controller
 {

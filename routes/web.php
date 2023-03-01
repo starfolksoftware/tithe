@@ -22,5 +22,5 @@ Route::middleware([])->group(function () {
 });
 
 Route::middleware([Authenticate::class])->group(function () {
-    // 
+    //
 });

@@ -9,7 +9,7 @@ use Tithe\Commands\InstallCommand;
 
 /**
  * Tithe\TitheServiceProvider
- * 
+ *
  * @property mixed $config
  */
 class TitheServiceProvider extends PackageServiceProvider
@@ -35,8 +35,6 @@ class TitheServiceProvider extends PackageServiceProvider
 
     /**
      * Register the package's authentication driver.
-     *
-     * @return void
      */
     private function registerAuthDriver(): void
     {

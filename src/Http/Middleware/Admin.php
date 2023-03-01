@@ -8,7 +8,7 @@ use Tithe\Enums\TitheUserRoleEnum;
 
 /**
  * Tithe\Http\Middleware\Admin
- * 
+ *
  * @method isOfRole()
  */
 class Admin
@@ -16,14 +16,12 @@ class Admin
     /**
      * Handle the incoming request.
      *
-     * @param $request
-     * @param $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        return $request->user('tithe')->isOfRole(TitheUserRoleEnum::ADMIN->value) ? 
-            $next($request) : 
+        return $request->user('tithe')->isOfRole(TitheUserRoleEnum::ADMIN->value) ?
+            $next($request) :
             abort(403);
     }
 }

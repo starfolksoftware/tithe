@@ -8,7 +8,7 @@ use Tithe\Enums\TitheUserRoleEnum;
 
 /**
  * Tithe\TitheUser
- * 
+ *
  * @property mixed $role
  */
 abstract class TitheUser extends Model
@@ -65,15 +65,13 @@ abstract class TitheUser extends Model
 
     /**
      * Checks if the user is of the provided role.
-     * 
-     * @param string $role
-     * @return bool
+     *
      * @throws \Exception
      */
     public function isOfRole(string $role): bool
     {
         if (! in_array($role, TitheUserRoleEnum::toCollection()->keys()->toArray())) {
-            throw new \Exception("Invalid role");
+            throw new \Exception('Invalid role');
         }
 
         return $this->role === $role;
@@ -81,8 +79,6 @@ abstract class TitheUser extends Model
 
     /**
      * Return a default user avatar.
-     *
-     * @return string
      */
     public function getDefaultAvatarAttribute(): string
     {

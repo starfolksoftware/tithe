@@ -2,7 +2,6 @@
 
 namespace Tithe\Http\Controllers;
 
-use Tithe\Mail\ResetPassword;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -13,6 +12,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Tithe\Mail\ResetPassword;
 use Tithe\Tithe;
 
 class PasswordResetLinkController extends Controller
@@ -37,7 +37,7 @@ class PasswordResetLinkController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:' . Tithe::$userTableName,
+            'email' => 'required|email|exists:'.Tithe::$userTableName,
         ]);
 
         $user = Tithe::userModel()::firstWhere('email', $request->email);

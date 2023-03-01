@@ -22,8 +22,6 @@ enum TitheUserRoleEnum: string
 
     /**
      * To collection.
-     *
-     * @return \Illuminate\Support\Collection
      */
     public static function toCollection(): Collection
     {
