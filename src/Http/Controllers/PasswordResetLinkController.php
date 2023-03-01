@@ -1,9 +1,8 @@
 <?php
 
-namespace Canvas\Http\Controllers\Auth;
+namespace Tithe\Http\Controllers;
 
-use Canvas\Mail\ResetPassword;
-use Canvas\Models\User;
+use Tithe\Mail\ResetPassword;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -13,6 +12,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Tithe\Tithe;
 
 class PasswordResetLinkController extends Controller
 {
@@ -23,7 +23,7 @@ class PasswordResetLinkController extends Controller
      */
     public function create()
     {
-        return view('canvas::auth.passwords.email');
+        return view('tithe::auth.passwords.email');
     }
 
     /**
@@ -36,10 +36,10 @@ class PasswordResetLinkController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:canvas_users',
+            'email' => 'required|email|exists:' . Tithe::$userTableName,
         ]);
 
-        $user = User::firstWhere('email', $request->email);
+        $user = Tithe::userModel()::firstWhere('email', $request->email);
         $token = Str::random();
 
         if ($user) {
@@ -54,7 +54,7 @@ class PasswordResetLinkController extends Controller
         }
 
         return redirect()
-            ->route('canvas.password.request')
+            ->route('tithe.password.request')
             ->with('status', 'We have emailed your password reset link!');
     }
 }

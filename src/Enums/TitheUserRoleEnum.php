@@ -4,7 +4,7 @@ namespace Tithe\Enums;
 
 use Illuminate\Support\Collection;
 
-enum TitheUserEnum: string
+enum TitheUserRoleEnum: string
 {
     case ADMIN = 'admin';
     case SUPPORT = 'support';
