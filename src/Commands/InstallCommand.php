@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class InstallCommand extends Command
 {
-    public $signature = 'install:tithe';
+    public $signature = 'tithe:install';
 
     public $description = 'Installs the tithe package and resources';
 
@@ -53,6 +53,9 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/app/Policies/FeatureConsumptionPolicy.php', app_path('Policies/FeatureConsumptionPolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/CreditCardPolicy.php', app_path('Policies/CreditCardPolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/CreditCardAuthorizationPolicy.php', app_path('Policies/CreditCardAuthorizationPolicy.php'));
+
+        // Assets
+        copy(__DIR__.'/../../resources/dist/tithe.css', public_path('tithe.css'));
 
         // Service Providers...
         copy(__DIR__.'/../../stubs/app/Providers/TitheServiceProvider.php', app_path('Providers/TitheServiceProvider.php'));

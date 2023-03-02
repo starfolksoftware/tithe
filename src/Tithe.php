@@ -47,6 +47,13 @@ final class Tithe
     public static $supportsFeatureTicketing = false;
 
     /**
+     * The default middlewares.
+     * 
+     * @var array
+     */
+    public static $middlewares = ['web'];
+
+    /**
      * The user model table name.
      *
      * @var string
@@ -266,6 +273,29 @@ final class Tithe
         static::$emailsInvoices = $value;
 
         return new static();
+    }
+
+    /**
+     * Sets the default middlewares.
+     * 
+     * @param array $middlewares
+     * @return static
+     */
+    public static function defaultMiddlewares(array $middlewares)
+    {
+        static::$middlewares = $middlewares;
+
+        return new static();
+    }
+
+    /**
+     * Returns the default middlewares.
+     * 
+     * @return array
+     */
+    public static function middlewares()
+    {
+        return static::$middlewares;
     }
 
     /**

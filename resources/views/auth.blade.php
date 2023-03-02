@@ -8,7 +8,7 @@
 
     <title>{{ config('app.name') }} ― Tithe</title>
 
-    <link href="../dist/output.css" rel="stylesheet">
+    <link href="{{ asset('tithe.css') }}" rel="stylesheet">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="//fonts.googleapis.com/css2?family=Karla&family=Caveat:wght@700&display=swap">
 
@@ -19,10 +19,8 @@
     </style>
 </head>
 
-<body>
-    <div class="h-full">
-        @yield('content')
-    </div>
+<body class="h-full">
+    @yield('content')
 </body>
 
 </html>

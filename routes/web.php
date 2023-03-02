@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Tithe\Http\Controllers;
 use Tithe\Http\Middleware\Authenticate;
+use Tithe\Tithe;
 
-Route::prefix('tithe')->group(function () {
+Route::middleware(Tithe::middlewares())->prefix('tithe')->group(function () {
     // Login routes...
     Route::get('login', [Controllers\AuthenticatedSessionController::class, 'create'])->name('tithe.login');
     Route::post('login', [Controllers\AuthenticatedSessionController::class, 'store'])->name('tithe.authenticate');
@@ -21,8 +22,6 @@ Route::prefix('tithe')->group(function () {
     Route::get('logout', [Controllers\AuthenticatedSessionController::class, 'destroy'])->name('tithe.logout');
 });
 
-Route::middleware([Authenticate::class])->prefix('tithe')->group(function () {
-    Route::get('/', function () {
-        return 'here';
-    })->name('tithe.home');
+Route::middleware(array_merge(Tithe::middlewares(), [Authenticate::class]))->prefix('tithe')->group(function () {
+    Route::get('/', Controllers\HomeController::class)->name('tithe.home');
 });

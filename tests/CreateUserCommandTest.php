@@ -11,7 +11,7 @@ beforeAll(function () {
 uses(WithFaker::class);
 
 test('a user can be created using the command', function (string $name, string $email, string $password, string $role) {
-    Artisan::call('create:tithe-user', [
+    Artisan::call('tithe:create-user', [
         'name' => $name,
         'email' => $email,
         'password' => $password,

@@ -15,7 +15,7 @@ class CreateUserCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'create:tithe-user {name?} {email?} {password?} {role?}';
+    protected $signature = 'tithe:create-user {name?} {email?} {password?} {role?}';
 
     /**
      * The console command description.

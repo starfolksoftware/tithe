@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        // $request->session()->regenerate();
+        $request->session()->regenerate();
 
         return redirect()->route('tithe.home');
     }
@@ -53,9 +53,9 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('tithe')->logout();
 
-        // $request->session()->invalidate();
+        $request->session()->invalidate();
 
-        // $request->session()->regenerateToken();
+        $request->session()->regenerateToken();
 
         return redirect()->route('tithe.login');
     }

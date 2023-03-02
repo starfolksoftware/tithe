@@ -44,7 +44,7 @@ class LoginRequest extends FormRequest
     {
         if (! Auth::guard('tithe')->attempt($this->only('email', 'password'), $this->filled('remember'))) {
             throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
+                'email' => 'Something went wrong. Try again!',
             ]);
         }
     }

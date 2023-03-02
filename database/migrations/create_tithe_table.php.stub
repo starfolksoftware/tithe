@@ -147,7 +147,7 @@ return new class extends Migration
             $table->boolean('default')->default(false);
             $table->timestamps();
 
-            $table->unique(['subscriber_id', 'card_id'], 'auth_subscriber_card_unique');
+            $table->unique(['subscriber_id', Tithe::newCreditCardModel()->getForeignKey()], 'auth_subscriber_card_unique');
         });
 
         Schema::create(Tithe::$userTableName, function (Blueprint $table) {
@@ -157,7 +157,7 @@ return new class extends Migration
             $table->string('username')->unique()->nullable();
             $table->string('password');
             $table->string('avatar')->nullable();
-            $table->tinyInteger('role')->nullable();
+            $table->string('role');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
