@@ -1,8 +1,7 @@
 <?php
 
-namespace Tithe\Http\Controllers\Auth;
+namespace Tithe\Http\Controllers;
 
-use Canvas\Http\Requests\LoginRequest;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Tithe\Http\Requests\LoginRequest;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -21,11 +21,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        if (Auth::guard('canvas')->check()) {
-            return redirect()->route('canvas');
+        if (Auth::guard('tithe')->check()) {
+            return redirect()->route('tithe.home');
         }
 
-        return view('canvas::auth.login');
+        return view('tithe::auth.login');
     }
 
     /**
@@ -39,9 +39,9 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+        // $request->session()->regenerate();
 
-        return redirect()->route('canvas');
+        return redirect()->route('tithe.home');
     }
 
     /**
@@ -51,12 +51,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::guard('canvas')->logout();
+        Auth::guard('tithe')->logout();
 
-        $request->session()->invalidate();
+        // $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
 
-        return redirect()->route('canvas.login');
+        return redirect()->route('tithe.login');
     }
 }

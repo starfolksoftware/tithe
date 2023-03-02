@@ -4,7 +4,7 @@ namespace Tithe\Enums;
 
 use Illuminate\Support\Collection;
 
-enum TitheUserEnum: string
+enum TitheUserRoleEnum: string
 {
     case ADMIN = 'admin';
     case SUPPORT = 'support';
@@ -22,8 +22,6 @@ enum TitheUserEnum: string
 
     /**
      * To collection.
-     *
-     * @return \Illuminate\Support\Collection<TKey, TValue>
      */
     public static function toCollection(): Collection
     {

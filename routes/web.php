@@ -1,5 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Tithe\Http\Controllers;
+use Tithe\Http\Middleware\Authenticate;
 
-Route::get('/billing/admin/login', '')->name('tithe.login');
+Route::prefix('tithe')->group(function () {
+    // Login routes...
+    Route::get('login', [Controllers\AuthenticatedSessionController::class, 'create'])->name('tithe.login');
+    Route::post('login', [Controllers\AuthenticatedSessionController::class, 'store'])->name('tithe.authenticate');
+
+    // Forgot password routes...
+    Route::get('forgot-password', [Controllers\PasswordResetLinkController::class, 'create'])->name('tithe.password.request');
+    Route::post('forgot-password', [Controllers\PasswordResetLinkController::class, 'store'])->name('tithe.password.email');
+
+    // Reset password routes...
+    Route::get('reset-password/{token}', [Controllers\NewPasswordController::class, 'create'])->name('tithe.password.reset');
+    Route::post('reset-password', [Controllers\NewPasswordController::class, 'store'])->name('tithe.password.update');
+
+    // Logout routes...
+    Route::get('logout', [Controllers\AuthenticatedSessionController::class, 'destroy'])->name('tithe.logout');
+});
+
+Route::middleware([Authenticate::class])->prefix('tithe')->group(function () {
+    Route::get('/', function () {
+        return 'here';
+    })->name('tithe.home');
+});

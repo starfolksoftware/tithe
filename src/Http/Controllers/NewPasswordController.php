@@ -1,8 +1,7 @@
 <?php
 
-namespace Canvas\Http\Controllers\Auth;
+namespace Tithe\Http\Controllers;
 
-use Canvas\Models\User;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -14,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Throwable;
+use Tithe\Tithe;
 
 class NewPasswordController extends Controller
 {
@@ -24,10 +24,9 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request)
     {
-        return view('canvas::auth.passwords.reset')->with([
+        return view('tithe::auth.passwords.reset')->with([
             'request' => $request,
-        ]
-        );
+        ]);
     }
 
     /**
@@ -48,7 +47,7 @@ class NewPasswordController extends Controller
         try {
             [$id, $token] = explode('|', decrypt($request->token));
 
-            $user = User::findOrFail($id);
+            $user = Tithe::userModel()::findOrFail($id);
 
             // Here we will attempt to reset the user's password. If it is successful we
             // will update the password on an actual user model and persist it to the
@@ -59,9 +58,9 @@ class NewPasswordController extends Controller
 
             $user->save();
 
-            Auth::guard('canvas')->login($user);
+            Auth::guard('tithe')->login($user);
         } catch (Throwable $e) {
-            return redirect()->route('canvas.password.request')->with('invalidResetToken', 'Invalid token');
+            return redirect()->route('tithe.password.request')->with('invalidResetToken', 'Invalid token');
         }
 
         cache()->forget("password.reset.{$id}");
@@ -69,6 +68,6 @@ class NewPasswordController extends Controller
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
-        return redirect()->route('canvas');
+        return redirect()->route('tithe.home');
     }
 }

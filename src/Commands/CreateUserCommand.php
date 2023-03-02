@@ -5,7 +5,7 @@ namespace Tithe\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\Console\Helper\ProgressBar;
-use Tithe\Enums\TitheUserEnum;
+use Tithe\Enums\TitheUserRoleEnum;
 use Tithe\Tithe;
 
 class CreateUserCommand extends Command
@@ -55,11 +55,13 @@ class CreateUserCommand extends Command
         $this->bar->advance();
         $this->newLine(3);
 
-        $this->role = ($this->argument('role') && in_array($this->argument('role'), TitheUserEnum::toCollection()->keys()->toArray())) ?? $this->choice(
-            'What is the role of the user?',
-            ['admin', 'support'],
-            0
-        );
+        $this->role = ($this->argument('role') && in_array($this->argument('role'), TitheUserRoleEnum::toCollection()->keys()->toArray())) ?
+            $this->argument('role') :
+            $this->choice(
+                'What is the role of the user?',
+                ['admin', 'support'],
+                0
+            );
         $this->bar->advance();
         $this->newLine(3);
 
