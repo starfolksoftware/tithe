@@ -3,8 +3,8 @@
 namespace Tithe;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Tithe\Enums\TitheUserRoleEnum;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tithe\Enums\TitheUserRoleEnum;
 
 /**
  * Tithe\TitheUser
