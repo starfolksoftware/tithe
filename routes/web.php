@@ -4,10 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Tithe\Http\Controllers;
 use Tithe\Http\Middleware\Authenticate;
 
-Route::middleware([])->group(function () {
+Route::prefix('tithe')->group(function () {
     // Login routes...
     Route::get('login', [Controllers\AuthenticatedSessionController::class, 'create'])->name('tithe.login');
-    Route::post('login', [Controllers\AuthenticatedSessionController::class, 'store']);
+    Route::post('login', [Controllers\AuthenticatedSessionController::class, 'store'])->name('tithe.authenticate');
 
     // Forgot password routes...
     Route::get('forgot-password', [Controllers\PasswordResetLinkController::class, 'create'])->name('tithe.password.request');
@@ -21,6 +21,8 @@ Route::middleware([])->group(function () {
     Route::get('logout', [Controllers\AuthenticatedSessionController::class, 'destroy'])->name('tithe.logout');
 });
 
-Route::middleware([Authenticate::class])->group(function () {
-    //
+Route::middleware([Authenticate::class])->prefix('tithe')->group(function () {
+    Route::get('/', function () {
+        return 'here';
+    })->name('tithe.home');
 });

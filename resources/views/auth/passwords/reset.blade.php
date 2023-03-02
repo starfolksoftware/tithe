@@ -20,16 +20,16 @@
                                 name="email"
                                 value="{{ old('email') }}"
                                 id="email"
-                                class="form-control border-0 @error('email') is-invalid @enderror"
+                                class="form-control border-0"
                                 placeholder="Email address"
                                 required
                                 autofocus
                             />
-                            @error('email')
+                            {{-- @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                            @enderror
+                            @enderror --}}
                         </div>
                     </div>
 
@@ -40,15 +40,15 @@
                                 type="password"
                                 name="password"
                                 id="password"
-                                class="form-control border-0 @error('password') is-invalid @enderror"
+                                class="form-control border-0"
                                 placeholder="Password"
                                 required
                             />
-                            @error('password')
+                            {{-- @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                            @enderror
+                            @enderror --}}
                         </div>
                     </div>
 
@@ -59,7 +59,7 @@
                                 type="password"
                                 name="password_confirmation"
                                 id="password_confirmation"
-                                class="form-control border-0 @error('password') is-invalid @enderror"
+                                class="form-control border-0"
                                 placeholder="Confirm password"
                                 required
                             />

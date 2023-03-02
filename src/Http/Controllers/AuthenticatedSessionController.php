@@ -22,7 +22,7 @@ class AuthenticatedSessionController extends Controller
     public function create()
     {
         if (Auth::guard('tithe')->check()) {
-            return redirect()->route('tithe');
+            return redirect()->route('tithe.home');
         }
 
         return view('tithe::auth.login');
@@ -39,9 +39,9 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+        // $request->session()->regenerate();
 
-        return redirect()->route('tithe');
+        return redirect()->route('tithe.home');
     }
 
     /**
@@ -53,9 +53,9 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('tithe')->logout();
 
-        $request->session()->invalidate();
+        // $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
 
         return redirect()->route('tithe.login');
     }

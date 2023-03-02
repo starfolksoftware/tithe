@@ -3,15 +3,15 @@
 namespace Tithe;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Tithe\Enums\TitheUserRoleEnum;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Tithe\TitheUser
  *
  * @property mixed $role
  */
-abstract class TitheUser extends Model
+abstract class TitheUser extends Authenticatable
 {
     use HasFactory;
 

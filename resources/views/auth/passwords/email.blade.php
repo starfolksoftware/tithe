@@ -24,16 +24,16 @@
                                 name="email"
                                 value="{{ old('email') }}"
                                 id="email"
-                                class="form-control border-0 @error('email') is-invalid @enderror"
+                                class="form-control border-0"
                                 placeholder="Email address"
                                 required
                                 autofocus
                             />
-                            @error('email')
+                            {{-- @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                            @enderror
+                            @enderror --}}
                         </div>
                     </div>
 

@@ -29,6 +29,7 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
+        config()->set('app.key', 'base64:JjrFWC+TGnySY2LsldPXAxuHpyjh8UuoPMt6yy2gJ8U=');
 
         $migration = include __DIR__.'/../database/migrations/create_tithe_table.php.stub';
         $migration->up();
