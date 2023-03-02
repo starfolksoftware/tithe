@@ -48,7 +48,7 @@ final class Tithe
 
     /**
      * The default middlewares.
-     * 
+     *
      * @var array
      */
     public static $middlewares = ['web'];
@@ -277,8 +277,7 @@ final class Tithe
 
     /**
      * Sets the default middlewares.
-     * 
-     * @param array $middlewares
+     *
      * @return static
      */
     public static function defaultMiddlewares(array $middlewares)
@@ -290,7 +289,7 @@ final class Tithe
 
     /**
      * Returns the default middlewares.
-     * 
+     *
      * @return array
      */
     public static function middlewares()
