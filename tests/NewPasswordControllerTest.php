@@ -15,7 +15,7 @@ test('reset password page renders', function () {
     ]))
          ->assertSuccessful()
          ->assertViewIs('tithe::auth.passwords.reset')
-         ->assertSeeText('Reset password');
+         ->assertSeeText('Reset Password');
 });
 
 test('tithe user password can be reset', function () {
