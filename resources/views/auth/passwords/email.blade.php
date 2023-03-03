@@ -41,7 +41,12 @@
 
                 <div class="flex items-center justify-between">
                     <div class="text-sm">
-                        <a href="{{ route('tithe.login') }}" class="font-medium text-indigo-600 hover:text-indigo-500">Return to sign in</a>
+                        <a href="{{ route('tithe.login') }}" class="inline-flex items-center gap-x-1.5 font-medium text-indigo-600 hover:text-indigo-500">
+                            <svg class="-ml-0.5 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                            </svg>
+                            Return to sign in
+                        </a>
                     </div>
                 </div>
             </form>
