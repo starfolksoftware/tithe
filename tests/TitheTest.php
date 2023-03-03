@@ -24,7 +24,7 @@ it('can configure tithe subscriber model id to use uuid', function () {
     expect(Tithe::$subscriberUsesUuid)->toBe(true);
 });
 
-it('con configure Tithe to support proration by default', function () {
+it('can configure Tithe to support proration by default', function () {
     Tithe::prorates();
 
     expect(Tithe::$prorates)->toBeTrue();

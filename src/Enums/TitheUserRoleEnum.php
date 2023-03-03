@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 enum TitheUserRoleEnum: string
 {
     case ADMIN = 'admin';
-    case SUPPORT = 'support';
 
     /**
      * Returns the display name of the active enum.
@@ -16,7 +15,6 @@ enum TitheUserRoleEnum: string
     {
         return match ($this) {
             self::ADMIN => 'Admin',
-            self::SUPPORT => 'Support',
         };
     }
 

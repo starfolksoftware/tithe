@@ -30,7 +30,7 @@ class CreateUserCommand extends Command
 
     protected string $password;
 
-    protected string $role; // admin, support
+    protected string $role; // admin
 
     protected ProgressBar $bar;
 
@@ -59,7 +59,7 @@ class CreateUserCommand extends Command
             $this->argument('role') :
             $this->choice(
                 'What is the role of the user?',
-                ['admin', 'support'],
+                ['admin'],
                 0
             );
         $this->bar->advance();

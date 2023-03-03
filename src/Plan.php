@@ -28,6 +28,7 @@ abstract class Plan extends Model
         'periodicity_type',
         'periodicity',
         'meta',
+        'user_id',
     ];
 
     /**
