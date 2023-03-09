@@ -19,12 +19,11 @@ return new class extends Migration
             $table->integer('grace_days')->default(0);
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
-            $table->unsignedBigInteger('periodicity');
+            $table->unsignedBigInteger('periodicity')->default(1);
             $table->string('periodicity_type');
             $table->text('description')->nullable();
             $table->unsignedBigInteger('amount');
             $table->string('currency')->default('NGN');
-            $table->json('taxes')->nullable(); // ['name' => 'VAT', 'amount' => '7500']
             $table->json('meta')->nullable();
             $table->timestamps();
         });

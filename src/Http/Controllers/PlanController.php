@@ -1,6 +1,6 @@
 <?php
 
-namespace Canvas\Http\Controllers;
+namespace Tithe\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -20,18 +20,18 @@ class PlanController extends Controller
      */
     public function index(Request $request)
     {
-        $plans = QueryBuilder::for(Tithe::planModel())
+        $plans = QueryBuilder::for(Tithe::planModel(), $request)
             ->allowedFilters([
                 'name', 
                 'display_name', 
                 'description', 
-                AllowedFilter::exact('periodicity_type'), 
+                AllowedFilter::exact('interval', 'periodicity_type'), 
                 AllowedFilter::exact('currency')
             ])
             ->allowedSorts('amount')
-            ->get();
+            ->paginate();
 
-        return view('plan.index', [
+        return view('tithe::plan.index', [
             'user' => $request->user('tithe'),
             'plans' => $plans,
         ]);
@@ -46,7 +46,7 @@ class PlanController extends Controller
     {
         Gate::forUser(request()->user('tithe'))->authorize('create', Tithe::newPlanModel());
 
-        return view('plan.create', [
+        return view('tithe::plan.create', [
             'user' => request()->user('tithe'),
         ]);
     }
@@ -77,7 +77,7 @@ class PlanController extends Controller
 
         Gate::forUser(request()->user('tithe'))->authorize('view', $plan);
 
-        return view('plan.show', [
+        return view('tithe::plan.show', [
             'user' => request()->user('tithe'),
             'plan' => $plan,
         ]);
@@ -95,7 +95,7 @@ class PlanController extends Controller
 
         Gate::forUser(request()->user('tithe'))->authorize('edit', $plan);
 
-        return view('plan.edit', [
+        return view('tithe::plan.edit', [
             'user' => request()->user('tithe'),
             'plan' => $plan,
         ]);

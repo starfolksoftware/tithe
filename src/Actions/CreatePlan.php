@@ -27,9 +27,8 @@ class CreatePlan implements CreatesPlans
             'periodicity' => ['required', 'integer'],
             'periodicity_type' => ['required', 'string', 'max:255',],
             'description' => ['string', 'max:255'],
+            'currency' => ['string', 'max:3'],
             'amount' => ['required', 'integer'],
-            'taxes' => ['array'],
-            'meta' => ['array'],
         ])->validateWithBag('createPlan');
 
         AddingPlan::dispatch($user);

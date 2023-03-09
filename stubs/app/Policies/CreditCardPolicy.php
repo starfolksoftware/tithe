@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\CreditCard;
-use App\Models\User;
+use App\Models\TitheUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CreditCardPolicy
@@ -15,7 +15,7 @@ class CreditCardPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(TitheUser $user)
     {
         return true;
     }
@@ -25,7 +25,7 @@ class CreditCardPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, CreditCard $feature)
+    public function view(TitheUser $user, CreditCard $feature)
     {
         return true;
     }
@@ -35,7 +35,7 @@ class CreditCardPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(TitheUser $user)
     {
         return true;
     }
@@ -45,7 +45,7 @@ class CreditCardPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, CreditCard $feature)
+    public function update(TitheUser $user, CreditCard $feature)
     {
         return true;
     }
@@ -55,7 +55,7 @@ class CreditCardPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, CreditCard $feature)
+    public function delete(TitheUser $user, CreditCard $feature)
     {
         return true;
     }
@@ -65,7 +65,7 @@ class CreditCardPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, CreditCard $feature)
+    public function restore(TitheUser $user, CreditCard $feature)
     {
         return true;
     }
@@ -75,7 +75,7 @@ class CreditCardPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, CreditCard $feature)
+    public function forceDelete(TitheUser $user, CreditCard $feature)
     {
         return true;
     }

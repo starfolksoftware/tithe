@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\SubscriptionRenewal;
-use App\Models\User;
+use App\Models\TitheUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SubscriptionRenewalPolicy
@@ -15,7 +15,7 @@ class SubscriptionRenewalPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(TitheUser $user)
     {
         return true;
     }
@@ -25,7 +25,7 @@ class SubscriptionRenewalPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, SubscriptionRenewal $SubscriptionRenewal)
+    public function view(TitheUser $user, SubscriptionRenewal $SubscriptionRenewal)
     {
         return true;
     }
@@ -35,7 +35,7 @@ class SubscriptionRenewalPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(TitheUser $user)
     {
         return true;
     }
@@ -45,7 +45,7 @@ class SubscriptionRenewalPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, SubscriptionRenewal $SubscriptionRenewal)
+    public function update(TitheUser $user, SubscriptionRenewal $SubscriptionRenewal)
     {
         return true;
     }
@@ -55,7 +55,7 @@ class SubscriptionRenewalPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, SubscriptionRenewal $SubscriptionRenewal)
+    public function delete(TitheUser $user, SubscriptionRenewal $SubscriptionRenewal)
     {
         return true;
     }
@@ -65,7 +65,7 @@ class SubscriptionRenewalPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, SubscriptionRenewal $SubscriptionRenewal)
+    public function restore(TitheUser $user, SubscriptionRenewal $SubscriptionRenewal)
     {
         return true;
     }
@@ -75,7 +75,7 @@ class SubscriptionRenewalPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, SubscriptionRenewal $SubscriptionRenewal)
+    public function forceDelete(TitheUser $user, SubscriptionRenewal $SubscriptionRenewal)
     {
         return true;
     }
