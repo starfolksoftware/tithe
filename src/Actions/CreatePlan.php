@@ -25,7 +25,7 @@ class CreatePlan implements CreatesPlans
             'name' => ['required', 'string', 'max:255', 'unique:'.Tithe::planModel().',name'],
             'display_name' => ['string', 'max:255'],
             'periodicity' => ['required', 'integer'],
-            'periodicity_type' => ['required', 'string', 'max:255',],
+            'periodicity_type' => ['required', 'string', 'max:255', 'in:Year,Month,Week,Day'],
             'description' => ['string', 'max:255'],
             'currency' => ['string', 'max:3'],
             'amount' => ['required', 'integer'],
@@ -33,8 +33,6 @@ class CreatePlan implements CreatesPlans
 
         AddingPlan::dispatch($user);
 
-        return Tithe::newPlanModel()->create(array_merge($input, [
-            'user_id' => $user->id,
-        ]));
+        return Tithe::newPlanModel()->create($input);
     }
 }

@@ -1,7 +1,7 @@
 @extends('tithe::admin-layout', ['user' => $user])
 
 @section('content')
-<form method="POST" action="{{ route('plans.store') }}" class="space-y-8 divide-y divide-gray-200">
+<form autocomplete="off" method="POST" action="{{ route('plans.store') }}" class="space-y-8 divide-y divide-gray-200">
     <div class="space-y-8 divide-y divide-gray-200">
         <div>
             @csrf
@@ -14,7 +14,7 @@
                 <div class="sm:col-span-3">
                     <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
                     <div class="mt-2">
-                        <input type="text" name="name" id="name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="text" name="name" id="name" value="{{ old('name') }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                     <p class="mt-2 text-sm text-gray-500">Name must be unique. e.g starting-monthly.</p>
                     @error('name', 'createPlan')
@@ -27,7 +27,7 @@
                 <div class="sm:col-span-3">
                     <label for="display_name" class="block text-sm font-medium leading-6 text-gray-900">Display name</label>
                     <div class="mt-2">
-                        <input type="text" name="display_name" id="display_name" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="text" name="display_name" id="display_name" value="{{ old('display_name') }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                     @error('display_name', 'createPlan')
                     <span class="text-sm text-red-600" role="alert">
@@ -36,13 +36,15 @@
                     @enderror
                 </div>
 
-                <div class="sm:col-span-3">
+                <div class="sm:col-span-4">
                     <label for="periodicity_type" class="block text-sm font-medium leading-6 text-gray-900">Interval</label>
                     <div class="mt-2">
-                        <select id="periodicity_type" name="periodicity_type" autocomplete="periodicity_type" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option>United States</option>
-                            <option>Canada</option>
-                            <option>Mexico</option>
+                        <input type="hidden" name="periodicity" id="periodicity" value="1">
+                        <select id="periodicity_type" name="periodicity_type" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <option value="Year">Yearly</option>
+                            <option value="Month">Monthly</option>
+                            <option value="Week">Weekly</option>
+                            <option value="Day">Daily</option>
                         </select>
                     </div>
                     @error('periodicity_type', 'createPlan')
@@ -50,19 +52,25 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                    @error('periodicity', 'createPlan')
+                    <span class="text-sm text-red-600" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
 
                 <div class="sm:col-span-4">
-                    <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Amount</label>
+                    <label for="amount" class="block text-sm font-medium leading-6 text-gray-900">Amount</label>
                     <div class="relative mt-2 rounded-md shadow-sm">
                         <div class="absolute inset-y-0 left-0 flex items-center">
                             <label for="currency" class="sr-only">Currency</label>
-                            <select id="currency" name="currency" autocomplete="currency" class="h-full rounded-md border-0 bg-transparent py-0 pl-3 pr-7 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+                            <select id="currency" name="currency" class="h-full rounded-md border-0 bg-transparent py-0 pl-3 pr-7 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
                                 <option>NGN</option>
                             </select>
                         </div>
                         <input type="number" step="0.01" name="amount" id="amount" class="block w-full rounded-md border-0 py-1.5 pl-16 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="2500">
                     </div>
+                    <p class="mt-2 text-sm text-gray-500">Convert the amount to the lowest denomination of the currency. For example, NGN2500 will be 250000.</p>
                     @error('amount', 'createPlan')
                     <span class="text-sm text-red-600" role="alert">
                         <strong>{{ $message }}</strong>
@@ -77,6 +85,24 @@
                     </div>
                     <p class="mt-2 text-sm text-gray-500">Write a few sentences description of the plan.</p>
                     @error('description', 'createPlan')
+                    <span class="text-sm text-red-600" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+                <div class="sm:col-span-4">
+                    <label for="grace_days" class="block text-sm font-medium leading-6 text-gray-900">Grace Days</label>
+                    <div class="mt-2">
+                        <input type="hidden" name="periodicity" id="periodicity" value="1">
+                        <select id="grace_days" name="grace_days" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @foreach (range(1, 7) as $gd)    
+                                <option>{{ $gd }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <p class="mt-2 text-sm text-gray-500">At the end of a subscription cycle, the grace days represent the days into the next cycle the subscription is considered active without renewal.</p>
+                    @error('grace_days', 'createPlan')
                     <span class="text-sm text-red-600" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

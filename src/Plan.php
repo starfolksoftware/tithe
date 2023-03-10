@@ -5,6 +5,7 @@ namespace Tithe;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -16,6 +17,7 @@ abstract class Plan extends Model
 {
     use HandlesRecurrence;
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -25,10 +27,13 @@ abstract class Plan extends Model
     protected $fillable = [
         'grace_days',
         'name',
+        'display_name',
         'periodicity_type',
         'periodicity',
+        'description',
+        'currency',
+        'amount',
         'meta',
-        'user_id',
     ];
 
     /**

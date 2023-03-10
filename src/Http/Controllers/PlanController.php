@@ -73,7 +73,9 @@ class PlanController extends Controller
      */
     public function show($planId)
     {
-        $plan = Tithe::planModel()::findOrFail($planId);
+        $plan = Tithe::planModel()::withCount(['features'])
+            ->with(['features'])
+            ->firstOrFail($planId);
 
         Gate::forUser(request()->user('tithe'))->authorize('view', $plan);
 

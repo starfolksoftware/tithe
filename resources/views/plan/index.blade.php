@@ -9,7 +9,7 @@
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <a href="{{ route('plans.create') }}" class="block rounded-md bg-indigo-600 py-2 px-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                Add plan
+                Add Plan
             </a>
         </div>
     </div>
@@ -20,7 +20,6 @@
                     <thead>
                         <tr>
                             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
-                            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Currency</th>
                             <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Amount</th>
                             <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Interval</th>
                             <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
@@ -32,11 +31,10 @@
                         @foreach($plans as $plan)
                         <tr>
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{ $plan?->display_name ?? $plan->name }}</td>
-                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">Front-end Developer</td>
-                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">lindsay.walton@example.com</td>
-                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">Member</td>
+                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">{{ $plan->currency . $plan->amount }}</td>
+                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">{{ $plan->periodicity_type }}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">View<span class="sr-only">, Lindsay Walton</span></a>
+                                <a href="{{ route('plans.show', $plan->id) }}" class="text-indigo-600 hover:text-indigo-900">View<span class="sr-only">, {{ $plan?->display_name ?? $plan->name }}</span></a>
                             </td>
                         </tr>
                         @endforeach 
