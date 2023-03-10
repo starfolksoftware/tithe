@@ -95,7 +95,7 @@ class PlanController extends Controller
     {
         $plan = Tithe::planModel()::findOrFail($planId);
 
-        Gate::forUser(request()->user('tithe'))->authorize('edit', $plan);
+        Gate::forUser(request()->user('tithe'))->authorize('update', $plan);
 
         return view('tithe::plan.edit', [
             'user' => request()->user('tithe'),
@@ -116,7 +116,7 @@ class PlanController extends Controller
 
         $editor->update(request()->user('tithe'), $plan, request()->all());
 
-        return redirect()->route('plan.show', $plan->id);
+        return redirect()->route('plans.show', $plan->id);
     }
 
     /**

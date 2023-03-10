@@ -15,22 +15,26 @@ class UpdatePlan implements UpdatesPlans
      * @param mixed $user
      * @param mixed $plan
      * @param  array $input
+     * @return void
      */
     public function update($user, $plan, array $input): void
     {
         Gate::forUser($user)->authorize('update', $plan);
 
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255', 'unique:'.Tithe::planModel().',name'],
             'display_name' => ['string', 'max:255'],
-            'periodicity' => ['required', 'integer'],
-            'periodicity_type' => ['required', 'string', 'max:255',],
             'description' => ['string', 'max:255'],
+            'currency' => ['string', 'max:3'],
             'amount' => ['required', 'integer'],
-            'taxes' => ['array'],
-            'meta' => ['array'],
+            'grace_days' => ['required', 'integer'],
         ])->validateWithBag('updatePlan');
 
-        $plan->forceFill($input)->save();
+        $plan->forceFill(collect($input)->only([
+            'display_name',
+            'description',
+            'currency',
+            'amount',
+            'grace_days'
+        ])->toArray())->save();
     }
 }

@@ -29,6 +29,7 @@ class CreatePlan implements CreatesPlans
             'description' => ['string', 'max:255'],
             'currency' => ['string', 'max:3'],
             'amount' => ['required', 'integer'],
+            'grace_days' => ['required', 'integer'],
         ])->validateWithBag('createPlan');
 
         AddingPlan::dispatch($user);
