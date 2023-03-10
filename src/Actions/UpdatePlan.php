@@ -5,17 +5,14 @@ namespace Tithe\Actions;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Tithe\Contracts\UpdatesPlans;
-use Tithe\Tithe;
 
 class UpdatePlan implements UpdatesPlans
 {
     /**
      * Validate and update the given team's name.
      *
-     * @param mixed $user
-     * @param mixed $plan
-     * @param  array $input
-     * @return void
+     * @param  mixed  $user
+     * @param  mixed  $plan
      */
     public function update($user, $plan, array $input): void
     {
@@ -34,7 +31,7 @@ class UpdatePlan implements UpdatesPlans
             'description',
             'currency',
             'amount',
-            'grace_days'
+            'grace_days',
         ])->toArray())->save();
     }
 }

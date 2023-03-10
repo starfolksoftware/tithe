@@ -51,7 +51,7 @@ final class Tithe
 
     /**
      * The default middlewares.
-     * 
+     *
      * @var array
      */
     public static $middlewares = ['web'];
@@ -280,8 +280,7 @@ final class Tithe
 
     /**
      * Sets the default middlewares.
-     * 
-     * @param array $middlewares
+     *
      * @return static
      */
     public static function defaultMiddlewares(array $middlewares)
@@ -293,7 +292,7 @@ final class Tithe
 
     /**
      * Returns the default middlewares.
-     * 
+     *
      * @return array
      */
     public static function middlewares()
@@ -716,7 +715,6 @@ final class Tithe
     /**
      * Register a class / callback that should be used to create plans.
      *
-     * @param  string  $class
      * @return void
      */
     public static function createPlansUsing(string $class)
@@ -727,7 +725,6 @@ final class Tithe
     /**
      * Register a class / callback that should be used to update plans.
      *
-     * @param  string  $class
      * @return void
      */
     public static function updatePlansUsing(string $class)

@@ -5,7 +5,8 @@ namespace Tithe\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
-use Spatie\QueryBuilder\{AllowedFilter, QueryBuilder};
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 use Tithe\Contracts\CreatesPlans;
 use Tithe\Contracts\UpdatesPlans;
 use Tithe\Tithe;
@@ -15,18 +16,17 @@ class PlanController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     public function index(Request $request)
     {
         $plans = QueryBuilder::for(Tithe::planModel(), $request)
             ->allowedFilters([
-                'name', 
-                'display_name', 
-                'description', 
-                AllowedFilter::exact('interval', 'periodicity_type'), 
-                AllowedFilter::exact('currency')
+                'name',
+                'display_name',
+                'description',
+                AllowedFilter::exact('interval', 'periodicity_type'),
+                AllowedFilter::exact('currency'),
             ])
             ->allowedSorts('amount')
             ->paginate();
@@ -54,8 +54,6 @@ class PlanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Tithe\Contracts\CreatesPlans  $creator
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(CreatesPlans $creator, Request $request)
@@ -106,7 +104,6 @@ class PlanController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Tithe\Contracts\UpdatesPlans  $editor
      * @param  mixed  $planId
      * @return \Illuminate\Http\Response
      */
