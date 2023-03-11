@@ -719,7 +719,7 @@ final class Tithe
      */
     public static function createPlansUsing(string $class)
     {
-        return app()->singleton(CreatesPlans::class, $class);
+        app()->singleton(CreatesPlans::class, $class);
     }
 
     /**
@@ -729,6 +729,6 @@ final class Tithe
      */
     public static function updatePlansUsing(string $class)
     {
-        return app()->singleton(UpdatesPlans::class, $class);
+        app()->singleton(UpdatesPlans::class, $class);
     }
 }

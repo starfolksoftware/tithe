@@ -43,20 +43,22 @@ class PlanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @param  \Tithe\Contracts\CreatesPlans  $creator
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CreatesPlans $creator, Request $request)
     {
         $plan = $creator->create($request->user('tithe'), $request->all());
 
-        return redirect()->route('plans.show', $plan->id);
+        return redirect()->route('plans.show', $plan->getKey());
     }
 
     /**
      * Display the specified resource.
      *
      * @param  mixed  $planId
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show($planId)
     {
@@ -76,7 +78,7 @@ class PlanController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  mixed  $planId
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit($planId)
     {
@@ -94,7 +96,7 @@ class PlanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  mixed  $planId
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdatesPlans $editor, $planId)
     {
@@ -102,14 +104,14 @@ class PlanController extends Controller
 
         $editor->update(request()->user('tithe'), $plan, request()->all());
 
-        return redirect()->route('plans.show', $plan->id);
+        return redirect()->route('plans.show', $planId);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  mixed  $planId
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($planId)
     {
