@@ -2,6 +2,9 @@
 
 namespace Tithe;
 
+use Tithe\Contracts\CreatesPlans;
+use Tithe\Contracts\UpdatesPlans;
+
 final class Tithe
 {
     /**
@@ -707,5 +710,25 @@ final class Tithe
         $hash = md5(trim(\Illuminate\Support\Str::lower($email)));
 
         return "https://secure.gravatar.com/avatar/{$hash}?s={$size}&d={$default}&r={$rating}";
+    }
+
+    /**
+     * Register a class / callback that should be used to create plans.
+     *
+     * @return void
+     */
+    public static function createPlansUsing(string $class)
+    {
+        app()->singleton(CreatesPlans::class, $class);
+    }
+
+    /**
+     * Register a class / callback that should be used to update plans.
+     *
+     * @return void
+     */
+    public static function updatePlansUsing(string $class)
+    {
+        app()->singleton(UpdatesPlans::class, $class);
     }
 }

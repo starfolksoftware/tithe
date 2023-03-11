@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\FeatureConsumption;
-use App\Models\User;
+use App\Models\TitheUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class FeatureConsumptionPolicy
@@ -15,7 +15,7 @@ class FeatureConsumptionPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(TitheUser $user)
     {
         return true;
     }
@@ -25,7 +25,7 @@ class FeatureConsumptionPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, FeatureConsumption $FeatureConsumption)
+    public function view(TitheUser $user, FeatureConsumption $FeatureConsumption)
     {
         return true;
     }
@@ -35,7 +35,7 @@ class FeatureConsumptionPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(TitheUser $user)
     {
         return true;
     }
@@ -45,7 +45,7 @@ class FeatureConsumptionPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, FeatureConsumption $FeatureConsumption)
+    public function update(TitheUser $user, FeatureConsumption $FeatureConsumption)
     {
         return true;
     }
@@ -55,7 +55,7 @@ class FeatureConsumptionPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, FeatureConsumption $FeatureConsumption)
+    public function delete(TitheUser $user, FeatureConsumption $FeatureConsumption)
     {
         return true;
     }
@@ -65,7 +65,7 @@ class FeatureConsumptionPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, FeatureConsumption $FeatureConsumption)
+    public function restore(TitheUser $user, FeatureConsumption $FeatureConsumption)
     {
         return true;
     }
@@ -75,7 +75,7 @@ class FeatureConsumptionPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, FeatureConsumption $FeatureConsumption)
+    public function forceDelete(TitheUser $user, FeatureConsumption $FeatureConsumption)
     {
         return true;
     }

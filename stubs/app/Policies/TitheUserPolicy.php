@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\TitheUser;
-use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TitheUserPolicy
@@ -15,7 +14,7 @@ class TitheUserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(TitheUser $user)
     {
         return true;
     }
@@ -25,7 +24,7 @@ class TitheUserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, TitheUser $titheUser)
+    public function view(TitheUser $user, TitheUser $titheUser)
     {
         return true;
     }
@@ -35,7 +34,7 @@ class TitheUserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(TitheUser $user)
     {
         return true;
     }
@@ -45,7 +44,7 @@ class TitheUserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, TitheUser $titheUser)
+    public function update(TitheUser $user, TitheUser $titheUser)
     {
         return true;
     }
@@ -55,7 +54,7 @@ class TitheUserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, TitheUser $titheUser)
+    public function delete(TitheUser $user, TitheUser $titheUser)
     {
         return true;
     }
@@ -65,7 +64,7 @@ class TitheUserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, TitheUser $titheUser)
+    public function restore(TitheUser $user, TitheUser $titheUser)
     {
         return true;
     }
@@ -75,7 +74,7 @@ class TitheUserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, TitheUser $titheUser)
+    public function forceDelete(TitheUser $user, TitheUser $titheUser)
     {
         return true;
     }

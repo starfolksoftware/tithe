@@ -3,6 +3,7 @@
 namespace Tithe;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tithe\Enums\TitheUserRoleEnum;
 
@@ -14,6 +15,7 @@ use Tithe\Enums\TitheUserRoleEnum;
 abstract class TitheUser extends Authenticatable
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

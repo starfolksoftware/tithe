@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\FeatureTicket;
-use App\Models\User;
+use App\Models\TitheUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class FeatureTicketPolicy
@@ -15,7 +15,7 @@ class FeatureTicketPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(TitheUser $user)
     {
         return true;
     }
@@ -25,7 +25,7 @@ class FeatureTicketPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, FeatureTicket $FeatureTicket)
+    public function view(TitheUser $user, FeatureTicket $FeatureTicket)
     {
         return true;
     }
@@ -35,7 +35,7 @@ class FeatureTicketPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(TitheUser $user)
     {
         return true;
     }
@@ -45,7 +45,7 @@ class FeatureTicketPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, FeatureTicket $FeatureTicket)
+    public function update(TitheUser $user, FeatureTicket $FeatureTicket)
     {
         return true;
     }
@@ -55,7 +55,7 @@ class FeatureTicketPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, FeatureTicket $FeatureTicket)
+    public function delete(TitheUser $user, FeatureTicket $FeatureTicket)
     {
         return true;
     }
@@ -65,7 +65,7 @@ class FeatureTicketPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, FeatureTicket $FeatureTicket)
+    public function restore(TitheUser $user, FeatureTicket $FeatureTicket)
     {
         return true;
     }
@@ -75,7 +75,7 @@ class FeatureTicketPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, FeatureTicket $FeatureTicket)
+    public function forceDelete(TitheUser $user, FeatureTicket $FeatureTicket)
     {
         return true;
     }

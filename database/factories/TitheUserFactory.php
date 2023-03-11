@@ -22,7 +22,7 @@ class TitheUserFactory extends Factory
             'username' => \Illuminate\Support\Str::slug($this->faker->userName),
             'password' => bcrypt($this->faker->password),
             'avatar' => md5(trim(\Illuminate\Support\Str::lower($this->faker->email))),
-            'role' => $this->faker->numberBetween(1, 2),
+            'role' => 'admin',
         ];
     }
 }
