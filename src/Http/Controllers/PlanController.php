@@ -43,8 +43,6 @@ class PlanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Tithe\Contracts\CreatesPlans  $creator
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CreatesPlans $creator, Request $request)
