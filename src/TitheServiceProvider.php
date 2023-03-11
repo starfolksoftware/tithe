@@ -2,6 +2,7 @@
 
 namespace Tithe;
 
+use Illuminate\Support\Facades\Gate;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Tithe\Actions\CreatePlan;
@@ -22,6 +23,12 @@ class TitheServiceProvider extends PackageServiceProvider
 
         Tithe::createPlansUsing(CreatePlan::class);
         Tithe::updatePlansUsing(UpdatePlan::class);
+
+        Gate::before(function ($user, string $ability) {
+            if ($user->role === 'admin') {
+                return true;
+            }
+        });
     }
 
     public function configurePackage(Package $package): void

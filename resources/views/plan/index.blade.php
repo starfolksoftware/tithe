@@ -37,9 +37,11 @@
                                 <a href="{{ route('plans.show', $plan->id) }}" class="text-indigo-600 hover:text-indigo-900">View<span class="sr-only">, {{ $plan?->display_name ?? $plan->name }}</span></a>
                             </td>
                         </tr>
-                        @endforeach 
+                        @endforeach
                     </tbody>
                 </table>
+                
+                {{ $plans->links('tithe::paginator') }}
             </div>
         </div>
     </div>

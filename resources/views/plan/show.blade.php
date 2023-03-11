@@ -34,9 +34,9 @@
                         <a href="{{ route('plans.edit', $plan->id) }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
                             Edit
                         </a>
-                        <a x-data @click="$store.deletePlan.toggle()" href="javascript:;" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+                        <!-- <a x-data @click="$store.deletePlan.toggle()" href="javascript:;" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
                             Delete
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>
