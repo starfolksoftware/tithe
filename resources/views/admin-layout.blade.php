@@ -83,6 +83,13 @@
                                 </svg>
                                 Plans
                             </a>
+                            <a href="{{ route('features.index') }}" class="{{ request()->route()->named('features.*') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }} group flex items-center rounded-md py-2 px-2 text-base font-medium">
+                                <svg class="{{ request()->route()->named('features.*') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-4 h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
+                                </svg>
+                                Features
+                            </a>
                         </nav>
                     </div>
                 </div>
@@ -104,20 +111,25 @@
                 </div>
                 <div class="mt-5 flex flex-grow flex-col">
                     <nav class="flex-1 space-y-1 px-2 pb-4">
-                        <a href="{{ route('tithe.home') }}" 
-                            class="{{ request()->route()->named('tithe.home') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }} group flex items-center rounded-md py-2 px-2 text-sm font-medium">
+                        <a href="{{ route('tithe.home') }}" class="{{ request()->route()->named('tithe.home') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }} group flex items-center rounded-md py-2 px-2 text-sm font-medium">
                             <svg class="{{ request()->route()->named('tithe.home') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-3 h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                             </svg>
                             Dashboard
                         </a>
-                        <a href="{{ route('plans.index') }}" 
-                            class="{{ request()->route()->named('plans.*') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }} group flex items-center rounded-md py-2 px-2 text-sm font-medium">
+                        <a href="{{ route('plans.index') }}" class="{{ request()->route()->named('plans.*') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }} group flex items-center rounded-md py-2 px-2 text-sm font-medium">
                             <svg class="{{ request()->route()->named('plans.*') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-4 h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" />
                             </svg>
                             Plans
+                        </a>
+                        <a href="{{ route('features.index') }}" class="{{ request()->route()->named('features.*') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }} group flex items-center rounded-md py-2 px-2 text-sm font-medium">
+                            <svg class="{{ request()->route()->named('features.*') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-4 h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
+                            </svg>
+                            Features
                         </a>
                     </nav>
                 </div>

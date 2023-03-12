@@ -26,4 +26,6 @@ Route::middleware(array_merge(Tithe::middlewares(), [Authenticate::class]))->pre
     Route::get('/', Controllers\HomeController::class)->name('tithe.home');
 
     Route::resource('plans', Controllers\PlanController::class);
+
+    Route::resource('features', Controllers\FeatureController::class);
 });

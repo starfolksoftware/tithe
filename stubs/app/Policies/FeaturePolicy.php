@@ -25,7 +25,7 @@ class FeaturePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(TitheUser $user, Feature $Feature)
+    public function view(TitheUser $user, Feature $feature)
     {
         return true;
     }
@@ -45,9 +45,9 @@ class FeaturePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(TitheUser $user, Feature $Feature)
+    public function update(TitheUser $user, Feature $feature)
     {
-        return true;
+        return $feature->plans()->count() === 0;
     }
 
     /**
@@ -55,7 +55,7 @@ class FeaturePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(TitheUser $user, Feature $Feature)
+    public function delete(TitheUser $user, Feature $feature)
     {
         return true;
     }
@@ -65,7 +65,7 @@ class FeaturePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(TitheUser $user, Feature $Feature)
+    public function restore(TitheUser $user, Feature $feature)
     {
         return true;
     }
@@ -75,7 +75,7 @@ class FeaturePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(TitheUser $user, Feature $Feature)
+    public function forceDelete(TitheUser $user, Feature $feature)
     {
         return true;
     }

@@ -51,7 +51,7 @@ return new class extends Migration
 
         Schema::create(Tithe::$featureTableName, function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->boolean('consumable');
             $table->boolean('quota')->default(false);
             $table->boolean('postpaid')->default(false);

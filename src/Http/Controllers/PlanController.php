@@ -18,7 +18,7 @@ class PlanController extends Controller
      */
     public function index(Request $request)
     {
-        $plans = Tithe::planmodel()::paginate();
+        $plans = Tithe::planModel()::paginate();
 
         return view('tithe::plan.index', [
             'user' => $request->user('tithe'),

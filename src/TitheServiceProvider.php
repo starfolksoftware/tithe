@@ -5,7 +5,9 @@ namespace Tithe;
 use Illuminate\Support\Facades\Gate;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Tithe\Actions\CreateFeature;
 use Tithe\Actions\CreatePlan;
+use Tithe\Actions\UpdateFeature;
 use Tithe\Actions\UpdatePlan;
 use Tithe\Commands\CreateUserCommand;
 use Tithe\Commands\InstallCommand;
@@ -23,6 +25,8 @@ class TitheServiceProvider extends PackageServiceProvider
 
         Tithe::createPlansUsing(CreatePlan::class);
         Tithe::updatePlansUsing(UpdatePlan::class);
+        Tithe::createFeaturesUsing(CreateFeature::class);
+        Tithe::updateFeaturesUsing(UpdateFeature::class);
 
         Gate::before(function ($user, string $ability) {
             if ($user->role === 'admin') {
