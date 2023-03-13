@@ -62,13 +62,21 @@ class PlanController extends Controller
     {
         $plan = Tithe::planModel()::withCount(['features'])
             ->with(['features'])
-            ->firstOrFail($planId);
+            ->findOrFail($planId);
 
         Gate::forUser(request()->user('tithe'))->authorize('view', $plan);
+
+        $planFeatureIds = $plan->features()->pluck('features.id')->toArray();
+        $features = Tithe::featureModel()::get()->reject(fn ($feature) => in_array($feature->id, $planFeatureIds));
 
         return view('tithe::plan.show', [
             'user' => request()->user('tithe'),
             'plan' => $plan,
+            'features' => $features,
+            'permissions' => [
+                'canUpdate' => Gate::check('update', $plan),
+                'canDelete' => Gate::check('delete', $plan)
+            ]
         ]);
     }
 
@@ -119,6 +127,6 @@ class PlanController extends Controller
 
         $plan->delete();
 
-        return redirect()->route('plan.index');
+        return redirect()->route('plans.index');
     }
 }

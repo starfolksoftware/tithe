@@ -60,15 +60,19 @@ class FeatureController extends Controller
      */
     public function show($featureId)
     {
-        $feature = Tithe::featureModel()::withCount(['features'])
-            ->with(['features'])
-            ->firstOrFail($featureId);
+        $feature = Tithe::featureModel()::withCount(['plans'])
+            ->with(['plans'])
+            ->findOrFail($featureId);
 
         Gate::forUser(request()->user('tithe'))->authorize('view', $feature);
 
         return view('tithe::feature.show', [
             'user' => request()->user('tithe'),
             'feature' => $feature,
+            'permissions' => [
+                'canUpdate' => Gate::check('update', $feature),
+                'canDelete' => Gate::check('delete', $feature)
+            ]
         ]);
     }
 
@@ -119,6 +123,6 @@ class FeatureController extends Controller
 
         $feature->delete();
 
-        return redirect()->route('feature.index');
+        return redirect()->route('features.index');
     }
 }

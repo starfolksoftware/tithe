@@ -27,5 +27,7 @@ Route::middleware(array_merge(Tithe::middlewares(), [Authenticate::class]))->pre
 
     Route::resource('plans', Controllers\PlanController::class);
 
+    Route::post('/plans/{planId}/attach-feature', Controllers\FeaturePlanAttachmentController::class)->name('tithe.plans.attach-feature');
+    Route::post('/plans/{planId}/detach-feature', Controllers\FeaturePlanDetachmentController::class)->name('tithe.plans.detach-feature');
     Route::resource('features', Controllers\FeatureController::class);
 });

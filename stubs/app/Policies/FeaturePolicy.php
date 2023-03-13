@@ -57,7 +57,7 @@ class FeaturePolicy
      */
     public function delete(TitheUser $user, Feature $feature)
     {
-        return true;
+        return $feature->plans()->count() === 0;
     }
 
     /**

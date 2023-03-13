@@ -33,9 +33,21 @@
                         @foreach($features as $feature)
                         <tr>
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{ $feature->name }}</td>
-                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">{{ $feature->consumable }}</td>
-                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">{{ $feature->quota }}</td>
-                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">{{ $feature->postpaid }}</td>
+                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
+                                <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $feature->consumable ? 'bg-indigo-100 text-indigo-800' : 'bg-indigo-100 text-indigo-800' }}">
+                                    {{ $feature->consumable ? 'Yes' : 'No' }}
+                                </span>
+                            </td>
+                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
+                                <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $feature->consumable ? 'bg-indigo-100 text-indigo-800' : 'bg-indigo-100 text-indigo-800' }}">
+                                    {{ $feature->quota ? 'Yes' : 'No' }}
+                                </span>
+                            </td>
+                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
+                                <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $feature->consumable ? 'bg-indigo-100 text-indigo-800' : 'bg-indigo-100 text-indigo-800' }}">
+                                    {{ $feature->postpaid ? 'Yes' : 'No' }}
+                                </span>
+                            </td>
                             <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">{{ $feature->periodicity_type }}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                 <a href="{{ route('features.show', $feature->id) }}" class="text-indigo-600 hover:text-indigo-900">View<span class="sr-only">, {{ $feature->name }}</span></a>
@@ -44,7 +56,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                
+
                 {{ $features->links('tithe::paginator') }}
             </div>
         </div>

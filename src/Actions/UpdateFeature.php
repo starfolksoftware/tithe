@@ -20,7 +20,6 @@ class UpdateFeature implements UpdatesFeatures
         Gate::forUser($user)->authorize('update', $feature);
 
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255', 'unique:'.Tithe::featureModel().',name'],
             'consumable' => ['required', 'boolean'],
             'quota' => ['boolean'],
             'postpaid' => ['boolean'],
@@ -29,7 +28,6 @@ class UpdateFeature implements UpdatesFeatures
         ])->validateWithBag('updateFeature');
 
         $feature->forceFill(collect($input)->only([
-            'name',
             'consumable',
             'quota',
             'postpaid',

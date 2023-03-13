@@ -91,3 +91,14 @@ test('plan name can not be updated', function () {
     expect($plan->fresh())
         ->name->toBe($plan->name);
 });
+
+test('plan can be deleted', function () {
+    $this->actingAs($user = TitheUser::factory()->create(), 'tithe');
+
+    $plan = Tithe::planModel()::factory()->create();
+
+    $response = $this->delete(route('plans.destroy', $plan->id));
+
+    $response->assertRedirectToRoute('plans.index');
+    expect(Tithe::planModel()::count())->toBe(0);
+});

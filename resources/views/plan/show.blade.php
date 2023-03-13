@@ -7,10 +7,11 @@
             <h3 class="text-base font-semibold leading-6 text-gray-900">{{ $plan->display_name ?? $plan->name }} Plan Information</h3>
             <p class="mt-1 max-w-2xl text-sm text-gray-500">Plan details and information.</p>
         </div>
+        @if ($permissions['canUpdate'] || $permissions['canDelete'])
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <div x-data="{ open: false }" class="relative inline-block text-left">
                 <div>
-                    <button @click="open = ! open" type="button" class="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                    <button @click="open = ! open" type="button" class="flex items-center rounded-full bg-white text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" id="menu-button" aria-expanded="true" aria-haspopup="true">
                         <span class="sr-only">Open options</span>
                         <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" />
@@ -31,16 +32,21 @@
                 <div x-show="open" @click.outside="open = false" class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                     <div class="py-1" role="none">
                         <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                        @if ($permissions['canUpdate'])
                         <a href="{{ route('plans.edit', $plan->id) }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
                             Edit
                         </a>
-                        <!-- <a x-data @click="$store.deletePlan.toggle()" href="javascript:;" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+                        @endif
+                        @if ($permissions['canDelete'])
+                        <a x-data @click="$store.deletePlan.toggle()" href="javascript:;" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
                             Delete
-                        </a> -->
+                        </a>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
+        @endif
     </div>
     <div class="mt-5 border-t border-gray-200">
         <dl class="sm:divide-y sm:divide-gray-200">
@@ -109,45 +115,90 @@
     </div>
 
     <div class="mt-6 mb-12">
+        <div class="bg-white shadow sm:rounded-lg mb-12">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-base font-semibold leading-6 text-gray-900">Attach a feature</h3>
+                <div class="mt-2 max-w-xl text-sm text-gray-500">
+                    <p>Attach a feature to this plan.</p>
+                </div>
+                <form method="POST" action="{{ route('tithe.plans.attach-feature', $plan->id) }}" class="mt-5 sm:flex sm:items-center">
+                    @csrf
+                    <div class="w-full sm:max-w-xs">
+                        <label for="feature_id" class="sr-only">Feature</label>
+                        <select id="feature_id" name="feature_id" class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <option value="">--Choose feature--</option>
+                            @foreach($features as $feature)
+                            <option value="{{ $feature->id }}" {{ old('feature_id') == $feature->id ? 'selected' : '' }}>{{ $feature->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('feature_id', 'attachFeature')
+                        <span class="text-sm text-red-600" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="w-full mt-3 sm:max-w-xs sm:mt-0 sm:ml-3 sm:w-auto">
+                        <label for="charges" class="sr-only"">Charges</label>
+                        <div class="flex rounded-md shadow-sm">
+                            <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">Charges</span>
+                            <input type="number" name="charges" id="charges" class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="0">
+                        </div>
+                        @error('charges', 'attachFeature')
+                        <span class="text-sm text-red-600" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <button type="submit" class="mt-3 inline-flex w-full items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:mt-0 sm:ml-3 sm:w-auto">Attach</button>
+                </form>
+            </div>
+        </div>
         <div>
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">
                     <h1 class="text-base font-semibold leading-6 text-gray-900">Features</h1>
                     <p class="mt-2 text-sm text-gray-700">A list of all the features attached to the plan.</p>
                 </div>
-                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                    <a href="#" class="block rounded-md bg-indigo-600 py-2 px-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Add Feature
-                    </a>
-                </div>
+                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none"></div>
             </div>
             <div class="mt-8">
+                @if (count($plan->features) > 0)
                 <table class="min-w-full divide-y divide-gray-300">
                     <thead>
                         <tr>
                             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Consummable</th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Quota</th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Postpaid</th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Interval</th>
                             <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                 <span class="sr-only">View</span>
                             </th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 bg-white">
+                        @foreach($plan->features as $feature)
                         <tr>
-                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Lindsay Walton</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Member</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Member</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Member</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Member</td>
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                                <span class="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800">
+                                    {{ $feature->name }}
+                                </span>
+                            </td>
                             <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">View<span class="sr-only">, Lindsay Walton</span></a>
+                                <a href="{{ route('features.show', $feature->id) }}" class="text-indigo-600 hover:text-indigo-900">View<span class="sr-only">, {{ $feature->name }}</span></a>
+                                <form method="POST" action="{{ route('tithe.plans.detach-feature', $plan->id) }}">
+                                    @csrf
+                                    <input type="hidden" name="feature_id" value="{{ $feature->id }}">
+                                    <button type="submit" class="text-indigo-600 hover:text-indigo-900">Detach<span class="sr-only">, {{ $feature->name }}</span></button>
+                                </form>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                @else
+                <div class="mx-auto max-w-lg">
+                    <div class="text-center">
+                        <p class="mt-1 text-sm text-gray-500">You haven’t attached any features to this plan.</p>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -155,7 +206,7 @@
 @endsection
 
 @push('modals')
-<div x-data x-show="$store.deletePlan.confirmingDeletion" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div x-data x-cloak x-show="$store.deletePlan.confirmingDeletion" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <!--
     Background backdrop, show/hide based on modal state.
 
@@ -188,14 +239,21 @@
                         </svg>
                     </div>
                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Deactivate account</h3>
+                        <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Delete Plan</h3>
                         <div class="mt-2">
-                            <p class="text-sm text-gray-500">Are you sure you want to deactivate your account? All of your data will be permanently removed from our servers forever. This action cannot be undone.</p>
+                            <p class="text-sm text-gray-500">
+                                Are you sure you want to delete <span class="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800">{{ $plan->display_name ?? $plan->name }}</span> plan?
+                                This action cannot be undone.
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="mt-5 sm:mt-4 sm:ml-10 sm:flex sm:pl-4">
-                    <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto">Deactivate</button>
+                    <form method="POST" action="{{ route('plans.destroy', $plan->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto">Delete</button>
+                    </form>
                     <button x-data @click="$store.deletePlan.toggle()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:ml-3 sm:mt-0 sm:w-auto">Cancel</button>
                 </div>
             </div>
@@ -209,9 +267,9 @@
     document.addEventListener('alpine:init', () => {
         Alpine.store('deletePlan', {
             confirmingDeletion: false,
- 
+
             toggle() {
-                this.confirmingDeletion = ! this.confirmingDeletion
+                this.confirmingDeletion = !this.confirmingDeletion
             }
         })
     })

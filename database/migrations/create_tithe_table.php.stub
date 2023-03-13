@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('currency')->default('NGN');
             $table->json('meta')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
 
         Schema::create(Tithe::$subscriptionTableName, function (Blueprint $table) {
