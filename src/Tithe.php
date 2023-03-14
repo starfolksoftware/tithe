@@ -2,7 +2,11 @@
 
 namespace Tithe;
 
+use Tithe\Contracts\AttachesFeaturesToPlans;
+use Tithe\Contracts\CreatesFeatures;
 use Tithe\Contracts\CreatesPlans;
+use Tithe\Contracts\DetachesFeaturesFromPlans;
+use Tithe\Contracts\UpdatesFeatures;
 use Tithe\Contracts\UpdatesPlans;
 
 final class Tithe
@@ -730,5 +734,45 @@ final class Tithe
     public static function updatePlansUsing(string $class)
     {
         app()->singleton(UpdatesPlans::class, $class);
+    }
+
+    /**
+     * Register a class / callback that should be used to create features.
+     *
+     * @return void
+     */
+    public static function createFeaturesUsing(string $class)
+    {
+        app()->singleton(CreatesFeatures::class, $class);
+    }
+
+    /**
+     * Register a class / callback that should be used to update features.
+     *
+     * @return void
+     */
+    public static function updateFeaturesUsing(string $class)
+    {
+        app()->singleton(UpdatesFeatures::class, $class);
+    }
+
+    /**
+     * Register a class / callback that should be used to attach features to plans.
+     *
+     * @return void
+     */
+    public static function attachFeaturesToPlansUsing(string $class)
+    {
+        app()->singleton(AttachesFeaturesToPlans::class, $class);
+    }
+
+    /**
+     * Register a class / callback that should be used to detach features from plans.
+     *
+     * @return void
+     */
+    public static function detachFeaturesFromPlansUsing(string $class)
+    {
+        app()->singleton(DetachesFeaturesFromPlans::class, $class);
     }
 }

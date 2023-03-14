@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Policies;
+namespace Tithe\Policies;
 
-use App\Models\Feature;
-use App\Models\TitheUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class FeaturePolicy
@@ -15,7 +13,7 @@ class FeaturePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(TitheUser $user)
+    public function viewAny($user)
     {
         return true;
     }
@@ -25,7 +23,7 @@ class FeaturePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(TitheUser $user, Feature $feature)
+    public function view($user, $feature)
     {
         return true;
     }
@@ -35,7 +33,7 @@ class FeaturePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(TitheUser $user)
+    public function create($user)
     {
         return true;
     }
@@ -45,7 +43,7 @@ class FeaturePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(TitheUser $user, Feature $feature)
+    public function update($user, $feature)
     {
         return $feature->plans()->count() === 0;
     }
@@ -55,7 +53,7 @@ class FeaturePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(TitheUser $user, Feature $feature)
+    public function delete($user, $feature)
     {
         return $feature->plans()->count() === 0;
     }
@@ -65,7 +63,7 @@ class FeaturePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(TitheUser $user, Feature $feature)
+    public function restore($user, $feature)
     {
         return true;
     }
@@ -75,7 +73,7 @@ class FeaturePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(TitheUser $user, Feature $feature)
+    public function forceDelete($user, $feature)
     {
         return true;
     }

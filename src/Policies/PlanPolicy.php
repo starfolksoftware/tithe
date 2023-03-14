@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Policies;
+namespace Tithe\Policies;
 
-use App\Models\Plan;
-use App\Models\TitheUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PlanPolicy
@@ -15,7 +13,7 @@ class PlanPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(TitheUser $user)
+    public function viewAny($user)
     {
         return true;
     }
@@ -25,7 +23,7 @@ class PlanPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(TitheUser $user, Plan $plan)
+    public function view($user, $plan)
     {
         return true;
     }
@@ -35,7 +33,7 @@ class PlanPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(TitheUser $user)
+    public function create($user)
     {
         return true;
     }
@@ -45,7 +43,7 @@ class PlanPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(TitheUser $user, Plan $plan)
+    public function update($user, $plan)
     {
         return $plan->features()->count() === 0 &&
             $plan->subscriptions()->count() === 0;
@@ -56,7 +54,7 @@ class PlanPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(TitheUser $user, Plan $plan)
+    public function delete($user, $plan)
     {
         return $plan->features()->count() === 0 &&
             $plan->subscriptions()->count() === 0;
@@ -67,7 +65,7 @@ class PlanPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(TitheUser $user, Plan $plan)
+    public function restore($user, $plan)
     {
         return true;
     }
@@ -77,7 +75,7 @@ class PlanPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(TitheUser $user, Plan $plan)
+    public function forceDelete($user, $plan)
     {
         return true;
     }
@@ -87,7 +85,7 @@ class PlanPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function attachFeature(TitheUser $user, Plan $plan)
+    public function attachFeature($user, $plan)
     {
         return true;
     }
@@ -97,7 +95,7 @@ class PlanPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function detachFeature(TitheUser $user, Plan $plan)
+    public function detachFeature($user, $plan)
     {
         return true;
     }

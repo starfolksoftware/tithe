@@ -31,7 +31,9 @@ abstract class Feature extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'quota' => 'bool',
+        'consumable' => 'boolean',
+        'quota' => 'boolean',
+        'postpaid' => 'boolean',
         'meta' => 'array',
     ];
 
