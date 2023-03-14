@@ -23,7 +23,7 @@ class AttachFeatureToPlan implements AttachesFeaturesToPlans
 
         Validator::make($input, [
             'feature_id' => ['required', 'integer', 'exists:'.Tithe::featureModel().',id'],
-            'charges' => ['required', 'integer'],
+            'charges' => ['nullable', 'integer'],
         ])->validateWithBag('attachFeature');
 
         $feature = Tithe::featureModel()::findOrFail($input['feature_id']);

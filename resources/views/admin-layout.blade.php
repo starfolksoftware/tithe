@@ -116,7 +116,7 @@
                 <div class="mt-5 flex flex-grow flex-col">
                     <nav class="flex-1 space-y-1 px-2 pb-4">
                         <a href="{{ route('tithe.home') }}" class="{{ request()->route()->named('tithe.home') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }} group flex items-center rounded-md py-2 px-2 text-sm font-medium">
-                            <svg class="{{ request()->route()->named('tithe.home') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-3 h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <svg class="{{ request()->route()->named('tithe.home') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-4 h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                             </svg>
                             Dashboard
@@ -191,7 +191,7 @@
                                         From: "transform opacity-100 scale-100"
                                         To: "transform opacity-0 scale-95"
                                     -->
-                                    <div x-show="open" @click.outside="open = false" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                                    <div x-cloak x-show="open" @click.outside="open = false" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                                         <!-- Active: "bg-gray-100", Not Active: "" -->
                                         <a href="{{ route('tithe.logout') }}" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
                                     </div>

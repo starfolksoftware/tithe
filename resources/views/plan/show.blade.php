@@ -29,7 +29,7 @@
                     From: "transform opacity-100 scale-100"
                     To: "transform opacity-0 scale-95"
                 -->
-                <div x-show="open" @click.outside="open = false" class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                <div x-cloak x-show="open" @click.outside="open = false" class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                     <div class="py-1" role="none">
                         <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                         @if ($permissions['canUpdate'])
@@ -141,7 +141,7 @@
                         <label for="charges" class="sr-only"">Charges</label>
                         <div class="flex rounded-md shadow-sm">
                             <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">Charges</span>
-                            <input type="number" name="charges" id="charges" class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="0">
+                            <input type="number" step="0.01" name="charges" id="charges" class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="0.01">
                         </div>
                         @error('charges', 'attachFeature')
                         <span class="text-sm text-red-600" role="alert">
@@ -167,6 +167,7 @@
                     <thead>
                         <tr>
                             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
+                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Charges</th>
                             <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                 <span class="sr-only">View</span>
                             </th>
@@ -180,13 +181,10 @@
                                     {{ $feature->name }}
                                 </span>
                             </td>
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{ !! $feature->pivot?->charges ? $feature->pivot->charges . ' / ' . $feature->periodicity_type : '' }}</td>
                             <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                 <a href="{{ route('features.show', $feature->id) }}" class="text-indigo-600 hover:text-indigo-900">View<span class="sr-only">, {{ $feature->name }}</span></a>
-                                <form method="POST" action="{{ route('tithe.plans.detach-feature', $plan->id) }}">
-                                    @csrf
-                                    <input type="hidden" name="feature_id" value="{{ $feature->id }}">
-                                    <button type="submit" class="text-indigo-600 hover:text-indigo-900">Detach<span class="sr-only">, {{ $feature->name }}</span></button>
-                                </form>
+                                <button x-data @click="$store.planFeature.confirmDetachment({{ $feature->id }})" type="button" class="text-indigo-600 hover:text-indigo-900">Detach<span class="sr-only">, {{ $feature->name }}</span></button>
                             </td>
                         </tr>
                         @endforeach
@@ -207,30 +205,10 @@
 
 @push('modals')
 <div x-data x-cloak x-show="$store.deletePlan.confirmingDeletion" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <!--
-    Background backdrop, show/hide based on modal state.
-
-    Entering: "ease-out duration-300"
-      From: "opacity-0"
-      To: "opacity-100"
-    Leaving: "ease-in duration-200"
-      From: "opacity-100"
-      To: "opacity-0"
-  -->
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
     <div class="fixed inset-0 z-10 overflow-y-auto">
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-            <!--
-                Modal panel, show/hide based on modal state.
-
-                Entering: "ease-out duration-300"
-                From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                To: "opacity-100 translate-y-0 sm:scale-100"
-                Leaving: "ease-in duration-200"
-                From: "opacity-100 translate-y-0 sm:scale-100"
-                To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            -->
             <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 <div class="sm:flex sm:items-start">
                     <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
@@ -260,6 +238,39 @@
         </div>
     </div>
 </div>
+<div x-data x-cloak x-show="$store.planFeature.confirmingDetachment" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                <div class="sm:flex sm:items-start">
+                    <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Detach Feature</h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500">
+                                Are you sure you want to detach feature?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 sm:mt-4 sm:ml-10 sm:flex sm:pl-4">
+                    <form method="POST" action="{{ route('tithe.plans.detach-feature', $plan->id) }}">
+                        @csrf
+                        <input type="hidden" name="feature_id" x-model="$store.planFeature.detachingFeature">
+                        <button type="submit" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto">Detach</button>
+                    </form>
+                    <button x-data @click="$store.planFeature.cancelDetachmentConfirmation()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:ml-3 sm:mt-0 sm:w-auto">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endpush
 
 @push('scripts')
@@ -269,9 +280,28 @@
             confirmingDeletion: false,
 
             toggle() {
-                this.confirmingDeletion = !this.confirmingDeletion
+                this.confirmingDeletion = ! this.confirmingDeletion
             }
-        })
+        });
+
+        Alpine.store('planFeature', {
+            confirmingDetachment: false,
+            detachingFeature: null,
+
+            toggle() {
+                this.confirmingDetachment = ! this.confirmingDetachment
+            },
+
+            confirmDetachment (feature) {
+                this.confirmingDetachment = true;
+                this.detachingFeature = feature;
+            },
+
+            cancelDetachmentConfirmation () {
+                this.confirmingDetachment = false;
+                this.detachingFeature = null;
+            }
+        });
     })
 </script>
 @endpush
