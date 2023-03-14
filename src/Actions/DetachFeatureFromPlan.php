@@ -14,8 +14,6 @@ class DetachFeatureFromPlan implements DetachesFeaturesFromPlans
      *
      * @param  mixed  $user
      * @param  mixed  $plan
-     * @param  array $input
-     * @return void
      */
     public function detach($user, $plan, array $input): void
     {

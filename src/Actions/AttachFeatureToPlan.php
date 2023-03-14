@@ -14,8 +14,6 @@ class AttachFeatureToPlan implements AttachesFeaturesToPlans
      *
      * @param  mixed  $user
      * @param  mixed  $plan
-     * @param  array $input
-     * @return void
      */
     public function attach($user, $plan, array $input): void
     {

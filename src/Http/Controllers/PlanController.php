@@ -75,8 +75,8 @@ class PlanController extends Controller
             'features' => $features,
             'permissions' => [
                 'canUpdate' => Gate::check('update', $plan),
-                'canDelete' => Gate::check('delete', $plan)
-            ]
+                'canDelete' => Gate::check('delete', $plan),
+            ],
         ]);
     }
 

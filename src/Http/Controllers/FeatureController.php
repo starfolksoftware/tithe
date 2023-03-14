@@ -71,8 +71,8 @@ class FeatureController extends Controller
             'feature' => $feature,
             'permissions' => [
                 'canUpdate' => Gate::check('update', $feature),
-                'canDelete' => Gate::check('delete', $feature)
-            ]
+                'canDelete' => Gate::check('delete', $feature),
+            ],
         ]);
     }
 

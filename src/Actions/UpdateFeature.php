@@ -5,7 +5,6 @@ namespace Tithe\Actions;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Tithe\Contracts\UpdatesFeatures;
-use Tithe\Tithe;
 
 class UpdateFeature implements UpdatesFeatures
 {
@@ -32,7 +31,7 @@ class UpdateFeature implements UpdatesFeatures
             'quota',
             'postpaid',
             'periodicity',
-            'periodicity_type'
+            'periodicity_type',
         ])->toArray())->save();
     }
 }
