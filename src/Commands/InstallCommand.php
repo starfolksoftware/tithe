@@ -3,6 +3,7 @@
 namespace Tithe\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 
 class InstallCommand extends Command
@@ -13,9 +14,21 @@ class InstallCommand extends Command
 
     public function handle(): int
     {
+        // Directories...
+        (new Filesystem)->ensureDirectoryExists(app_path('Actions/Tithe'));
+        (new Filesystem)->ensureDirectoryExists(public_path('vendor/tithe'));
+
         // Publish...
         $this->callSilent('vendor:publish', ['--tag' => 'tithe-', '--force' => true]);
         $this->callSilent('vendor:publish', ['--tag' => 'tithe-migrations', '--force' => true]);
+
+        // Actions...
+        copy(__DIR__.'/../../stubs/app/Actions/AttachFeatureToPlan.php', app_path('Actions/Tithe/AttachFeatureToPlan.php'));
+        copy(__DIR__.'/../../stubs/app/Actions/CreateFeature.php', app_path('Actions/Tithe/CreateFeature.php'));
+        copy(__DIR__.'/../../stubs/app/Actions/CreatePlan.php', app_path('Actions/Tithe/CreatePlan.php'));
+        copy(__DIR__.'/../../stubs/app/Actions/DetachFeatureFromPlan.php', app_path('Actions/Tithe/DetachFeatureFromPlan.php'));
+        copy(__DIR__.'/../../stubs/app/Actions/UpdateFeature.php', app_path('Actions/Tithe/UpdateFeature.php'));
+        copy(__DIR__.'/../../stubs/app/Actions/UpdatePlan.php', app_path('Actions/Tithe/UpdatePlan.php'));
 
         // Models...
         copy(__DIR__.'/../../stubs/app/Models/TitheUser.php', app_path('Models/TitheUser.php'));
@@ -54,8 +67,14 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/app/Policies/CreditCardPolicy.php', app_path('Policies/CreditCardPolicy.php'));
         copy(__DIR__.'/../../stubs/app/Policies/CreditCardAuthorizationPolicy.php', app_path('Policies/CreditCardAuthorizationPolicy.php'));
 
+        // Tests...
+        copy(__DIR__.'/../../stubs/tests/FeatureControllerTest.php', base_path('tests/Feature/FeatureControllerTest.php'));
+        copy(__DIR__.'/../../stubs/tests/FeaturePlanAttachmentControllerTest.php', base_path('tests/Feature/FeaturePlanAttachmentControllerTest.php'));
+        copy(__DIR__.'/../../stubs/tests/FeaturePlanDetachmentControllerTest.php', base_path('tests/Feature/FeaturePlanDetachmentControllerTest.php'));
+        copy(__DIR__.'/../../stubs/tests/PlanControllerTest.php', base_path('tests/Feature/PlanControllerTest.php'));
+
         // Assets
-        copy(__DIR__.'/../../resources/dist/tithe.css', public_path('tithe.css'));
+        copy(__DIR__.'/../../resources/dist/tithe.css', public_path('vendor/tithe/main.css'));
 
         // Service Providers...
         copy(__DIR__.'/../../stubs/app/Providers/TitheServiceProvider.php', app_path('Providers/TitheServiceProvider.php'));

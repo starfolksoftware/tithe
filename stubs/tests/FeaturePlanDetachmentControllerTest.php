@@ -1,6 +1,6 @@
 <?php
 
-use Tithe\Tests\Mocks\TitheUser;
+use App\Models\TitheUser;
 use Tithe\Tithe;
 
 test('feature can be detached from a plan', function () {

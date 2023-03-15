@@ -1,6 +1,6 @@
 <?php
 
-use Tithe\Tests\Mocks\TitheUser;
+use App\Models\TitheUser;
 use Tithe\Tithe;
 
 test('plans index page can be rendered', function () {

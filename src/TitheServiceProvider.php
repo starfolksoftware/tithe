@@ -4,12 +4,6 @@ namespace Tithe;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Tithe\Actions\AttachFeatureToPlan;
-use Tithe\Actions\CreateFeature;
-use Tithe\Actions\CreatePlan;
-use Tithe\Actions\DetachFeatureFromPlan;
-use Tithe\Actions\UpdateFeature;
-use Tithe\Actions\UpdatePlan;
 use Tithe\Commands\CreateUserCommand;
 use Tithe\Commands\InstallCommand;
 
@@ -23,13 +17,6 @@ class TitheServiceProvider extends PackageServiceProvider
     public function boot()
     {
         parent::boot();
-
-        Tithe::createPlansUsing(CreatePlan::class);
-        Tithe::updatePlansUsing(UpdatePlan::class);
-        Tithe::createFeaturesUsing(CreateFeature::class);
-        Tithe::updateFeaturesUsing(UpdateFeature::class);
-        Tithe::attachFeaturesToPlansUsing(AttachFeatureToPlan::class);
-        Tithe::detachFeaturesFromPlansUsing(DetachFeatureFromPlan::class);
     }
 
     public function configurePackage(Package $package): void

@@ -9,7 +9,7 @@
 
     <title>{{ config('app.name') }} ― Tithe</title>
 
-    <link href="{{ asset('tithe.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/tithe/main.css') }}" rel="stylesheet">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="//fonts.googleapis.com/css2?family=Karla&family=Merriweather:wght@400;700&display=swap">
 

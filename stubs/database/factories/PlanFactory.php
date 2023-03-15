@@ -17,6 +17,8 @@ class PlanFactory extends Factory
         return [
             'grace_days' => 0,
             'name' => $this->faker->words(asText: true),
+            'display_name' => $this->faker->word(),
+            'description' => $this->faker->sentence(),
             'periodicity' => $this->faker->randomDigitNotNull(),
             'periodicity_type' => $this->faker->randomElement([
                 PeriodicityType::Year,

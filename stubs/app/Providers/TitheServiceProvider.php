@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Actions\Tithe\{AttachFeatureToPlan, CreateFeature, CreatePlan, DetachFeatureFromPlan, UpdateFeature, UpdatePlan};
 use Illuminate\Support\ServiceProvider;
+use Tithe\Tithe;
 
 class TitheServiceProvider extends ServiceProvider
 {
@@ -23,5 +25,11 @@ class TitheServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Tithe::createPlansUsing(CreatePlan::class);
+        Tithe::updatePlansUsing(UpdatePlan::class);
+        Tithe::createFeaturesUsing(CreateFeature::class);
+        Tithe::updateFeaturesUsing(UpdateFeature::class);
+        Tithe::attachFeaturesToPlansUsing(AttachFeatureToPlan::class);
+        Tithe::detachFeaturesFromPlansUsing(DetachFeatureFromPlan::class);
     }
 }
