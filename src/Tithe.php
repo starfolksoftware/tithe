@@ -12,13 +12,6 @@ use Tithe\Contracts\UpdatesPlans;
 final class Tithe
 {
     /**
-     * Indicates if Tithe migrations should be ran.
-     *
-     * @var bool
-     */
-    public static $runsMigrations = true;
-
-    /**
      * Indicates the default currency.
      *
      * @var string
@@ -199,18 +192,6 @@ final class Tithe
      * @var string
      */
     public static $creditCardAuthorizationModel = 'App\\Models\\CreditCardAuthorization';
-
-    /**
-     * Configure Tithe to not run its migrations.
-     *
-     * @return static
-     */
-    public static function ignoreMigrations()
-    {
-        static::$runsMigrations = false;
-
-        return new static();
-    }
 
     /**
      * Configure Tithe to use the provided currency.

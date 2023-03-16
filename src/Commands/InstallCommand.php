@@ -21,6 +21,7 @@ class InstallCommand extends Command
         // Publish...
         $this->callSilent('vendor:publish', ['--tag' => 'tithe-', '--force' => true]);
         $this->callSilent('vendor:publish', ['--tag' => 'tithe-migrations', '--force' => true]);
+        $this->callSilent('vendor:publish', ['--tag' => 'tithe-config', '--force' => true]);
 
         // Actions...
         copy(__DIR__.'/../../stubs/app/Actions/AttachFeatureToPlan.php', app_path('Actions/Tithe/AttachFeatureToPlan.php'));

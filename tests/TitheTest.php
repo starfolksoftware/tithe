@@ -12,6 +12,12 @@ it('can disable migrations', function () {
     expect(Tithe::$runsMigrations)->toBeFalse();
 });
 
+it('can disallow the registration of ui and admin rotes', function () {
+    Tithe::ignoreRoutes();
+
+    expect(Tithe::$registersRoutes)->toBeFalse();
+});
+
 it('can configure tithe to use USD currency', function () {
     Tithe::currency('USD');
 

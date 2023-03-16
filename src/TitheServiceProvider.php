@@ -30,10 +30,16 @@ class TitheServiceProvider extends PackageServiceProvider
             ->name('tithe')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_tithe_table')
             ->hasCommand(InstallCommand::class)
-            ->hasCommand(CreateUserCommand::class)
-            ->hasRoute('web');
+            ->hasCommand(CreateUserCommand::class);
+
+        if (!config('tithe.ignores_routes')) {
+            $package->hasRoute('web');
+        }
+
+        if (!config('tithe.ignores_migrations')) {
+            $package->hasMigration('create_tithe_table');
+        }
 
         $this->registerAuthDriver();
     }
