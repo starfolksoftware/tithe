@@ -12,7 +12,6 @@ use LogicException;
 use OutOfBoundsException;
 use OverflowException;
 use Tithe\Events\FeatureConsumed;
-use Tithe\Events\FeatureTicketCreated;
 
 trait HasSubscriptions
 {
@@ -20,16 +19,9 @@ trait HasSubscriptions
 
     protected ?Collection $loadedSubscriptionFeatures = null;
 
-    protected ?Collection $loadedTicketFeatures = null;
-
     public function featureConsumptions()
     {
         return $this->morphMany(Tithe::featureConsumptionModel(), 'subscriber');
-    }
-
-    public function featureTickets()
-    {
-        return $this->morphMany(Tithe::featureTicketModel(), 'subscriber');
     }
 
     public function renewals()
@@ -174,33 +166,6 @@ trait HasSubscriptions
         return $newSubscription;
     }
 
-    /**
-     * @throws LogicException
-     * @throws ModelNotFoundException
-     */
-    public function giveTicketFor($featureName, $expiration = null, ?float $charges = null): FeatureTicket
-    {
-        throw_unless(
-            Tithe::$supportsFeatureTicketing,
-            new LogicException('The tickets are not enabled in the configs.'),
-        );
-
-        $feature = Tithe::featureModel()::whereName($featureName)->firstOrFail();
-
-        $featureTicket = $this->featureTickets()
-            ->make([
-                'charges' => $charges,
-                'expired_at' => $expiration,
-            ]);
-
-        $featureTicket->feature()->associate($feature);
-        $featureTicket->save();
-
-        event(new FeatureTicketCreated($this, $feature, $featureTicket));
-
-        return $featureTicket;
-    }
-
     public function canConsume($featureName, ?float $consumption = null): bool
     {
         if (empty($feature = $this->getFeature($featureName))) {
@@ -272,9 +237,8 @@ trait HasSubscriptions
         }
 
         $subscriptionCharges = $this->getSubscriptionChargesForAFeature($feature);
-        $ticketCharges = $this->getTicketChargesForAFeature($feature);
 
-        return $subscriptionCharges + $ticketCharges;
+        return $subscriptionCharges;
     }
 
     protected function consumeNotQuotaFeature($feature, ?float $consumption = null)
@@ -323,20 +287,6 @@ trait HasSubscriptions
             ->charges;
     }
 
-    protected function getTicketChargesForAFeature(Model $feature): float
-    {
-        $ticketFeature = $this->loadedTicketFeatures
-            ->find($feature);
-
-        if (empty($ticketFeature)) {
-            return 0;
-        }
-
-        return $ticketFeature
-            ->tickets
-            ->sum('charges');
-    }
-
     public function getFeature(string $featureName): ?Model
     {
         $feature = $this->features->firstWhere('name', $featureName);
@@ -350,8 +300,7 @@ trait HasSubscriptions
             return $this->loadedFeatures;
         }
 
-        $this->loadedFeatures = $this->loadSubscriptionFeatures()
-            ->concat($this->loadTicketFeatures());
+        $this->loadedFeatures = $this->loadSubscriptionFeatures();
 
         return $this->loadedFeatures;
     }
@@ -365,25 +314,5 @@ trait HasSubscriptions
         $this->loadMissing('subscription.plan.features');
 
         return $this->loadedSubscriptionFeatures = $this->subscription->plan->features ?? Collection::empty();
-    }
-
-    protected function loadTicketFeatures(): Collection
-    {
-        if (! Tithe::$supportsFeatureTicketing) {
-            return $this->loadedTicketFeatures = Collection::empty();
-        }
-
-        if (! is_null($this->loadedTicketFeatures)) {
-            return $this->loadedTicketFeatures;
-        }
-
-        return $this->loadedTicketFeatures = Tithe::featureModel()::with([
-            'tickets' => fn (HasMany $query) => $query->withoutExpired()->whereMorphedTo('subscriber', $this),
-        ])
-            ->whereHas(
-                'tickets',
-                fn (Builder $query) => $query->withoutExpired()->whereMorphedTo('subscriber', $this),
-            )
-            ->get();
     }
 }

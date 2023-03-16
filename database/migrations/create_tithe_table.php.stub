@@ -67,19 +67,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create(Tithe::$featureTicketTableName, function (Blueprint $table) {
-            $table->id();
-            if (Tithe::$subscriberUsesUuid) {
-                $table->uuidMorphs('subscriber');
-            } else {
-                $table->numericMorphs('subscriber');
-            }
-            $table->decimal('charges')->nullable();
-            $table->timestamp('expired_at')->nullable();
-            $table->foreignIdFor(Tithe::featureModel())->constrained()->cascadeOnDelete();
-            $table->timestamps();
-        });
-
         Schema::create(Tithe::$featureConsumptionTableName, function (Blueprint $table) {
             $table->id();
             if (Tithe::$subscriberUsesUuid) {
@@ -177,7 +164,6 @@ return new class extends Migration
         Schema::dropIfExists(Tithe::$featureTableName);
         Schema::dropIfExists(Tithe::$subscriptionRenewalTableName);
         Schema::dropIfExists(Tithe::$featurePlanTableName);
-        Schema::dropIfExists(Tithe::$featureTicketTableName);
         Schema::dropIfExists(Tithe::$creditCardTableName);
         Schema::dropIfExists(Tithe::$creditCardAuthorizationTableName);
         Schema::dropIfExists(Tithe::$userTableName);

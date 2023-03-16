@@ -56,14 +56,4 @@ abstract class Feature extends Model
             ->using(Tithe::featurePlanModel())
             ->withPivot(['charges']);
     }
-
-    /**
-     * The feature tickets.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function tickets()
-    {
-        return $this->hasMany(Tithe::featureTicketModel());
-    }
 }
