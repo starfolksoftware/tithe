@@ -33,11 +33,11 @@ class TitheServiceProvider extends PackageServiceProvider
             ->hasCommand(InstallCommand::class)
             ->hasCommand(CreateUserCommand::class);
 
-        if (!config('tithe.ignores_routes')) {
+        if (! config('tithe.ignores_routes')) {
             $package->hasRoute('web');
         }
 
-        if (!config('tithe.ignores_migrations')) {
+        if (! config('tithe.ignores_migrations')) {
             $package->hasMigration('create_tithe_table');
         }
 
