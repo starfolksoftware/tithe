@@ -47,13 +47,6 @@ final class Tithe
     public static $emailsInvoices = true;
 
     /**
-     * Indicates whether the package supports tickets.
-     *
-     * @var bool
-     */
-    public static $supportsFeatureTicketing = false;
-
-    /**
      * The default middlewares.
      *
      * @var array
@@ -115,20 +108,6 @@ final class Tithe
      * @var string
      */
     public static $featureModel = 'App\\Models\\Feature';
-
-    /**
-     * The feature model table name.
-     *
-     * @var string
-     */
-    public static $featureTicketTableName = 'feature_tickets';
-
-    /**
-     * The feature model that should be used by Tithe.
-     *
-     * @var string
-     */
-    public static $featureTicketModel = 'App\\Models\\FeatureTicket';
 
     /**
      * The feature plan pivot model table name.
@@ -305,18 +284,6 @@ final class Tithe
     }
 
     /**
-     * Configure Tithe to indicate if feature tickets are supported.
-     *
-     * @return static
-     */
-    public static function supportsFeatureTicketing(bool $value = true)
-    {
-        static::$supportsFeatureTicketing = $value;
-
-        return new static();
-    }
-
-    /**
      * Sets the subscription model's table name.
      *
      * @return static
@@ -460,40 +427,6 @@ final class Tithe
     public static function newFeatureModel()
     {
         $model = static::featureModel();
-
-        return new $model();
-    }
-
-    /**
-     * Get the name of the feature ticket model used by the application.
-     *
-     * @return string
-     */
-    public static function featureTicketModel()
-    {
-        return static::$featureTicketModel;
-    }
-
-    /**
-     * Specify the feature ticket model that should be used by Tithe.
-     *
-     * @return static
-     */
-    public static function useFeatureTicketModel(string $model)
-    {
-        static::$featureTicketModel = $model;
-
-        return new static();
-    }
-
-    /**
-     * Get a new instance of the feature ticket model.
-     *
-     * @return mixed
-     */
-    public static function newFeatureTicketModel()
-    {
-        $model = static::featureTicketModel();
 
         return new $model();
     }
