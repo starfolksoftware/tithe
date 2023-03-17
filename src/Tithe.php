@@ -264,9 +264,9 @@ final class Tithe
     /**
      * Returns the default admin routes prefix.
      *
-     * @return array
+     * @return string
      */
-    public static function adminRoutesPrefix()
+    public static function adminRoutesPrefix(): string
     {
         return static::$adminRoutesPrefix;
     }
@@ -274,9 +274,9 @@ final class Tithe
     /**
      * Returns the default ui routes prefix.
      *
-     * @return array
+     * @return string
      */
-    public static function uiRoutesPrefix()
+    public static function uiRoutesPrefix(): string
     {
         return static::$uiRoutesPrefix;
     }
