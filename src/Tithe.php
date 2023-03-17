@@ -41,14 +41,14 @@ final class Tithe
 
     /**
      * The default admin routes prefix.
-     * 
+     *
      * @var string
      */
     public static $adminRoutesPrefix = 'tithe';
 
     /**
      * The default ui routes prefix.
-     * 
+     *
      * @var string
      */
     public static $uiRoutesPrefix = 'billing';
