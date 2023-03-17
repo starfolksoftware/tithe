@@ -5,7 +5,7 @@ use Tithe\Http\Controllers;
 use Tithe\Http\Middleware\Authenticate;
 use Tithe\Tithe;
 
-Route::middleware(Tithe::adminMiddlewares())->prefix(Tithe::adminRoutesPrefix())->group(function () {
+Route::middleware(config('tithe.admin_middlewares'))->prefix(Tithe::adminRoutesPrefix())->group(function () {
     // Login routes...
     Route::get('login', [Controllers\AuthenticatedSessionController::class, 'create'])->name('tithe.login');
     Route::post('login', [Controllers\AuthenticatedSessionController::class, 'store'])->name('tithe.authenticate');
@@ -32,6 +32,6 @@ Route::middleware(Tithe::adminMiddlewares())->prefix(Tithe::adminRoutesPrefix())
     });
 });
 
-Route::middleware(Tithe::uiMiddlewares())->prefix(Tithe::uiRoutesPrefix())->group(function () {
+Route::middleware(config('tithe.ui_middlewares'))->prefix(Tithe::uiRoutesPrefix())->group(function () {
     Route::get('/', Controllers\BillingController::class)->name('tithe.billing.index');
 });

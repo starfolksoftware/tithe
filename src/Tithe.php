@@ -40,20 +40,6 @@ final class Tithe
     public static $emailsInvoices = true;
 
     /**
-     * The default admin middlewares.
-     *
-     * @var array
-     */
-    public static $adminMiddlewares = ['web'];
-
-    /**
-     * The default ui middlewares.
-     *
-     * @var array
-     */
-    public static $uiMiddlewares = ['web'];
-
-    /**
      * The default admin routes prefix.
      * 
      * @var string
@@ -261,50 +247,6 @@ final class Tithe
         static::$emailsInvoices = $value;
 
         return new static();
-    }
-
-    /**
-     * Sets the default admin middlewares.
-     *
-     * @return static
-     */
-    public static function defaultAdminMiddlewares(array $middlewares)
-    {
-        static::$adminMiddlewares = $middlewares;
-
-        return new static();
-    }
-
-    /**
-     * Returns the default middlewares.
-     *
-     * @return array
-     */
-    public static function adminMiddlewares()
-    {
-        return static::$adminMiddlewares;
-    }
-
-    /**
-     * Sets the default ui middlewares.
-     *
-     * @return static
-     */
-    public static function defaultUiMiddlewares(array $middlewares)
-    {
-        static::$uiMiddlewares = $middlewares;
-
-        return new static();
-    }
-
-    /**
-     * Returns the default ui middlewares.
-     *
-     * @return array
-     */
-    public static function uiMiddlewares()
-    {
-        return static::$uiMiddlewares;
     }
 
     /**
