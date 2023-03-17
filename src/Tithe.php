@@ -40,11 +40,18 @@ final class Tithe
     public static $emailsInvoices = true;
 
     /**
-     * The default middlewares.
+     * The default admin routes prefix.
      *
-     * @var array
+     * @var string
      */
-    public static $middlewares = ['web'];
+    public static $adminRoutesPrefix = 'tithe';
+
+    /**
+     * The default ui routes prefix.
+     *
+     * @var string
+     */
+    public static $uiRoutesPrefix = 'billing';
 
     /**
      * The user model table name.
@@ -243,25 +250,31 @@ final class Tithe
     }
 
     /**
-     * Sets the default middlewares.
+     * Sets the default ui routes prefix.
      *
      * @return static
      */
-    public static function defaultMiddlewares(array $middlewares)
+    public static function defaultUiRoutesPrefix(string $prefix)
     {
-        static::$middlewares = $middlewares;
+        static::$uiRoutesPrefix = $prefix;
 
         return new static();
     }
 
     /**
-     * Returns the default middlewares.
-     *
-     * @return array
+     * Returns the default admin routes prefix.
      */
-    public static function middlewares()
+    public static function adminRoutesPrefix(): string
     {
-        return static::$middlewares;
+        return static::$adminRoutesPrefix;
+    }
+
+    /**
+     * Returns the default ui routes prefix.
+     */
+    public static function uiRoutesPrefix(): string
+    {
+        return static::$uiRoutesPrefix;
     }
 
     /**

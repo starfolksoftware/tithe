@@ -5,7 +5,7 @@
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
             <h3 class="text-base font-semibold leading-6 text-gray-900">
-                <span class="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800">
+                <span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-800">
                     {{ $feature->name }}
                 </span>
                 Feature Information
@@ -16,7 +16,7 @@
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <div x-data="{ open: false }" class="relative inline-block text-left">
                 <div>
-                    <button @click="open = ! open" type="button" class="flex items-center rounded-full bg-white text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                    <button @click="open = ! open" type="button" class="flex items-center rounded-full bg-white text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:ring-offset-gray-100" id="menu-button" aria-expanded="true" aria-haspopup="true">
                         <span class="sr-only">Open options</span>
                         <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" />
@@ -58,7 +58,7 @@
             <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                 <dt class="text-sm font-medium text-gray-500">Unique Identifying Name</dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                    <span class="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800">
+                    <span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-800">
                         {{ $feature->name }}
                     </span>
                 </dd>
@@ -66,7 +66,7 @@
             <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                 <dt class="text-sm font-medium text-gray-500">Is Consumable?</dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $feature->consumable ? 'bg-indigo-100 text-indigo-800' : 'bg-indigo-100 text-indigo-800' }}">
+                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $feature->consumable ? 'bg-slate-100 text-slate-800' : 'bg-slate-100 text-slate-800' }}">
                         {{ $feature->consumable ? 'Yes' : 'No' }}
                     </span>
                 </dd>
@@ -74,7 +74,7 @@
             <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                 <dt class="text-sm font-medium text-gray-500">Is Quota?</dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $feature->consumable ? 'bg-indigo-100 text-indigo-800' : 'bg-indigo-100 text-indigo-800' }}">
+                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $feature->consumable ? 'bg-slate-100 text-slate-800' : 'bg-slate-100 text-slate-800' }}">
                         {{ $feature->quota ? 'Yes' : 'No' }}
                     </span>
                 </dd>
@@ -82,7 +82,7 @@
             <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
                 <dt class="text-sm font-medium text-gray-500">Is Postpaid?</dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $feature->consumable ? 'bg-indigo-100 text-indigo-800' : 'bg-indigo-100 text-indigo-800' }}">
+                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $feature->consumable ? 'bg-slate-100 text-slate-800' : 'bg-slate-100 text-slate-800' }}">
                         {{ $feature->postpaid ? 'Yes' : 'No' }}
                     </span>
                 </dd>
@@ -133,7 +133,7 @@
                         <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Delete Feature</h3>
                         <div class="mt-2">
                             <p class="text-sm text-gray-500">
-                                Are you sure you want to delete <span class="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800">{{ $feature->name }}</span> feature? 
+                                Are you sure you want to delete <span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-800">{{ $feature->name }}</span> feature? 
                                 This action cannot be undone.
                             </p>
                         </div>
