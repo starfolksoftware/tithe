@@ -18,11 +18,11 @@
                         <p class="text-sm text-gray-500">Indicate if a feature can be consumed by your customers.</p>
                         <div class="mt-4 space-y-4">
                             <div class="flex items-center">
-                                <input id="consumable-yes" name="consumable" type="radio" value="1" {{ old('consumable', $feature->consumable) == '1' ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                <input id="consumable-yes" name="consumable" type="radio" value="1" {{ old('consumable', $feature->consumable) == '1' ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-slate-600 focus:ring-slate-600">
                                 <label for="consumable-yes" class="ml-3 block text-sm font-medium leading-6 text-gray-900">Yes</label>
                             </div>
                             <div class="flex items-center">
-                                <input id="consumable-no" name="consumable" type="radio" value="0" {{ old('consumable', $feature->consumable) == '0' ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                <input id="consumable-no" name="consumable" type="radio" value="0" {{ old('consumable', $feature->consumable) == '0' ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-slate-600 focus:ring-slate-600">
                                 <label for="consumable-no" class="ml-3 block text-sm font-medium leading-6 text-gray-900">No</label>
                             </div>
                         </div>
@@ -40,11 +40,11 @@
                         <p class="text-sm text-gray-500">Indicate if a feature should be adjusted according to usage.</p>
                         <div class="mt-4 space-y-4">
                             <div class="flex items-center">
-                                <input id="quota-yes" name="quota" type="radio" value="1" {{ $feature->quota == '1' ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                <input id="quota-yes" name="quota" type="radio" value="1" {{ $feature->quota == '1' ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-slate-600 focus:ring-slate-600">
                                 <label for="quota-yes" class="ml-3 block text-sm font-medium leading-6 text-gray-900">Yes</label>
                             </div>
                             <div class="flex items-center">
-                                <input id="quota-no" name="quota" type="radio" value="0" {{ $feature->quota == '0' ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                <input id="quota-no" name="quota" type="radio" value="0" {{ $feature->quota == '0' ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-slate-600 focus:ring-slate-600">
                                 <label for="quota-no" class="ml-3 block text-sm font-medium leading-6 text-gray-900">No</label>
                             </div>
                         </div>
@@ -62,11 +62,11 @@
                         <p class="text-sm text-gray-500">Indicate if you charge your customers after feature consumption.</p>
                         <div class="mt-4 space-y-4">
                             <div class="flex items-center">
-                                <input id="postpaid-yes" name="postpaid" type="radio" value="1" {{ $feature->postpaid == '1' ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                <input id="postpaid-yes" name="postpaid" type="radio" value="1" {{ $feature->postpaid == '1' ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-slate-600 focus:ring-slate-600">
                                 <label for="postpaid-yes" class="ml-3 block text-sm font-medium leading-6 text-gray-900">Yes</label>
                             </div>
                             <div class="flex items-center">
-                                <input id="postpaid-no" name="postpaid" type="radio" value="0" {{ $feature->postpaid == '0' ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                <input id="postpaid-no" name="postpaid" type="radio" value="0" {{ $feature->postpaid == '0' ? 'checked' : '' }} class="h-4 w-4 border-gray-300 text-slate-600 focus:ring-slate-600">
                                 <label for="postpaid-no" class="ml-3 block text-sm font-medium leading-6 text-gray-900">No</label>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                     <label for="periodicity_type" class="block text-sm font-medium leading-6 text-gray-900">Interval</label>
                     <div class="mt-2">
                         <input type="hidden" name="periodicity" id="periodicity" value="1">
-                        <select id="periodicity_type" name="periodicity_type" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <select id="periodicity_type" name="periodicity_type" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-slate-600 sm:text-sm sm:leading-6">
                             <option value="">--Please choose an option--</option>
                             @foreach(['Year', 'Month', 'Week', 'Day'] as $p) 
                             <option value="{{ $p }}" {{ $feature->periodicity_type === $p ? 'selected' : '' }}>{{ $p }}</option>
@@ -109,7 +109,7 @@
             <a href="{{ route('features.show', $feature->id) }}" class="rounded-md bg-white py-2 px-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                 Cancel
             </a>
-            <button type="submit" class="ml-3 inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update</button>
+            <button type="submit" class="ml-3 inline-flex justify-center rounded-md bg-slate-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600">Update</button>
         </div>
     </div>
 </form>

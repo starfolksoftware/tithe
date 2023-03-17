@@ -40,11 +40,32 @@ final class Tithe
     public static $emailsInvoices = true;
 
     /**
-     * The default middlewares.
+     * The default admin middlewares.
      *
      * @var array
      */
-    public static $middlewares = ['web'];
+    public static $adminMiddlewares = ['web'];
+
+    /**
+     * The default ui middlewares.
+     *
+     * @var array
+     */
+    public static $uiMiddlewares = ['web'];
+
+    /**
+     * The default admin routes prefix.
+     * 
+     * @var string
+     */
+    public static $adminRoutesPrefix = 'tithe';
+
+    /**
+     * The default ui routes prefix.
+     * 
+     * @var string
+     */
+    public static $uiRoutesPrefix = 'billing';
 
     /**
      * The user model table name.
@@ -243,13 +264,13 @@ final class Tithe
     }
 
     /**
-     * Sets the default middlewares.
+     * Sets the default admin middlewares.
      *
      * @return static
      */
-    public static function defaultMiddlewares(array $middlewares)
+    public static function defaultAdminMiddlewares(array $middlewares)
     {
-        static::$middlewares = $middlewares;
+        static::$adminMiddlewares = $middlewares;
 
         return new static();
     }
@@ -259,9 +280,63 @@ final class Tithe
      *
      * @return array
      */
-    public static function middlewares()
+    public static function adminMiddlewares()
     {
-        return static::$middlewares;
+        return static::$adminMiddlewares;
+    }
+
+    /**
+     * Sets the default ui middlewares.
+     *
+     * @return static
+     */
+    public static function defaultUiMiddlewares(array $middlewares)
+    {
+        static::$uiMiddlewares = $middlewares;
+
+        return new static();
+    }
+
+    /**
+     * Returns the default ui middlewares.
+     *
+     * @return array
+     */
+    public static function uiMiddlewares()
+    {
+        return static::$uiMiddlewares;
+    }
+
+    /**
+     * Sets the default ui routes prefix.
+     *
+     * @return static
+     */
+    public static function defaultUiRoutesPrefix(string $prefix)
+    {
+        static::$uiRoutesPrefix = $prefix;
+
+        return new static();
+    }
+
+    /**
+     * Returns the default admin routes prefix.
+     *
+     * @return array
+     */
+    public static function adminRoutesPrefix()
+    {
+        return static::$adminRoutesPrefix;
+    }
+
+    /**
+     * Returns the default ui routes prefix.
+     *
+     * @return array
+     */
+    public static function uiRoutesPrefix()
+    {
+        return static::$uiRoutesPrefix;
     }
 
     /**

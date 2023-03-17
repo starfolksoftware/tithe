@@ -5,7 +5,7 @@ use Tithe\Http\Controllers;
 use Tithe\Http\Middleware\Authenticate;
 use Tithe\Tithe;
 
-Route::middleware(Tithe::middlewares())->prefix('tithe')->group(function () {
+Route::middleware(Tithe::adminMiddlewares())->prefix(Tithe::adminRoutesPrefix())->group(function () {
     // Login routes...
     Route::get('login', [Controllers\AuthenticatedSessionController::class, 'create'])->name('tithe.login');
     Route::post('login', [Controllers\AuthenticatedSessionController::class, 'store'])->name('tithe.authenticate');
@@ -20,14 +20,18 @@ Route::middleware(Tithe::middlewares())->prefix('tithe')->group(function () {
 
     // Logout routes...
     Route::get('logout', [Controllers\AuthenticatedSessionController::class, 'destroy'])->name('tithe.logout');
+
+    Route::middleware(Authenticate::class)->group(function () {
+        Route::get('/', Controllers\HomeController::class)->name('tithe.home');
+    
+        Route::resource('plans', Controllers\PlanController::class);
+    
+        Route::post('/plans/{planId}/attach-feature', Controllers\FeaturePlanAttachmentController::class)->name('tithe.plans.attach-feature');
+        Route::post('/plans/{planId}/detach-feature', Controllers\FeaturePlanDetachmentController::class)->name('tithe.plans.detach-feature');
+        Route::resource('features', Controllers\FeatureController::class);
+    });
 });
 
-Route::middleware(array_merge(Tithe::middlewares(), [Authenticate::class]))->prefix('tithe')->group(function () {
-    Route::get('/', Controllers\HomeController::class)->name('tithe.home');
-
-    Route::resource('plans', Controllers\PlanController::class);
-
-    Route::post('/plans/{planId}/attach-feature', Controllers\FeaturePlanAttachmentController::class)->name('tithe.plans.attach-feature');
-    Route::post('/plans/{planId}/detach-feature', Controllers\FeaturePlanDetachmentController::class)->name('tithe.plans.detach-feature');
-    Route::resource('features', Controllers\FeatureController::class);
+Route::middleware(Tithe::uiMiddlewares())->prefix(Tithe::uiRoutesPrefix())->group(function () {
+    Route::get('/', Controllers\BillingController::class)->name('tithe.billing.index');
 });
