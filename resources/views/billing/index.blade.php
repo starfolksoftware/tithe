@@ -34,9 +34,13 @@
         <div class="min-w-0 flex-1">
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Billing</h2>
         </div>
-        <div class="mt-4 flex flex-shrink-0 md:mt-0 md:ml-4">
-            <!-- <button type="button" class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Edit</button>
-            <button type="button" class="ml-3 inline-flex items-center rounded-md bg-slate-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600">Publish</button> -->
+        <div class="my-4 flex flex-shrink-0 md:mt-0 md:ml-4">
+            @if (config('tithe.logo'))
+            <img class="block h-8 w-auto lg:hidden" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+            <img class="hidden h-8 w-auto lg:block" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+            @else
+            <h1 class="text-base text-right font-semibold leading-6 text-gray-900">Your Company</h1>
+            @endif
         </div>
     </div>
 
@@ -51,7 +55,7 @@
                     <p class="mt-2 text-sm font-medium text-gray-500 truncate"><span>Next Payment on September 23, 2023</span></p>
                 </div>
                 <div class="mt-5">
-                    <button type="button" class="inline-flex items-center rounded-md bg-slate-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500">Change plan</button>
+                    <button type="button" class="inline-flex items-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500">Change plan</button>
                 </div>
             </div>
         </div>

@@ -10,7 +10,7 @@ This is where your description should go. Limit it to a paragraph or two. Consid
 ## Installation
 
 ```bash
-./tailwindcss -i ./resources/css/input.css -o ./resources/dist/output.css --watch
+./tailwindcss -i ./resources/css/tithe.css -o ./resources/dist/tithe.css --watch
 ```
 
 You can install the package via composer:

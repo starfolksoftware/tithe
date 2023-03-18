@@ -10,8 +10,7 @@
     <title>{{ config('app.name') }} ― Tithe</title>
 
     <link href="{{ asset('vendor/tithe/main.css') }}" rel="stylesheet">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css2?family=Karla&family=Merriweather:wght@400;700&display=swap">
+    <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -20,7 +19,7 @@
     </style>
 </head>
 
-<body class="h-full">
+<body class="h-full font-sans antialiased">
     <div>
         <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
         <div class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
