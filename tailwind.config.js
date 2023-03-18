@@ -5,7 +5,9 @@ module.exports = {
     content: ["./resources/views/**/*.blade.php"],
     theme: {
         extend: {
-            colors: {},
+            colors: {
+                primary: colors.indigo,
+            },
         },
     },
     plugins: [

@@ -8,7 +8,7 @@
             <p class="mt-2 text-sm text-gray-700">A list of all the plans including their name, interval, amount and currency.</p>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-            <a href="{{ route('plans.create') }}" class="block rounded-md bg-slate-600 py-2 px-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600">
+            <a href="{{ route('plans.create') }}" class="block rounded-md bg-primary-600 py-2 px-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
                 Add Plan
             </a>
         </div>
@@ -34,7 +34,7 @@
                             <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">{{ $plan->currency . $plan->amount }}</td>
                             <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">{{ $plan->periodicity_type }}</td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                <a href="{{ route('plans.show', $plan->id) }}" class="text-slate-600 hover:text-slate-900">View<span class="sr-only">, {{ $plan?->display_name ?? $plan->name }}</span></a>
+                                <a href="{{ route('plans.show', $plan->id) }}" class="text-primary-600 hover:text-primary-900">View<span class="sr-only">, {{ $plan?->display_name ?? $plan->name }}</span></a>
                             </td>
                         </tr>
                         @endforeach

@@ -34,9 +34,16 @@
         <div class="min-w-0 flex-1">
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Billing</h2>
         </div>
-        <div class="mt-4 flex flex-shrink-0 md:mt-0 md:ml-4">
-            <!-- <button type="button" class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Edit</button>
-            <button type="button" class="ml-3 inline-flex items-center rounded-md bg-slate-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600">Publish</button> -->
+        <div class="my-4 flex flex-shrink-0 md:mt-0 md:ml-4">
+            <div class="sm:flex-auto">
+                @if (config('tithe.logo'))
+                <img class="block h-8 w-auto lg:hidden" src="{{ config('tithe.logo') }}" alt="{{ config('app.name') }}">
+                <img class="hidden h-8 w-auto lg:block" src="{{ config('tithe.logo') }}" alt="{{ config('app.name') }}">
+                @else
+                <h1 class="text-base text-right font-semibold leading-6 text-gray-900">{{ config('app.name') }}</h1>
+                @endif
+                <p class="mt-2 text-sm text-gray-700">Company Billed</p>
+            </div>
         </div>
     </div>
 
@@ -51,7 +58,7 @@
                     <p class="mt-2 text-sm font-medium text-gray-500 truncate"><span>Next Payment on September 23, 2023</span></p>
                 </div>
                 <div class="mt-5">
-                    <button type="button" class="inline-flex items-center rounded-md bg-slate-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500">Change plan</button>
+                    <button type="button" class="inline-flex items-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">Change plan</button>
                 </div>
             </div>
         </div>
@@ -87,7 +94,7 @@
                     </div>
                 </div>
 
-                <button type="button" class="mt-4 inline-flex items-center gap-x-1.5 rounded-md bg-slate-600 py-1.5 px-2.5 text-sm font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600">
+                <button type="button" class="mt-4 inline-flex items-center gap-x-1.5 rounded-md bg-primary-600 py-1.5 px-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="-ml-0.5 w-5 h-5">
                         <path fill-rule="evenodd" d="M2.5 4A1.5 1.5 0 001 5.5V6h18v-.5A1.5 1.5 0 0017.5 4h-15zM19 8.5H1v6A1.5 1.5 0 002.5 16h15a1.5 1.5 0 001.5-1.5v-6zM3 13.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zm4.75-.75a.75.75 0 000 1.5h3.5a.75.75 0 000-1.5h-3.5z" clip-rule="evenodd" />
                     </svg>
@@ -107,9 +114,9 @@
                 <form class="mt-5 sm:flex sm:items-center">
                     <div class="w-full sm:max-w-xs">
                         <label for="email" class="sr-only">Email</label>
-                        <input type="email" name="email" id="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-600 sm:text-sm sm:leading-6" placeholder="you@example.com">
+                        <input type="email" name="email" id="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6" placeholder="you@example.com">
                     </div>
-                    <button type="submit" class="mt-3 inline-flex w-full items-center justify-center rounded-md bg-slate-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600 sm:mt-0 sm:ml-3 sm:w-auto">Save</button>
+                    <button type="submit" class="mt-3 inline-flex w-full items-center justify-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 sm:mt-0 sm:ml-3 sm:w-auto">Save</button>
                 </form>
             </div>
         </div>
@@ -147,7 +154,7 @@
                                         <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">Subscription Invoice</td>
                                         <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">Unpaid</td>
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                            <a href="#" class="text-slate-600 hover:text-slate-900">Download<span class="sr-only">, INV-24</span></a>
+                                            <a href="#" class="text-primary-600 hover:text-primary-900">Download<span class="sr-only">, INV-24</span></a>
                                         </td>
                                     </tr>
                                 </tbody>
