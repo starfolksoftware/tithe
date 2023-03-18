@@ -9,8 +9,10 @@
     <title>{{ config('app.name') }} ― Tithe</title>
 
     <link href="{{ asset('vendor/tithe/main.css') }}" rel="stylesheet">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css2?family=Karla&family=Caveat:wght@700&display=swap">
+    @foreach (config('tithe.styles', []) as $style)
+    <link href="{{ $style }}" rel="stylesheet">
+    @endforeach
+    <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
 
     <style>
         .font-cursive {
@@ -19,7 +21,7 @@
     </style>
 </head>
 
-<body class="h-full">
+<body class="h-full font-sans antialiased">
     @yield('content')
 </body>
 

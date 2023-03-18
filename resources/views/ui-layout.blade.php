@@ -12,6 +12,9 @@
     <link rel="icon" href="{{ config('tithe.favicon') }}">
 
     <link href="{{ asset('vendor/tithe/main.css') }}" rel="stylesheet">
+    @foreach (config('tithe.styles', []) as $style)
+    <link href="{{ $style }}" rel="stylesheet">
+    @endforeach
     <link href="{{ config('tithe.font') ? config('tithe.font') : 'https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap' }}" rel="stylesheet" />
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>

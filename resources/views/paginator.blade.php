@@ -15,7 +15,7 @@
 
             @if (is_array($element))
                 @foreach ($element as $page => $url)
-                    <a href="{{ $url }}" class="{{ $page == $paginator->currentPage() ? 'border-slate-500 text-slate-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }} inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium" aria-current="page">{{ $page }}</a>
+                    <a href="{{ $url }}" class="{{ $page == $paginator->currentPage() ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }} inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium" aria-current="page">{{ $page }}</a>
                 @endforeach
             @endif
         @endforeach

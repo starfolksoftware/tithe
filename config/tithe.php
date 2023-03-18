@@ -19,4 +19,10 @@ return [
     'logo' => null,
 
     'color' => null,
+
+    /**
+     * Styles included here will be included in 
+     * the billing page, as well as tithe admin
+     */
+    'styles' => [],
 ];

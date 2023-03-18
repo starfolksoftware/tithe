@@ -19,7 +19,7 @@
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
                     <div class="mt-1">
-                        <input id="email" name="email" type="email" value="{{ old('email') }}" autocomplete="email" required class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-slate-500 sm:text-sm">
+                        <input id="email" name="email" type="email" value="{{ old('email') }}" autocomplete="email" required class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm">
                     </div>
                     @error('email')
                     <span class="text-sm text-red-600" role="alert">
@@ -31,7 +31,7 @@
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                     <div class="mt-1">
-                        <input id="password" name="password" type="password" value="{{ old('email') }}" autocomplete="current-password" required class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-slate-500 sm:text-sm">
+                        <input id="password" name="password" type="password" value="{{ old('email') }}" autocomplete="current-password" required class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm">
                     </div>
                     @error('password')
                     <span class="text-sm text-red-600" role="alert">
@@ -42,17 +42,17 @@
 
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
-                        <input id="remember_me" name="remember" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-slate-600 focus:ring-slate-500">
+                        <input id="remember_me" name="remember" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
                         <label for="remember_me" class="ml-2 block text-sm text-gray-900">Remember me</label>
                     </div>
 
                     <div class="text-sm">
-                        <a href="{{ route('tithe.password.request') }}" class="font-medium text-slate-600 hover:text-slate-500">Forgot your password?</a>
+                        <a href="{{ route('tithe.password.request') }}" class="font-medium text-primary-600 hover:text-primary-500">Forgot your password?</a>
                     </div>
                 </div>
 
                 <div>
-                    <button type="submit" class="flex w-full justify-center rounded-md border border-transparent bg-slate-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2">Sign in</button>
+                    <button type="submit" class="flex w-full justify-center rounded-md border border-transparent bg-primary-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">Sign in</button>
                 </div>
             </form>
         </div>
