@@ -11,7 +11,7 @@ class PaymentMethodManager extends Component
      */
     public function __construct(public $subscriber)
     {
-        // 
+        //
     }
 
     public function render()
