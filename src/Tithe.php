@@ -201,6 +201,13 @@ final class Tithe
     public static $creditCardAuthorizationModel = 'App\\Models\\CreditCardAuthorization';
 
     /**
+     * The callback that is responsible for getting the active subscriber.
+     *
+     * @var callable|null
+     */
+    public static $activeSubscriberCallback;
+
+    /**
      * Configure Tithe to use the provided currency.
      *
      * @return static
@@ -701,5 +708,18 @@ final class Tithe
     public static function detachFeaturesFromPlansUsing(string $class)
     {
         app()->singleton(DetachesFeaturesFromPlans::class, $class);
+    }
+
+    /**
+     * Register a callback that is responsible for getting the currently active subscriber.
+     *
+     * @param  callable  $callback
+     * @return static
+     */
+    public static function getActiveSubscriberUsing(callable $callback)
+    {
+        static::$activeSubscriberCallback = $callback;
+
+        return new static();
     }
 }

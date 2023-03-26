@@ -15,6 +15,8 @@ trait HasSubscriptions
 
     protected ?Collection $loadedSubscriptionFeatures = null;
 
+    abstract public function titheDisplayName(): string;
+
     public function featureConsumptions()
     {
         return $this->morphMany(Tithe::featureConsumptionModel(), 'subscriber');
