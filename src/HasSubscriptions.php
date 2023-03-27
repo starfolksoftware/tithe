@@ -4,6 +4,7 @@ namespace Tithe;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use InvalidArgumentException;
 use OutOfBoundsException;
 use OverflowException;
@@ -16,6 +17,8 @@ trait HasSubscriptions
     protected ?Collection $loadedSubscriptionFeatures = null;
 
     abstract public function titheDisplayName(): string;
+
+    abstract public function titheEmail(): string;
 
     public function featureConsumptions()
     {
@@ -312,5 +315,66 @@ trait HasSubscriptions
         $this->loadMissing('subscription.plan.features');
 
         return $this->loadedSubscriptionFeatures = $this->subscription->plan->features ?? Collection::empty();
+    }
+
+    /**
+     * Get the subscribers
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function authorizations(): MorphMany
+    {
+        return $this->morphMany(Tithe::creditCardAuthorizationModel(), 'subscriber');
+    }
+
+    /**
+     * Get the cards
+     *
+     * @return array
+     */
+    public function cards(): array
+    {
+        return $this->authorizations
+            ->map(fn ($authorization) => $authorization->card)
+            ->unwrap();
+    }
+
+    /**
+     * Set provided authorization as default
+     *
+     * @param mixed $authorization
+     * @return void
+     */
+    public function setDefaultAuth($authorization): void
+    {
+        $oldDefault = $this->authorizations()
+            ->where('default', true)
+            ->first();
+
+        $authorization->markDefault();
+
+        if (!!$oldDefault) {
+            $oldDefault->markDefault(false);
+        }
+    }
+
+    /**
+     * Get default Authorization
+     *
+     * @return mixed
+     */
+    public function defaultAuthorization()
+    {
+        $default = $this->authorizations()
+            ->whereDefault(true)
+            ->first();
+
+        if (!!! $default && ($this->authorizations()->count() > 0)) {
+            $this->setDefaultAuth($authorization = $this->authorizations()->first());
+
+            return $authorization;
+        }
+
+        return $default;
     }
 }

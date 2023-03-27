@@ -1,7 +1,8 @@
-<div class="bg-white shadow sm:rounded-lg">
+<div x-data="paystack" class="bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:p-6">
         <h3 class="text-base font-semibold leading-6 text-gray-900">Payment method</h3>
         <div class="mt-5">
+            @if ($subscriber->defaultAuthorization())
             <div class="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start sm:justify-between">
                 <h4 class="sr-only">Visa</h4>
                 <div class="sm:flex sm:items-start">
@@ -26,9 +27,14 @@
                     </button>
                 </div>
             </div>
+            @else
+            <div class="mt-2 max-w-xl text-sm text-gray-500">
+                <p>It appears that there is currently no payment method associated with your account.</p>
+            </div>
+            @endif
         </div>
 
-        <button type="button" class="mt-4 inline-flex items-center gap-x-1.5 rounded-md bg-primary-600 py-1.5 px-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
+        <button @click="payWithPaystack" type="button" class="mt-4 inline-flex items-center gap-x-1.5 rounded-md bg-primary-600 py-1.5 px-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="-ml-0.5 w-5 h-5">
                 <path fill-rule="evenodd" d="M2.5 4A1.5 1.5 0 001 5.5V6h18v-.5A1.5 1.5 0 0017.5 4h-15zM19 8.5H1v6A1.5 1.5 0 002.5 16h15a1.5 1.5 0 001.5-1.5v-6zM3 13.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zm4.75-.75a.75.75 0 000 1.5h3.5a.75.75 0 000-1.5h-3.5z" clip-rule="evenodd" />
             </svg>
@@ -37,3 +43,29 @@
         </button>
     </div>
 </div>
+@pushOnce('scripts')
+<script src="https://js.paystack.co/v1/inline.js"></script> 
+@endPushOnce
+@push('scripts')
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('paystack', () => ({
+        payWithPaystack() {
+            let handler = PaystackPop.setup({
+                key: "{{ config('tithe.paystack.public_key') }}",
+                email: "{{ $subscriber->titheEmail() }}",
+                amount: 100 * 100,
+                label: "{{ $subscriber->titheEmail() }}",
+                channels: ['card'],
+                onClose: () => {},
+                callback: (response) => {
+                    window.location = "{{ route('tithe.handle-payment-with-new-card') }}" + response.redirecturl;
+                }
+            });
+
+            handler.openIframe();
+        }
+    }));
+});
+</script>
+@endpush

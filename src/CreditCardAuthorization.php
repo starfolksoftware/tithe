@@ -64,4 +64,17 @@ abstract class CreditCardAuthorization extends Model
             Tithe::newCreditCardModel()->getForeignKey()
         );
     }
+
+    /**
+     * Mark as default.
+     * 
+     * @param bool $value
+     * @return void
+     */
+    public function markDefault(bool $value = true): void
+    {
+        $this->update([
+            'default' => $value,
+        ]);
+    }
 }

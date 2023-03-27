@@ -29,6 +29,8 @@ Route::middleware(config('tithe.admin_middlewares'))->prefix(Tithe::adminRoutesP
         Route::post('/plans/{planId}/attach-feature', Controllers\FeaturePlanAttachmentController::class)->name('tithe.plans.attach-feature');
         Route::post('/plans/{planId}/detach-feature', Controllers\FeaturePlanDetachmentController::class)->name('tithe.plans.detach-feature');
         Route::resource('features', Controllers\FeatureController::class);
+
+        Route::get('/handle-payment-with-new-card', Controllers\HandlePaymentWithNewCardController::class)->name('tithe.handle-payment-with-new-card');
     });
 });
 
