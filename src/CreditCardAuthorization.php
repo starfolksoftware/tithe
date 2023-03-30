@@ -16,10 +16,11 @@ abstract class CreditCardAuthorization extends Model
      */
     protected $fillable = [
         'subscriber_id',
+        'subscriber_type',
         'email',
-        'auth',
         'code',
         'default',
+        'credit_card_id',
     ];
 
     /**

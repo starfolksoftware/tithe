@@ -3,6 +3,7 @@
 namespace Tithe;
 
 use Tithe\Contracts\AttachesFeaturesToPlans;
+use Tithe\Contracts\CreatesAuthorizations;
 use Tithe\Contracts\CreatesFeatures;
 use Tithe\Contracts\CreatesPlans;
 use Tithe\Contracts\DetachesFeaturesFromPlans;
@@ -708,6 +709,16 @@ final class Tithe
     public static function detachFeaturesFromPlansUsing(string $class)
     {
         app()->singleton(DetachesFeaturesFromPlans::class, $class);
+    }
+
+    /**
+     * Register a class / callback that should be used to create card authorizations.
+     *
+     * @return void
+     */
+    public static function createAuthorizationsUsing(string $class)
+    {
+        app()->singleton(CreatesAuthorizations::class, $class);
     }
 
     /**

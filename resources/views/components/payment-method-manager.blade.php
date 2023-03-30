@@ -1,8 +1,19 @@
-<div x-data="paystack" class="bg-white shadow sm:rounded-lg">
+<div id="payment-method" x-data="paystack" class="bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:p-6">
         <h3 class="text-base font-semibold leading-6 text-gray-900">Payment method</h3>
+        @error('authorization.*', 'createAuthorization')
+        <span class="mt-5 text-sm text-red-600" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+        @error('customer.*', 'createAuthorization')
+        <span class="mt-5 text-sm text-red-600" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
         <div class="mt-5">
-            @if ($subscriber->defaultAuthorization())
+            @if ($defaultAuthorization = $subscriber->defaultAuthorization())
+            @foreach ($authorizations as $authorization)
             <div class="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start sm:justify-between">
                 <h4 class="sr-only">Visa</h4>
                 <div class="sm:flex sm:items-start">
@@ -27,6 +38,7 @@
                     </button>
                 </div>
             </div>
+            @endforeach
             @else
             <div class="mt-2 max-w-xl text-sm text-gray-500">
                 <p>It appears that there is currently no payment method associated with your account.</p>
@@ -59,7 +71,7 @@ document.addEventListener('alpine:init', () => {
                 channels: ['card'],
                 onClose: () => {},
                 callback: (response) => {
-                    window.location = "{{ route('tithe.handle-payment-with-new-card') }}" + response.redirecturl;
+                    window.location = "{{ route('tithe.billing.create-authorization') }}" + response.redirecturl;
                 }
             });
 

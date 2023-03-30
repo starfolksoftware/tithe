@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\CreditCardAuthorization;
 use App\Models\TitheUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Foundation\Auth\User;
 
 class CreditCardAuthorizationPolicy
 {
@@ -35,7 +36,7 @@ class CreditCardAuthorizationPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(TitheUser $user)
+    public function create(User $user)
     {
         return true;
     }

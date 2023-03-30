@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Tithe\Enums\SubscriptionInvoiceStatusEnum;
 use Tithe\Tithe;
 
-class SubscriptionFactory extends Factory
+class SubscriptionInvoiceFactory extends Factory
 {
     /**
      * Define the model's default state.
