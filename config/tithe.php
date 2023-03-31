@@ -32,5 +32,5 @@ return [
     'paystack' => [
         'public_key' => null,
         'secret_key' => null,
-    ]
+    ],
 ];

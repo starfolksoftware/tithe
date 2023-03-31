@@ -319,8 +319,6 @@ trait HasSubscriptions
 
     /**
      * Get the subscribers
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function authorizations(): MorphMany
     {
@@ -329,8 +327,6 @@ trait HasSubscriptions
 
     /**
      * Get the cards
-     *
-     * @return array
      */
     public function cards(): array
     {
@@ -342,8 +338,7 @@ trait HasSubscriptions
     /**
      * Set provided authorization as default
      *
-     * @param mixed $authorization
-     * @return void
+     * @param  mixed  $authorization
      */
     public function setDefaultAuth($authorization): void
     {
@@ -353,7 +348,7 @@ trait HasSubscriptions
 
         $authorization->markDefault();
 
-        if (!!$oldDefault) {
+        if ((bool) $oldDefault) {
             $oldDefault->markDefault(false);
         }
     }
@@ -369,7 +364,7 @@ trait HasSubscriptions
             ->whereDefault(true)
             ->first();
 
-        if (!!! $default && ($this->authorizations()->count() > 0)) {
+        if (! (bool) $default && ($this->authorizations()->count() > 0)) {
             $this->setDefaultAuth($authorization = $this->authorizations()->first());
 
             return $authorization;

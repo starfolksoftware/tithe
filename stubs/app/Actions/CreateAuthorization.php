@@ -4,8 +4,8 @@ namespace App\Actions\Tithe;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
-use Tithe\Contracts\CreatesAuthorizations;
 use StarfolkSoftware\Paystack\Client as PaystackClient;
+use Tithe\Contracts\CreatesAuthorizations;
 use Tithe\Tithe;
 
 class CreateAuthorization implements CreatesAuthorizations
@@ -34,7 +34,7 @@ class CreateAuthorization implements CreatesAuthorizations
             'customer' => ['array'],
             'customer.email' => ['required', 'string'],
         ])->validateWithBag('createAuthorization');
-        
+
         data_set($input, 'authorization.type', data_get($input, 'authorization.card_type'));
 
         $creditCard = Tithe::creditCardModel()::firstOrCreate(
@@ -47,7 +47,7 @@ class CreateAuthorization implements CreatesAuthorizations
                 'bin',
                 'bank',
                 'account_name',
-                'country_code'
+                'country_code',
             ])->toArray()
         );
 
@@ -57,7 +57,7 @@ class CreateAuthorization implements CreatesAuthorizations
             'credit_card_id' => $creditCard->id,
         ], [
             'email' => data_get($input, 'customer.email'),
-            'code' => data_get($input, 'authorization.authorization_code')
+            'code' => data_get($input, 'authorization.authorization_code'),
         ]);
     }
 
@@ -72,7 +72,7 @@ class CreateAuthorization implements CreatesAuthorizations
             ->transactions
             ->verify($reference);
 
-        throw_if(!$confirmationResponse['status'] || data_get($confirmationResponse, 'data.status') != 'success',
+        throw_if(! $confirmationResponse['status'] || data_get($confirmationResponse, 'data.status') != 'success',
             'Exception',
             'Couldnt confirm payment. Kindly, try again!'
         );

@@ -7,14 +7,8 @@ use Tithe\Tithe;
 
 class PaymentMethodManager extends Component
 {
-    /**
-     * @var $subscriber
-     */
     public $subscriber;
 
-    /**
-     * @var $authorizations
-     */
     public $authorizations;
 
     /**

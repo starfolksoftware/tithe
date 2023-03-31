@@ -16,7 +16,7 @@ class CreateAuthorizationController extends Controller
         $subscriber = call_user_func(Tithe::$activeSubscriberCallback);
 
         $creator->create(
-            request()->user(), 
+            request()->user(),
             $subscriber,
             request('reference', request('trxref'))
         );
