@@ -12,22 +12,30 @@ class CreateAuthorization implements CreatesAuthorizations
 {
     /**
      * Validate and create a new authorization for the given subscriber.
-     *
-     * @param  mixed  $user
-     * @param  mixed  $subscriber
-     * @param  string $reference
-     * @return mixed
      */
-    public function create($user, $subscriber, string $reference)
+    public function create(mixed $user, mixed $subscriber, string $reference): mixed
     {
         Gate::forUser($user)->authorize('create', Tithe::newCreditCardAuthorizationModel());
 
         $input = $this->confirmsPayment($reference);
 
         Validator::make($input, [
-            'authorization' => ['array:authorization_code,signature,type,last4,exp_month,exp_year,bin,bank,account_name,country_code'],
-            'customer' => ['array:email,'],
+            'authorization' => ['array'],
+            'authorization.authorization_code' => ['required', 'string'],
+            'authorization.signature' => ['required', 'string'],
+            'authorization.last4' => ['required', 'string'],
+            'authorization.exp_month' => ['required', 'string'],
+            'authorization.exp_year' => ['required', 'string'],
+            'authorization.bin' => ['nullable', 'string'],
+            'authorization.bank' => ['nullable', 'string'],
+            'authorization.account_name' => ['nullable', 'string'],
+            'authorization.country_code' => ['required', 'string'],
+            'authorization.card_type' => ['required', 'string'],
+            'customer' => ['array'],
+            'customer.email' => ['required', 'string'],
         ])->validateWithBag('createAuthorization');
+        
+        data_set($input, 'authorization.type', data_get($input, 'authorization.card_type'));
 
         $creditCard = Tithe::creditCardModel()::firstOrCreate(
             ['signature' => data_get($input, 'authorization.signature')],
@@ -46,7 +54,7 @@ class CreateAuthorization implements CreatesAuthorizations
         return Tithe::creditCardAuthorizationModel()::firstOrCreate([
             'subscriber_id' => $subscriber->id,
             'subscriber_type' => get_class($subscriber),
-            Tithe::newCreditCardModel()->getForeignKey() => $creditCard->id,
+            'credit_card_id' => $creditCard->id,
         ], [
             'email' => data_get($input, 'customer.email'),
             'code' => data_get($input, 'authorization.authorization_code')

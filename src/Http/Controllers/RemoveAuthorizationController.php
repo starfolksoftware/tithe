@@ -10,15 +10,14 @@ class RemoveAuthorizationController extends Controller
 {
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  mixed  $authorizationId
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke($authorizationId)
+    public function __invoke(): \Illuminate\Http\RedirectResponse
     {
-        $authorization = Tithe::creditCardAuthorizationModel()::findOrFail($authorizationId);
+        $authorization = Tithe::creditCardAuthorizationModel()::findOrFail(
+            request('authorizationId')
+        );
 
-        Gate::forUser(request()->user('tithe'))->authorize('delete', $authorization);
+        Gate::forUser(request()->user())->authorize('delete', $authorization);
 
         $authorization->delete();
 

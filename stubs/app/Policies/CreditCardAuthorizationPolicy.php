@@ -56,7 +56,7 @@ class CreditCardAuthorizationPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(TitheUser $user, CreditCardAuthorization $feature)
+    public function delete(User $user, CreditCardAuthorization $feature)
     {
         return true;
     }

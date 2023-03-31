@@ -29,7 +29,6 @@ abstract class CreditCardAuthorization extends Model
      * @var array<string,string>
      */
     protected $casts = [
-        'auth' => 'array',
         'default' => 'bool',
     ];
 

@@ -23,7 +23,9 @@ class PaymentMethodManager extends Component
     public function __construct(mixed $subscriber)
     {
         $this->subscriber = $subscriber;
-        $this->authorizations = call_user_func(Tithe::$activeSubscriberCallback)->authorizations;
+        $this->authorizations = call_user_func(Tithe::$activeSubscriberCallback)
+            ->authorizations
+            ->load('creditCard');
     }
 
     public function render()
