@@ -11,14 +11,14 @@
             <strong>{{ $message }}</strong>
         </span>
         @enderror
-        <div class="mt-5">
+        <div class="mt-5 space-y-4">
             @if ($defaultAuthorization = $subscriber->defaultAuthorization())
             @foreach ($authorizations as $authorization)
             <div class="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start sm:justify-between">
                 <h4 class="sr-only">{{ $authorization->creditCard->type }}</h4>
                 <div class="sm:flex sm:items-start">
                     @switch($authorization->creditCard->type)
-                    @case('visa ')
+                    @case('visa')
                     <svg class="h-8 w-auto sm:h-6 sm:flex-shrink-0" viewBox="0 0 36 24" aria-hidden="true">
                         <rect width="36" height="24" fill="#224DBA" rx="4" />
                         <path fill="#fff" d="M10.925 15.673H8.874l-1.538-6c-.073-.276-.228-.52-.456-.635A6.575 6.575 0 005 8.403v-.231h3.304c.456 0 .798.347.855.75l.798 4.328 2.05-5.078h1.994l-3.076 7.5zm4.216 0h-1.937L14.8 8.172h1.937l-1.595 7.5zm4.101-5.422c.057-.404.399-.635.798-.635a3.54 3.54 0 011.88.346l.342-1.615A4.808 4.808 0 0020.496 8c-1.88 0-3.248 1.039-3.248 2.481 0 1.097.969 1.673 1.653 2.02.74.346 1.025.577.968.923 0 .519-.57.75-1.139.75a4.795 4.795 0 01-1.994-.462l-.342 1.616a5.48 5.48 0 002.108.404c2.108.057 3.418-.981 3.418-2.539 0-1.962-2.678-2.077-2.678-2.942zm9.457 5.422L27.16 8.172h-1.652a.858.858 0 00-.798.577l-2.848 6.924h1.994l.398-1.096h2.45l.228 1.096h1.766zm-2.905-5.482l.57 2.827h-1.596l1.026-2.827z" />
@@ -59,7 +59,7 @@
                     </svg>
                     @endswitch
                     <div class="mt-3 sm:mt-0 sm:ml-4">
-                        <div class="text-sm font-medium text-gray-900">Ending with {{ $authorization->last4 }}</div>
+                        <div class="text-sm font-medium text-gray-900">Ending with {{ $authorization->creditCard->last4 }}</div>
                         <div class="mt-1 text-sm text-gray-600 sm:flex sm:items-center">
                             <div>Expires {{ $authorization->creditCard->exp_month }}/{{ $authorization->creditCard->exp_year }}</div>
                             <span class="hidden sm:mx-2 sm:inline" aria-hidden="true">&middot;</span>
@@ -68,8 +68,16 @@
                     </div>
                 </div>
                 <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
+                    @if (! $authorization->default)
+                    <button x-data @click="$store.paymentMethod.confirmMakingDefault({{ $authorization->id }})" type="button" class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Make Default
+                    </button>
+                    @endif
                     <button x-data @click="$store.paymentMethod.confirmRemoval({{ $authorization->id }})" type="button" class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                         </svg>
                     </button>
@@ -127,6 +135,40 @@
         </div>
     </div>
 </div>
+<div x-data x-cloak x-show="$store.paymentMethod.confirmingMakingDefault" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                <div class="sm:flex sm:items-start">
+                    <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Default Payment Method</h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500">
+                                You are updating the default payment method. Do you want to continue?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 sm:mt-4 sm:ml-10 sm:flex sm:pl-4">
+                    <form method="POST" action="{{ route('tithe.billing.set-default-authorization') }}">
+                        @csrf
+                        @method('PATCH')
+                        <input type="hidden" name="authorizationId" x-model="$store.paymentMethod.makingDefaultPaymentMethod">
+                        <button type="submit" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto">Make Default</button>
+                    </form>
+                    <button x-data @click="$store.paymentMethod.cancelMakingDefaultConfirmation()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:ml-3 sm:mt-0 sm:w-auto">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endpush
 @pushOnce('scripts')
 <script src="https://js.paystack.co/v1/inline.js"></script>
@@ -155,19 +197,27 @@
         Alpine.store('paymentMethod', {
             confirmingRemoval: false,
             removingPaymentMethod: null,
+            confirmingMakingDefault: false,
+            makingDefaultPaymentMethod: null,
 
-            toggle() {
-                this.confirmingRemoval = ! this.confirmingRemoval
-            },
-
-            confirmRemoval (feature) {
+            confirmRemoval(paymentMethod) {
                 this.confirmingRemoval = true;
-                this.removingPaymentMethod = feature;
+                this.removingPaymentMethod = paymentMethod;
             },
 
-            cancelRemovalConfirmation () {
+            cancelRemovalConfirmation() {
                 this.confirmingRemoval = false;
                 this.removingPaymentMethod = null;
+            },
+
+            confirmMakingDefault(paymentMethod) {
+                this.confirmingMakingDefault = true;
+                this.makingDefaultPaymentMethod = paymentMethod;
+            },
+
+            cancelMakingDefaultConfirmation() {
+                this.confirmingMakingDefault = false;
+                this.makingDefaultPaymentMethod = null;
             }
         });
     });

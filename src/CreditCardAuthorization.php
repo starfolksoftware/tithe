@@ -5,6 +5,11 @@ namespace Tithe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Tithe\CreditCardAuthorization
+ *
+ * @property bool $default
+ */
 abstract class CreditCardAuthorization extends Model
 {
     use HasFactory;

@@ -46,7 +46,7 @@ class CreditCardAuthorizationPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(TitheUser $user, CreditCardAuthorization $feature)
+    public function update(User $user, CreditCardAuthorization $feature)
     {
         return true;
     }
