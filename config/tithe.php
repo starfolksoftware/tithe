@@ -25,4 +25,12 @@ return [
      * the billing page, as well as tithe admin
      */
     'styles' => [],
+
+    /**
+     * Paystack keys
+     */
+    'paystack' => [
+        'public_key' => null,
+        'secret_key' => null,
+    ],
 ];

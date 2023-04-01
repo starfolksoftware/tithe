@@ -3,6 +3,7 @@
 namespace Tithe;
 
 use Tithe\Contracts\AttachesFeaturesToPlans;
+use Tithe\Contracts\CreatesAuthorizations;
 use Tithe\Contracts\CreatesFeatures;
 use Tithe\Contracts\CreatesPlans;
 use Tithe\Contracts\DetachesFeaturesFromPlans;
@@ -201,15 +202,22 @@ final class Tithe
     public static $creditCardAuthorizationModel = 'App\\Models\\CreditCardAuthorization';
 
     /**
+     * The callback that is responsible for getting the active subscriber.
+     *
+     * @var callable|null
+     */
+    public static $activeSubscriberCallback;
+
+    /**
      * Configure Tithe to use the provided currency.
      *
      * @return static
      */
     public static function currency(string $currency)
     {
-        static::$currency = $currency;
+        self::$currency = $currency;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -220,9 +228,9 @@ final class Tithe
      */
     public static function subscriberUsesUuid($value = true)
     {
-        static::$subscriberUsesUuid = $value;
+        self::$subscriberUsesUuid = $value;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -232,9 +240,9 @@ final class Tithe
      */
     public static function prorates(bool $value = true)
     {
-        static::$prorates = $value;
+        self::$prorates = $value;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -244,9 +252,9 @@ final class Tithe
      */
     public static function emailsInvoices(bool $value = true)
     {
-        static::$emailsInvoices = $value;
+        self::$emailsInvoices = $value;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -256,9 +264,9 @@ final class Tithe
      */
     public static function defaultUiRoutesPrefix(string $prefix)
     {
-        static::$uiRoutesPrefix = $prefix;
+        self::$uiRoutesPrefix = $prefix;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -266,7 +274,7 @@ final class Tithe
      */
     public static function adminRoutesPrefix(): string
     {
-        return static::$adminRoutesPrefix;
+        return self::$adminRoutesPrefix;
     }
 
     /**
@@ -274,7 +282,7 @@ final class Tithe
      */
     public static function uiRoutesPrefix(): string
     {
-        return static::$uiRoutesPrefix;
+        return self::$uiRoutesPrefix;
     }
 
     /**
@@ -284,9 +292,9 @@ final class Tithe
      */
     public static function subscriptionTableName(string $name)
     {
-        static::$subscriptionTableName = $name;
+        self::$subscriptionTableName = $name;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -296,7 +304,7 @@ final class Tithe
      */
     public static function userModel()
     {
-        return static::$userModel;
+        return self::$userModel;
     }
 
     /**
@@ -306,9 +314,9 @@ final class Tithe
      */
     public static function useUserModel(string $model)
     {
-        static::$userModel = $model;
+        self::$userModel = $model;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -318,7 +326,7 @@ final class Tithe
      */
     public static function newUserModel()
     {
-        $model = static::userModel();
+        $model = self::userModel();
 
         return new $model();
     }
@@ -330,7 +338,7 @@ final class Tithe
      */
     public static function planModel()
     {
-        return static::$planModel;
+        return self::$planModel;
     }
 
     /**
@@ -340,9 +348,9 @@ final class Tithe
      */
     public static function usePlanModel(string $model)
     {
-        static::$planModel = $model;
+        self::$planModel = $model;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -352,7 +360,7 @@ final class Tithe
      */
     public static function newPlanModel()
     {
-        $model = static::planModel();
+        $model = self::planModel();
 
         return new $model();
     }
@@ -364,7 +372,7 @@ final class Tithe
      */
     public static function subscriptionModel()
     {
-        return static::$subscriptionModel;
+        return self::$subscriptionModel;
     }
 
     /**
@@ -374,9 +382,9 @@ final class Tithe
      */
     public static function useSubscriptionModel(string $model)
     {
-        static::$subscriptionModel = $model;
+        self::$subscriptionModel = $model;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -386,7 +394,7 @@ final class Tithe
      */
     public static function newSubscriptionModel()
     {
-        $model = static::subscriptionModel();
+        $model = self::subscriptionModel();
 
         return new $model();
     }
@@ -398,7 +406,7 @@ final class Tithe
      */
     public static function featureModel()
     {
-        return static::$featureModel;
+        return self::$featureModel;
     }
 
     /**
@@ -408,9 +416,9 @@ final class Tithe
      */
     public static function useFeatureModel(string $model)
     {
-        static::$featureModel = $model;
+        self::$featureModel = $model;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -420,7 +428,7 @@ final class Tithe
      */
     public static function newFeatureModel()
     {
-        $model = static::featureModel();
+        $model = self::featureModel();
 
         return new $model();
     }
@@ -432,7 +440,7 @@ final class Tithe
      */
     public static function featurePlanModel()
     {
-        return static::$featurePlanModel;
+        return self::$featurePlanModel;
     }
 
     /**
@@ -442,9 +450,9 @@ final class Tithe
      */
     public static function useFeaturePlanModel(string $model)
     {
-        static::$featurePlanModel = $model;
+        self::$featurePlanModel = $model;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -454,7 +462,7 @@ final class Tithe
      */
     public static function newFeaturePlanModel()
     {
-        $model = static::featurePlanModel();
+        $model = self::featurePlanModel();
 
         return new $model();
     }
@@ -466,7 +474,7 @@ final class Tithe
      */
     public static function featureConsumptionModel()
     {
-        return static::$featureConsumptionModel;
+        return self::$featureConsumptionModel;
     }
 
     /**
@@ -476,9 +484,9 @@ final class Tithe
      */
     public static function useFeatureConsumptionModel(string $model)
     {
-        static::$featureConsumptionModel = $model;
+        self::$featureConsumptionModel = $model;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -488,7 +496,7 @@ final class Tithe
      */
     public static function newFeatureConsumptionModel()
     {
-        $model = static::featureConsumptionModel();
+        $model = self::featureConsumptionModel();
 
         return new $model();
     }
@@ -500,7 +508,7 @@ final class Tithe
      */
     public static function subscriptionRenewalModel()
     {
-        return static::$subscriptionRenewalModel;
+        return self::$subscriptionRenewalModel;
     }
 
     /**
@@ -510,9 +518,9 @@ final class Tithe
      */
     public static function useSubscriptionRenewalModel(string $model)
     {
-        static::$subscriptionRenewalModel = $model;
+        self::$subscriptionRenewalModel = $model;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -522,7 +530,7 @@ final class Tithe
      */
     public static function newSubscriptionRenewalModel()
     {
-        $model = static::subscriptionRenewalModel();
+        $model = self::subscriptionRenewalModel();
 
         return new $model();
     }
@@ -534,7 +542,7 @@ final class Tithe
      */
     public static function subscriptionInvoiceModel()
     {
-        return static::$subscriptionInvoiceModel;
+        return self::$subscriptionInvoiceModel;
     }
 
     /**
@@ -544,9 +552,9 @@ final class Tithe
      */
     public static function useSubscriptionInvoiceModel(string $model)
     {
-        static::$subscriptionInvoiceModel = $model;
+        self::$subscriptionInvoiceModel = $model;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -556,7 +564,7 @@ final class Tithe
      */
     public static function newSubscriptionInvoiceModel()
     {
-        $model = static::subscriptionInvoiceModel();
+        $model = self::subscriptionInvoiceModel();
 
         return new $model();
     }
@@ -568,7 +576,7 @@ final class Tithe
      */
     public static function creditCardModel()
     {
-        return static::$creditCardModel;
+        return self::$creditCardModel;
     }
 
     /**
@@ -578,9 +586,9 @@ final class Tithe
      */
     public static function useCreditCardModel(string $model)
     {
-        static::$creditCardModel = $model;
+        self::$creditCardModel = $model;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -590,7 +598,7 @@ final class Tithe
      */
     public static function newCreditCardModel()
     {
-        $model = static::creditCardModel();
+        $model = self::creditCardModel();
 
         return new $model();
     }
@@ -602,7 +610,7 @@ final class Tithe
      */
     public static function creditCardAuthorizationModel()
     {
-        return static::$creditCardAuthorizationModel;
+        return self::$creditCardAuthorizationModel;
     }
 
     /**
@@ -612,9 +620,9 @@ final class Tithe
      */
     public static function useCreditCardAuthorizationModel(string $model)
     {
-        static::$creditCardAuthorizationModel = $model;
+        self::$creditCardAuthorizationModel = $model;
 
-        return new static();
+        return new self();
     }
 
     /**
@@ -624,7 +632,7 @@ final class Tithe
      */
     public static function newCreditCardAuthorizationModel()
     {
-        $model = static::creditCardAuthorizationModel();
+        $model = self::creditCardAuthorizationModel();
 
         return new $model();
     }
@@ -701,5 +709,27 @@ final class Tithe
     public static function detachFeaturesFromPlansUsing(string $class)
     {
         app()->singleton(DetachesFeaturesFromPlans::class, $class);
+    }
+
+    /**
+     * Register a class / callback that should be used to create card authorizations.
+     *
+     * @return void
+     */
+    public static function createAuthorizationsUsing(string $class)
+    {
+        app()->singleton(CreatesAuthorizations::class, $class);
+    }
+
+    /**
+     * Register a callback that is responsible for getting the currently active subscriber.
+     *
+     * @return static
+     */
+    public static function getActiveSubscriberUsing(callable $callback)
+    {
+        self::$activeSubscriberCallback = $callback;
+
+        return new self();
     }
 }

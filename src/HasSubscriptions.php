@@ -4,6 +4,7 @@ namespace Tithe;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use InvalidArgumentException;
 use OutOfBoundsException;
 use OverflowException;
@@ -14,6 +15,10 @@ trait HasSubscriptions
     protected ?Collection $loadedFeatures = null;
 
     protected ?Collection $loadedSubscriptionFeatures = null;
+
+    abstract public function titheDisplayName(): string;
+
+    abstract public function titheEmail(): string;
 
     public function featureConsumptions()
     {
@@ -310,5 +315,61 @@ trait HasSubscriptions
         $this->loadMissing('subscription.plan.features');
 
         return $this->loadedSubscriptionFeatures = $this->subscription->plan->features ?? Collection::empty();
+    }
+
+    /**
+     * Get the subscribers
+     */
+    public function authorizations(): MorphMany
+    {
+        return $this->morphMany(Tithe::creditCardAuthorizationModel(), 'subscriber');
+    }
+
+    /**
+     * Get the cards
+     */
+    public function cards(): array
+    {
+        return $this->authorizations
+            ->map(fn ($authorization) => $authorization->card)
+            ->unwrap();
+    }
+
+    /**
+     * Set provided authorization as default
+     *
+     * @param  mixed  $authorization
+     */
+    public function setDefaultAuth($authorization): void
+    {
+        $oldDefault = $this->authorizations()
+            ->where('default', true)
+            ->first();
+
+        $authorization->markDefault();
+
+        if ((bool) $oldDefault && $this->authorizations()->count() > 1) {
+            $oldDefault->markDefault(false);
+        }
+    }
+
+    /**
+     * Get default Authorization
+     *
+     * @return mixed
+     */
+    public function defaultAuthorization()
+    {
+        $default = $this->authorizations()
+            ->whereDefault(true)
+            ->first();
+
+        if (! (bool) $default && ($this->authorizations()->count() > 0)) {
+            $this->setDefaultAuth($authorization = $this->authorizations()->first());
+
+            return $authorization;
+        }
+
+        return $default;
     }
 }

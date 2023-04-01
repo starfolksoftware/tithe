@@ -6,6 +6,7 @@ use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Tithe\Commands\CreateUserCommand;
 use Tithe\Commands\InstallCommand;
+use Tithe\View\Components\PaymentMethodManager;
 
 /**
  * Tithe\TitheServiceProvider
@@ -31,7 +32,8 @@ class TitheServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasCommand(InstallCommand::class)
-            ->hasCommand(CreateUserCommand::class);
+            ->hasCommand(CreateUserCommand::class)
+            ->hasViewComponent('tithe', PaymentMethodManager::class);
 
         if (! config('tithe.ignores_routes')) {
             $package->hasRoute('web');

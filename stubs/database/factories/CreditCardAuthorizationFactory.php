@@ -15,7 +15,6 @@ class CreditCardAuthorizationFactory extends Factory
     {
         return [
             'email' => $this->faker->email(),
-            'auth' => [],
             'code' => uniqid(),
         ];
     }

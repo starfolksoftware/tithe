@@ -5,6 +5,11 @@ namespace Tithe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Tithe\CreditCardAuthorization
+ *
+ * @property bool $default
+ */
 abstract class CreditCardAuthorization extends Model
 {
     use HasFactory;
@@ -16,10 +21,11 @@ abstract class CreditCardAuthorization extends Model
      */
     protected $fillable = [
         'subscriber_id',
+        'subscriber_type',
         'email',
-        'auth',
         'code',
         'default',
+        'credit_card_id',
     ];
 
     /**
@@ -28,7 +34,6 @@ abstract class CreditCardAuthorization extends Model
      * @var array<string,string>
      */
     protected $casts = [
-        'auth' => 'array',
         'default' => 'bool',
     ];
 
@@ -63,5 +68,15 @@ abstract class CreditCardAuthorization extends Model
             Tithe::creditCardModel(),
             Tithe::newCreditCardModel()->getForeignKey()
         );
+    }
+
+    /**
+     * Mark as default.
+     */
+    public function markDefault(bool $value = true): void
+    {
+        $this->update([
+            'default' => $value,
+        ]);
     }
 }

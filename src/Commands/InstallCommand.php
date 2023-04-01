@@ -25,6 +25,7 @@ class InstallCommand extends Command
 
         // Actions...
         copy(__DIR__.'/../../stubs/app/Actions/AttachFeatureToPlan.php', app_path('Actions/Tithe/AttachFeatureToPlan.php'));
+        copy(__DIR__.'/../../stubs/app/Actions/CreateAuthorization.php', app_path('Actions/Tithe/CreateAuthorization.php'));
         copy(__DIR__.'/../../stubs/app/Actions/CreateFeature.php', app_path('Actions/Tithe/CreateFeature.php'));
         copy(__DIR__.'/../../stubs/app/Actions/CreatePlan.php', app_path('Actions/Tithe/CreatePlan.php'));
         copy(__DIR__.'/../../stubs/app/Actions/DetachFeatureFromPlan.php', app_path('Actions/Tithe/DetachFeatureFromPlan.php'));
@@ -70,6 +71,7 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/tests/FeaturePlanAttachmentControllerTest.php', base_path('tests/Feature/FeaturePlanAttachmentControllerTest.php'));
         copy(__DIR__.'/../../stubs/tests/FeaturePlanDetachmentControllerTest.php', base_path('tests/Feature/FeaturePlanDetachmentControllerTest.php'));
         copy(__DIR__.'/../../stubs/tests/PlanControllerTest.php', base_path('tests/Feature/PlanControllerTest.php'));
+        copy(__DIR__.'/../../stubs/tests/PaymentMethodTest.php', base_path('tests/Feature/PaymentMethodTest.php'));
 
         // Assets
         copy(__DIR__.'/../../resources/dist/tithe.css', public_path('vendor/tithe/main.css'));

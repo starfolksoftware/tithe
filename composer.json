@@ -18,8 +18,11 @@
     "require": {
         "php": "^8.1",
         "illuminate/contracts": "^9.0|^10.0",
+        "php-http/guzzle7-adapter": "^1.0",
         "spatie/laravel-package-tools": "^1.14.0",
-        "staudenmeir/belongs-to-through": "^2.5"
+        "starfolksoftware/paystack-php": "^1.0",
+        "staudenmeir/belongs-to-through": "^2.5",
+        "symfony/http-client": "^6.2"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -55,7 +58,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "php-http/discovery": true
         }
     },
     "extra": {

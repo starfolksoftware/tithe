@@ -128,12 +128,11 @@ return new class extends Migration
             }
             $table->foreignIdFor(Tithe::creditCardModel());
             $table->string('email');
-            $table->json('auth');
             $table->string('code');
             $table->boolean('default')->default(false);
             $table->timestamps();
 
-            $table->unique(['subscriber_id', Tithe::newCreditCardModel()->getForeignKey()], 'auth_subscriber_card_unique');
+            $table->unique(['subscriber_id', 'subscriber_type', Tithe::newCreditCardModel()->getForeignKey()], 'auth_subscriber_card_unique');
         });
 
         Schema::create(Tithe::$userTableName, function (Blueprint $table) {
