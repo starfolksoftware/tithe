@@ -348,7 +348,7 @@ trait HasSubscriptions
 
         $authorization->markDefault();
 
-        if (!!$oldDefault && $this->authorizations()->count() > 1) {
+        if ((bool) $oldDefault && $this->authorizations()->count() > 1) {
             $oldDefault->markDefault(false);
         }
     }

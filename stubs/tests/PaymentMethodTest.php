@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\User;
-use Tithe\Tithe;
 use StarfolkSoftware\Paystack\Client as PaystackClient;
 use Tithe\Contracts\CreatesAuthorizations;
+use Tithe\Tithe;
 
 test('payment method can be added', function () {
     // $client = Mockery::mock(new PaystackClient(['secretKey' => '132323']));
@@ -41,7 +41,7 @@ test('payment method can be removed', function () {
         ->exp_month->toBe($creditCard->exp_month);
 
     $response = $this->delete(route('tithe.billing.remove-authorization'), [
-        'authorizationId' => $authorization->id
+        'authorizationId' => $authorization->id,
     ]);
 
     $response->assertStatus(302);
@@ -67,7 +67,7 @@ test('payment method can be set as default', function () {
         ->create();
 
     $response = $this->patch(route('tithe.billing.set-default-authorization'), [
-        'authorizationId' => $authorization2->id
+        'authorizationId' => $authorization2->id,
     ]);
 
     $response->assertStatus(302);
