@@ -4,7 +4,6 @@ namespace Tithe;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Tithe\Commands;
 use Tithe\View\Components;
 
 /**
