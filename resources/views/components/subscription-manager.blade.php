@@ -5,8 +5,9 @@ $planName = $plan->display_name;
 $planAmount = $plan->currency . ($plan->amount / 100);
 $interval = $plan->periodicity_type;
 $nextPaymentAt = $subscription->expired_at->format("M d, Y");
+$defaultTab = collect($plans)->keys()->first();
 @endphp
-<div x-data="{ open: false }" id="subscription" class="bg-white shadow sm:rounded-lg">
+<div x-data="{ open: false, current_tab: '{{ $defaultTab }}' }" id="subscription" class="bg-white shadow sm:rounded-lg">
     <div x-show="!open" class="px-4 py-5 sm:p-6">
         <h3 class="text-base font-semibold leading-6 text-gray-900">{{ $planName }}</h3>
         <div class="mt-2 text-md font-semibold text-gray-700">
@@ -55,14 +56,24 @@ $nextPaymentAt = $subscription->expired_at->format("M d, Y");
                 </button>
             </div>
         </div>
-        <div class="-mx-4 mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
+        <div class="mt-6">
+            <nav class="flex space-x-4" aria-label="Tabs">
+                <template x-for="tab in JSON.parse('{{ json_encode($plans) }}')">
+                    <a href="javascript:;" 
+                        @click="current_tab = tab" 
+                        :class="current_tab == tab ? 'bg-gray-100 text-gray-700' : 'text-gray-500 hover:text-gray-700'" 
+                        class="rounded-md px-3 py-2 text-sm font-medium" 
+                        :aria-current="current_tab == tab ? 'page' : ''"
+                        x-text="tab"
+                    />
+                </template>
+            </nav>
+        </div>
+        <div class="-mx-4 mt-6 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
             <table class="min-w-full divide-y divide-gray-300">
                 <thead>
                     <tr>
                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Plan</th>
-                        <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">Memory</th>
-                        <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">CPU</th>
-                        <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell">Storage</th>
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Price</th>
                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                             <span class="sr-only">Select</span>
@@ -70,18 +81,15 @@ $nextPaymentAt = $subscription->expired_at->format("M d, Y");
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr x-for="plan in JSON.parse('{{ json_encode($plans) }}')[current_tab]">
                         <td class="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
-                            <div class="font-medium text-gray-900">Hobby</div>
+                            <div class="font-medium text-gray-900" x-text="plan.display_name"></div>
                             <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
                                 <span>4 GB RAM / 4 CPUs</span>
                                 <span class="hidden sm:inline">·</span>
                                 <span>128 GB SSD disk</span>
                             </div>
                         </td>
-                        <td class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell">4 GB RAM</td>
-                        <td class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell">4 CPUs</td>
-                        <td class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell">128 GB SSD disk</td>
                         <td class="px-3 py-3.5 text-sm text-gray-500">
                             <div class="sm:hidden">$40/mo</div>
                             <div class="hidden sm:block">$40/month</div>
@@ -106,9 +114,6 @@ $nextPaymentAt = $subscription->expired_at->format("M d, Y");
 
                             <div class="absolute -top-px left-6 right-0 h-px bg-gray-200"></div>
                         </td>
-                        <td class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell border-t border-gray-200">8 GB RAM</td>
-                        <td class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell border-t border-gray-200">6 CPUs</td>
-                        <td class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell border-t border-gray-200">256 GB SSD disk</td>
                         <td class="px-3 py-3.5 text-sm text-gray-500 border-t border-gray-200">
                             <div class="sm:hidden">$80/mo</div>
                             <div class="hidden sm:block">$80/month</div>

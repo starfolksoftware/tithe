@@ -3,7 +3,6 @@
 namespace Tithe\View\Components;
 
 use Illuminate\View\Component;
-use Tithe\Tithe;
 
 class PaymentMethodManager extends Component
 {
@@ -17,7 +16,7 @@ class PaymentMethodManager extends Component
     public function __construct(mixed $subscriber)
     {
         $this->subscriber = $subscriber;
-        $this->authorizations = call_user_func(Tithe::$activeSubscriberCallback)
+        $this->authorizations = $this->subscriber
             ->authorizations
             ->load('creditCard');
     }
