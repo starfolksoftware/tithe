@@ -58,19 +58,7 @@
             </div>
         @endif
         <!-- Current Subscription -->
-        <div class="bg-white shadow sm:rounded-lg">
-            <div class="px-4 py-5 sm:p-6">
-                <h3 class="text-base font-semibold leading-6 text-gray-900">Starter</h3>
-                <div class="mt-2 text-md font-semibold text-gray-700"><span>$120</span> <!----> / yearly <span class="text-gray-400">(5 day trial)</span></div>
-                <div class="mt-2 max-w-xl text-sm text-gray-500">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae voluptatibus corrupti atque repudiandae nam.</p>
-                    <p class="mt-2 text-sm font-medium text-gray-500 truncate"><span>Next Payment on September 23, 2023</span></p>
-                </div>
-                <div class="mt-5">
-                    <button type="button" class="inline-flex items-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">Change plan</button>
-                </div>
-            </div>
-        </div>
+        <x-tithe-subscription-manager :subscriber="$subscriber" :permissions="$permissions" />
 
         <!-- Payment method -->
         <x-tithe-payment-method-manager :subscriber="$subscriber" />
