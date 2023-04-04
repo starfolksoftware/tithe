@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
-use Tithe\Enums\PeriodicityType;
+use Tithe\Enums\PeriodicityTypeEnum;
 use Tithe\Tithe;
 
 beforeAll(function () {
@@ -16,7 +16,7 @@ test('feature model can calculate yearly expiration', function () {
 
     $years = $this->faker->randomDigitNotNull();
     $feature = Tithe::newFeatureModel()::factory()->create([
-        'periodicity_type' => PeriodicityType::Year,
+        'periodicity_type' => PeriodicityTypeEnum::YEAR->value,
         'periodicity' => $years,
     ]);
 
@@ -28,7 +28,7 @@ test('feature model can calculate montly expiration', function () {
 
     $months = $this->faker->randomDigitNotNull();
     $feature = Tithe::newFeatureModel()::factory()->create([
-        'periodicity_type' => PeriodicityType::Month,
+        'periodicity_type' => PeriodicityTypeEnum::MONTH->value,
         'periodicity' => $months,
     ]);
 
@@ -40,7 +40,7 @@ test('feature model can calculate weekly expiration', function () {
 
     $weeks = $this->faker->randomDigitNotNull();
     $feature = Tithe::newFeatureModel()::factory()->create([
-        'periodicity_type' => PeriodicityType::Week,
+        'periodicity_type' => PeriodicityTypeEnum::WEEK->value,
         'periodicity' => $weeks,
     ]);
 
@@ -52,7 +52,7 @@ test('feature model calculate daily expiration', function () {
 
     $days = $this->faker->randomDigitNotNull();
     $feature = Tithe::newFeatureModel()::factory()->create([
-        'periodicity_type' => PeriodicityType::Day,
+        'periodicity_type' => PeriodicityTypeEnum::DAY->value,
         'periodicity' => $days,
     ]);
 
@@ -63,7 +63,7 @@ test('feature model can calculate when next recurrend end based on historic recu
     Carbon::setTestNow(now());
 
     $feature = Tithe::newFeatureModel()::factory()->create([
-        'periodicity_type' => PeriodicityType::Week,
+        'periodicity_type' => PeriodicityTypeEnum::WEEK->value,
         'periodicity' => 1,
     ]);
 

@@ -16,7 +16,14 @@ class SubscriptionManager extends Component
      */
     public function __construct(public mixed $subscriber, public array $permissions = [])
     {
+        $currentPlan = $subscriber->subscription?->plan->name;
+
         $this->plans = Tithe::planModel()::get()
+            ->map(function ($plan) use ($currentPlan) {
+                $plan->user_current = $plan->name == $currentPlan;
+
+                return $plan;
+            })
             ->groupBy('periodicity_type')
             ->toArray();
     }

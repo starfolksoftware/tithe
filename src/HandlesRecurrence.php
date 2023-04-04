@@ -3,7 +3,7 @@
 namespace Tithe;
 
 use Illuminate\Support\Carbon;
-use Tithe\Enums\PeriodicityType;
+use Tithe\Enums\PeriodicityTypeEnum;
 
 /**
  * Tithe\HandlesRecurrence
@@ -23,7 +23,7 @@ trait HandlesRecurrence
             $start = Carbon::parse($start);
         }
 
-        $recurrences = PeriodicityType::getDateDifference(from: now(), to: $start, unit: $this->periodicity_type);
+        $recurrences = PeriodicityTypeEnum::getDateDifference(from: now(), to: $start, unit: str($this->periodicity_type)->title()->value());
         $expirationDate = $start->copy()->add($this->periodicity_type, $this->periodicity + $recurrences);
 
         return $expirationDate;

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tithe\Enums\PeriodicityType;
+use Tithe\Enums\PeriodicityTypeEnum;
 
 class FeatureFactory extends Factory
 {
@@ -19,10 +19,10 @@ class FeatureFactory extends Factory
             'name' => $this->faker->words(asText: true),
             'periodicity' => $this->faker->randomDigitNotNull(),
             'periodicity_type' => $this->faker->randomElement([
-                PeriodicityType::Year,
-                PeriodicityType::Month,
-                PeriodicityType::Week,
-                PeriodicityType::Day,
+                PeriodicityTypeEnum::YEAR->value,
+                PeriodicityTypeEnum::MONTH->value,
+                PeriodicityTypeEnum::WEEK->value,
+                PeriodicityTypeEnum::DAY->value,
             ]),
             'quota' => false,
             'postpaid' => false,

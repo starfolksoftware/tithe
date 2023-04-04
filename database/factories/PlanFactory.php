@@ -3,7 +3,7 @@
 namespace Tithe\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tithe\Enums\PeriodicityType;
+use Tithe\Enums\PeriodicityTypeEnum;
 use Tithe\Tests\Mocks\Plan;
 
 class PlanFactory extends Factory
@@ -24,10 +24,10 @@ class PlanFactory extends Factory
             'description' => $this->faker->sentence(),
             'periodicity' => $this->faker->randomDigitNotNull(),
             'periodicity_type' => $this->faker->randomElement([
-                PeriodicityType::Year,
-                PeriodicityType::Month,
-                PeriodicityType::Week,
-                PeriodicityType::Day,
+                PeriodicityTypeEnum::YEAR->value,
+                PeriodicityTypeEnum::MONTH->value,
+                PeriodicityTypeEnum::WEEK->value,
+                PeriodicityTypeEnum::DAY->value,
             ]),
             'amount' => $this->faker->randomDigitNotZero() * 1000,
         ];

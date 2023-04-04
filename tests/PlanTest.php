@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
-use Tithe\Enums\PeriodicityType;
+use Tithe\Enums\PeriodicityTypeEnum;
 use Tithe\Tithe;
 
 beforeAll(function () {
@@ -18,7 +18,7 @@ test('plan model can calculate grace days ending', function () {
     $graceDays = $this->faker->randomDigitNotNull();
     $plan = Tithe::newPlanModel()::factory()->create([
         'grace_days' => $graceDays,
-        'periodicity_type' => PeriodicityType::Day,
+        'periodicity_type' => PeriodicityTypeEnum::DAY->value,
         'periodicity' => $days,
     ]);
 

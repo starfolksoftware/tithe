@@ -5,6 +5,7 @@ namespace App\Actions\Tithe;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Tithe\Contracts\UpdatesFeatures;
+use Tithe\Enums\PeriodicityTypeEnum;
 
 class UpdateFeature implements UpdatesFeatures
 {
@@ -18,12 +19,14 @@ class UpdateFeature implements UpdatesFeatures
     {
         Gate::forUser($user)->authorize('update', $feature);
 
+        $periodicities = implode(",", collect(PeriodicityTypeEnum::cases())->map(fn ($p) => $p->value)->toArray());
+
         Validator::make($input, [
             'consumable' => ['required', 'boolean'],
             'quota' => ['boolean'],
             'postpaid' => ['boolean'],
             'periodicity' => ['nullable', 'integer'],
-            'periodicity_type' => ['nullable', 'string', 'max:255', 'in:Year,Month,Week,Day'],
+            'periodicity_type' => ['nullable', 'string', 'max:255', 'in:'.$periodicities],
         ])->validateWithBag('updateFeature');
 
         $feature->forceFill(collect($input)->only([

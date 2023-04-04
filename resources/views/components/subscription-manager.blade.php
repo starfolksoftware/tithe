@@ -5,6 +5,7 @@ $planName = $plan->display_name;
 $planAmount = $plan->currency . ($plan->amount / 100);
 $interval = $plan->periodicity_type;
 $nextPaymentAt = $subscription->expired_at->format("M d, Y");
+$planPeriodicityTypes = collect($plans)->keys()->toArray();
 $defaultTab = collect($plans)->keys()->first();
 @endphp
 <div x-data="{ open: false, current_tab: '{{ $defaultTab }}' }" id="subscription" class="bg-white shadow sm:rounded-lg">
@@ -57,8 +58,8 @@ $defaultTab = collect($plans)->keys()->first();
             </div>
         </div>
         <div class="mt-6">
-            <nav class="flex space-x-4" aria-label="Tabs">
-                <template x-for="tab in JSON.parse('{{ json_encode($plans) }}')">
+            <nav class="flex" aria-label="Tabs">
+                <template x-for="tab in JSON.parse('{{ json_encode($planPeriodicityTypes) }}')">
                     <a href="javascript:;" 
                         @click="current_tab = tab" 
                         :class="current_tab == tab ? 'bg-gray-100 text-gray-700' : 'text-gray-500 hover:text-gray-700'" 
@@ -80,52 +81,32 @@ $defaultTab = collect($plans)->keys()->first();
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr x-for="plan in JSON.parse('{{ json_encode($plans) }}')[current_tab]">
-                        <td class="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
-                            <div class="font-medium text-gray-900" x-text="plan.display_name"></div>
-                            <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
-                                <span>4 GB RAM / 4 CPUs</span>
-                                <span class="hidden sm:inline">·</span>
-                                <span>128 GB SSD disk</span>
-                            </div>
-                        </td>
-                        <td class="px-3 py-3.5 text-sm text-gray-500">
-                            <div class="sm:hidden">$40/mo</div>
-                            <div class="hidden sm:block">$40/month</div>
-                        </td>
-                        <td class="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                            <button type="button" class="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white">Select<span class="sr-only">, Hobby</span></button>
-                        </td>
-                    </tr>
+                <tbody class="divide-y divide-y-transparent">
+                    <template x-for="plan in JSON.parse('{{ json_encode($plans) }}')[current_tab]">
+                        <tr>
+                            <td class="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
+                                <div>
+                                    <span class="font-medium text-gray-900" x-text="plan.display_name"></span>
+                                    <template x-if="plan.user_current">
+                                        <span class="ml-1 text-primary-600">(Current Plan)</span>
+                                    </template>
+                                </div>
+                                <template x-if="plan.user_current">
+                                    <div class="absolute -top-px left-6 right-0 h-px bg-gray-200"></div>
+                                </template>
+                            </td>
+                            <td class="px-3 py-3.5 text-sm text-gray-500">
+                                <div x-text="`${plan.currency + (plan.amount / 100)}/${plan.periodicity_type}`"></div>
+                            </td>
+                            <td class="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                <button type="button" class="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white" :disabled="plan.user_current">Select<span class="sr-only" x-text="', ' + plan.display_name"></span></button>
 
-                    <tr>
-                        <td class="relative py-4 pl-4 pr-3 text-sm sm:pl-6 border-t border-transparent">
-                            <div class="font-medium text-gray-900">
-                                Startup
-
-                                <span class="ml-1 text-primary-600">(Current Plan)</span>
-                            </div>
-                            <div class="mt-1 flex flex-col text-gray-500 sm:block lg:hidden">
-                                <span>8 GB RAM / 6 CPUs</span>
-                                <span class="hidden sm:inline">·</span>
-                                <span>256 GB SSD disk</span>
-                            </div>
-
-                            <div class="absolute -top-px left-6 right-0 h-px bg-gray-200"></div>
-                        </td>
-                        <td class="px-3 py-3.5 text-sm text-gray-500 border-t border-gray-200">
-                            <div class="sm:hidden">$80/mo</div>
-                            <div class="hidden sm:block">$80/month</div>
-                        </td>
-                        <td class="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 border-t border-transparent">
-                            <button type="button" class="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white" disabled>Select<span class="sr-only">, Startup</span></button>
-
-                            <div class="absolute -top-px left-0 right-6 h-px bg-gray-200"></div>
-                        </td>
-                    </tr>
-
-                    <!-- More plans... -->
+                                <template x-if="plan.user_current">
+                                    <div class="absolute -top-px left-0 right-6 h-px bg-gray-200"></div>
+                                </template>
+                            </td>
+                        </tr>
+                    </template>
                 </tbody>
             </table>
         </div>
