@@ -99,7 +99,11 @@ $defaultTab = collect($plans)->keys()->first();
                                 <div x-text="`${plan.currency + (plan.amount / 100)}/${plan.periodicity_type}`"></div>
                             </td>
                             <td class="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                <button type="button" class="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white" :disabled="plan.user_current">Select<span class="sr-only" x-text="', ' + plan.display_name"></span></button>
+                                <button type="button" class="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white" :disabled="plan.user_current">
+                                    <span x-text="plan.update_charge > 0 ? 'Upgrade' : plan.update_charge == 0 ? 'Current' : 'Downgrade'"></span>
+                                    <span class="sr-only" x-text="', ' + plan.display_name"></span>
+                                    <span x-text="plan.update_charge > 0 ? `&nbsp;at ${plan.currency + (plan.update_charge / 100)}` : ''"></span>
+                                </button>
 
                                 <template x-if="plan.user_current">
                                     <div class="absolute -top-px left-0 right-6 h-px bg-gray-200"></div>
@@ -116,7 +120,7 @@ $defaultTab = collect($plans)->keys()->first();
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.store('subscription', {
-
+            
         });
     });
 </script>

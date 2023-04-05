@@ -4,6 +4,7 @@ namespace Tithe\View\Components;
 
 use Illuminate\Contracts\View;
 use Illuminate\View\Component;
+use Tithe\Enums\PeriodicityTypeEnum;
 use Tithe\Tithe;
 
 class SubscriptionManager extends Component
@@ -19,8 +20,9 @@ class SubscriptionManager extends Component
         $currentPlan = $subscriber->subscription?->plan->name;
 
         $this->plans = Tithe::planModel()::get()
-            ->map(function ($plan) use ($currentPlan) {
+            ->map(function ($plan) use ($currentPlan, $subscriber) {
                 $plan->user_current = $plan->name == $currentPlan;
+                $plan->update_charge = PeriodicityTypeEnum::proration($subscriber, $plan);
 
                 return $plan;
             })

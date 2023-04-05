@@ -24,7 +24,7 @@ trait HandlesRecurrence
         }
 
         $recurrences = PeriodicityTypeEnum::getDateDifference(from: now(), to: $start, unit: str($this->periodicity_type)->title()->value());
-        $expirationDate = $start->copy()->add($this->periodicity_type, $this->periodicity + $recurrences);
+        $expirationDate = $start->copy()->add(str($this->periodicity_type)->title()->value(), $this->periodicity + $recurrences);
 
         return $expirationDate;
     }
