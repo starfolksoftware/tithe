@@ -10,12 +10,9 @@ use Tithe\Enums\PeriodicityTypeEnum;
 class UpdateFeature implements UpdatesFeatures
 {
     /**
-     * Validate and update the given team's name.
-     *
-     * @param  mixed  $user
-     * @param  mixed  $feature
+     * Validate and update the given feature.
      */
-    public function update($user, $feature, array $input): void
+    public function update(mixed $user, mixed $feature, array $input): void
     {
         Gate::forUser($user)->authorize('update', $feature);
 

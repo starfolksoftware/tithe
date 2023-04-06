@@ -46,17 +46,8 @@
             </div>
         </div>
     </div>
-
+    
     <div class="space-y-6">
-        @if ($errors->any())
-            <div class="mt-5 text-sm text-red-600">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         <!-- Current Subscription -->
         <x-tithe-subscription-manager :subscriber="$subscriber" :permissions="$permissions" />
 

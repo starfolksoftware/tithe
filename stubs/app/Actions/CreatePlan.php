@@ -12,12 +12,9 @@ use Tithe\Tithe;
 class CreatePlan implements CreatesPlans
 {
     /**
-     * Validate and create a new team for the given user.
-     *
-     * @param  mixed  $user
-     * @return mixed
+     * Validate and create a new plan.
      */
-    public function create($user, array $input)
+    public function create(mixed $user, array $input)
     {
         Gate::forUser($user)->authorize('create', Tithe::newPlanModel());
 

@@ -11,12 +11,9 @@ use Tithe\Tithe;
 class CreateFeature implements CreatesFeatures
 {
     /**
-     * Validate and create a new team for the given user.
-     *
-     * @param  mixed  $user
-     * @return mixed
+     * Validate and create a new feature.
      */
-    public function create($user, array $input)
+    public function create(mixed $user, array $input)
     {
         Gate::forUser($user)->authorize('create', Tithe::newFeatureModel());
 

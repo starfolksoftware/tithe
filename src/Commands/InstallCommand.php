@@ -31,6 +31,7 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/app/Actions/DetachFeatureFromPlan.php', app_path('Actions/Tithe/DetachFeatureFromPlan.php'));
         copy(__DIR__.'/../../stubs/app/Actions/UpdateFeature.php', app_path('Actions/Tithe/UpdateFeature.php'));
         copy(__DIR__.'/../../stubs/app/Actions/UpdatePlan.php', app_path('Actions/Tithe/UpdatePlan.php'));
+        copy(__DIR__.'/../../stubs/app/Actions/UpgradeSubscription.php', app_path('Actions/Tithe/UpgradeSubscription.php'));
 
         // Models...
         copy(__DIR__.'/../../stubs/app/Models/TitheUser.php', app_path('Models/TitheUser.php'));

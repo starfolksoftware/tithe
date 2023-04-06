@@ -58,7 +58,11 @@ enum PeriodicityTypeEnum: string
     {
         $currentPlan = $subscriber->subscription?->plan;
 
-        if (is_null($currentPlan) || $newPlan->amount <= $currentPlan->amount) {
+        if (is_null($currentPlan)) {
+            return $newPlan->amount;
+        }
+
+        if ($newPlan->amount <= $currentPlan->amount) {
             return 0.00;
         }
 

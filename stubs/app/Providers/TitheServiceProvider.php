@@ -2,13 +2,7 @@
 
 namespace App\Providers;
 
-use App\Actions\Tithe\AttachFeatureToPlan;
-use App\Actions\Tithe\CreateAuthorization;
-use App\Actions\Tithe\CreateFeature;
-use App\Actions\Tithe\CreatePlan;
-use App\Actions\Tithe\DetachFeatureFromPlan;
-use App\Actions\Tithe\UpdateFeature;
-use App\Actions\Tithe\UpdatePlan;
+use App\Actions\Tithe as TitheActions;
 use Illuminate\Support\ServiceProvider;
 use Tithe\Tithe;
 
@@ -31,12 +25,13 @@ class TitheServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Tithe::createPlansUsing(CreatePlan::class);
-        Tithe::updatePlansUsing(UpdatePlan::class);
-        Tithe::createFeaturesUsing(CreateFeature::class);
-        Tithe::updateFeaturesUsing(UpdateFeature::class);
-        Tithe::attachFeaturesToPlansUsing(AttachFeatureToPlan::class);
-        Tithe::detachFeaturesFromPlansUsing(DetachFeatureFromPlan::class);
-        Tithe::createAuthorizationsUsing(CreateAuthorization::class);
+        Tithe::createPlansUsing(TitheActions\CreatePlan::class);
+        Tithe::updatePlansUsing(TitheActions\UpdatePlan::class);
+        Tithe::createFeaturesUsing(TitheActions\CreateFeature::class);
+        Tithe::updateFeaturesUsing(TitheActions\UpdateFeature::class);
+        Tithe::attachFeaturesToPlansUsing(TitheActions\AttachFeatureToPlan::class);
+        Tithe::detachFeaturesFromPlansUsing(TitheActions\DetachFeatureFromPlan::class);
+        Tithe::createAuthorizationsUsing(TitheActions\CreateAuthorization::class);
+        Tithe::upgradeSubscriptionsUsing(TitheActions\UpgradeSubscription::class);
     }
 }

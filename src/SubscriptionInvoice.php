@@ -25,10 +25,6 @@ abstract class SubscriptionInvoice extends Model
     protected $fillable = [
         'subscriber_id',
         'subscriber_type',
-        'line_items',
-        'total',
-        'due_date',
-        'status',
         'paid_at',
         'meta',
     ];

@@ -11,11 +11,8 @@ class DetachFeatureFromPlan implements DetachesFeaturesFromPlans
 {
     /**
      * Validate and detach the provided feature from the plan.
-     *
-     * @param  mixed  $user
-     * @param  mixed  $plan
      */
-    public function detach($user, $plan, array $input): void
+    public function detach(mixed $user, mixed $plan, array $input): void
     {
         Gate::forUser($user)->authorize('detach-feature', $plan);
 
