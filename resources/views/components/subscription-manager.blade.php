@@ -1,10 +1,12 @@
 @php
-$plan = $subscriber->subscription?->plan;
 $subscription = $subscriber->subscription;
-$planName = $plan->display_name;
-$planAmount = $plan->currency . round((float) ($plan->amount / 100), 2);
-$interval = $plan->periodicity_type;
-$nextPaymentAt = $subscription->expired_at->format("M d, Y");
+if (!!$subscription) {
+    $plan = $subscription?->plan;
+    $planName = $plan->display_name;
+    $planAmount = $plan->currency . round((float) ($plan->amount / 100), 2);
+    $interval = $plan->periodicity_type;
+    $nextPaymentAt = $subscription->expired_at->format("M d, Y");
+}
 $planPeriodicityTypes = collect($plans)->keys()->toArray();
 $defaultTab = collect($plans)->keys()->first();
 @endphp
@@ -31,18 +33,22 @@ $defaultTab = collect($plans)->keys()->first();
     </div>
     @endif
     <div x-show="!open" class="px-4 py-5 sm:p-6">
-        <h3 class="text-base font-semibold leading-6 text-gray-900">{{ $planName }}</h3>
-        <div class="mt-2 text-md font-semibold text-gray-700">
-            <span>{{ $planAmount }}</span> <!----> <i>per</i> {{ $interval }}
-            <span class="text-gray-400"></span>
+        @if ($subscription)
+        <div class="mb-5">
+            <h3 class="text-base font-semibold leading-6 text-gray-900">{{ $planName }}</h3>
+            <div class="mt-2 text-md font-semibold text-gray-700">
+                <span>{{ $planAmount }}</span> <!----> <i>per</i> {{ $interval }}
+                <span class="text-gray-400"></span>
+            </div>
+            <div class="mt-2 max-w-xl text-sm text-gray-500">
+                <p>{{ $plan->description }}</p>
+                <p class="mt-2 text-sm font-medium text-gray-500 truncate"><span>Next Payment on {{ $nextPaymentAt }}</span></p>
+            </div>
         </div>
-        <div class="mt-2 max-w-xl text-sm text-gray-500">
-            <p>{{ $plan->description }}</p>
-            <p class="mt-2 text-sm font-medium text-gray-500 truncate"><span>Next Payment on {{ $nextPaymentAt }}</span></p>
-        </div>
-        <div class="mt-5">
+        @endif
+        <div>
             @if (data_get($permissions, 'canUpdateSubscription'))
-            <button @click="open = ! open" type="button" class="inline-flex items-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">
+            <button @click="open = ! open" type="button" class="inline-flex mt-5 items-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">
                 Update plan
             </button>
             @else
@@ -68,10 +74,16 @@ $defaultTab = collect($plans)->keys()->first();
         <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
                 <h1 class="text-base font-semibold leading-6 text-gray-900">Plans</h1>
+                @if ($subscription)
                 <p class="mt-2 text-sm text-gray-700">
                     Your team is on the <strong class="font-semibold text-gray-900">{{ $planName }}</strong> 
                     plan. The next payment of {{ $planAmount }} will be due on {{ $nextPaymentAt }}.
                 </p>
+                @else
+                <p class="mt-2 text-sm text-gray-700">
+                    You do not have an active subscription.
+                </p>
+                @endif
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                 <button @click="open = ! open" type="button" class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">

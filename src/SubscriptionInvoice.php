@@ -25,6 +25,7 @@ abstract class SubscriptionInvoice extends Model
     protected $fillable = [
         'subscriber_id',
         'subscriber_type',
+        'subscription_id',
         'paid_at',
         'meta',
     ];
@@ -35,9 +36,6 @@ abstract class SubscriptionInvoice extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'line_items' => 'array',
-        'total' => 'int',
-        'due_date' => 'datetime',
         'paid_at' => 'datetime',
         'meta' => 'array',
     ];

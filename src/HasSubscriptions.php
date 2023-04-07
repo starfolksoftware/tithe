@@ -336,6 +336,14 @@ trait HasSubscriptions
     }
 
     /**
+     * Get the subscriptions invoices.
+     */
+    public function subscriptionInvoices(): MorphMany
+    {
+        return $this->morphMany(Tithe::subscriptionInvoiceModel(), 'subscriber');
+    }
+
+    /**
      * Set provided authorization as default
      *
      * @param  mixed  $authorization
