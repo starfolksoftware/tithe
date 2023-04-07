@@ -5,6 +5,11 @@ namespace Tithe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Tithe\Feature
+ *
+ * @property mixed $name
+ */
 abstract class Feature extends Model
 {
     use HandlesRecurrence;
