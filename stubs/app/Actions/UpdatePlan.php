@@ -9,12 +9,9 @@ use Tithe\Contracts\UpdatesPlans;
 class UpdatePlan implements UpdatesPlans
 {
     /**
-     * Validate and update the given team's name.
-     *
-     * @param  mixed  $user
-     * @param  mixed  $plan
+     * Validate and update the given plan.
      */
-    public function update($user, $plan, array $input): void
+    public function update(mixed $user, mixed $plan, array $input): void
     {
         Gate::forUser($user)->authorize('update', $plan);
 

@@ -9,6 +9,7 @@ use Tithe\Contracts\CreatesPlans;
 use Tithe\Contracts\DetachesFeaturesFromPlans;
 use Tithe\Contracts\UpdatesFeatures;
 use Tithe\Contracts\UpdatesPlans;
+use Tithe\Contracts\UpgradesSubscriptions;
 
 final class Tithe
 {
@@ -719,6 +720,16 @@ final class Tithe
     public static function createAuthorizationsUsing(string $class)
     {
         app()->singleton(CreatesAuthorizations::class, $class);
+    }
+
+    /**
+     * Register a class / callback that should be used to upgrade subscriptions.
+     *
+     * @return void
+     */
+    public static function upgradeSubscriptionsUsing(string $class)
+    {
+        app()->singleton(UpgradesSubscriptions::class, $class);
     }
 
     /**

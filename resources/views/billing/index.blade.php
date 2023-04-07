@@ -46,17 +46,8 @@
             </div>
         </div>
     </div>
-
+    
     <div class="space-y-6">
-        @if ($errors->any())
-            <div class="mt-5 text-sm text-red-600">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         <!-- Current Subscription -->
         <x-tithe-subscription-manager :subscriber="$subscriber" :permissions="$permissions" />
 
@@ -64,7 +55,7 @@
         <x-tithe-payment-method-manager :subscriber="$subscriber" />
 
         <!-- Email Recipients -->
-        <div class="bg-white shadow sm:rounded-lg">
+        {{-- <div class="bg-white shadow sm:rounded-lg">
             <div class="px-4 py-5 sm:p-6">
                 <h3 class="text-base font-semibold leading-6 text-gray-900">Email Recipients</h3>
                 <div class="mt-2 max-w-xl text-sm text-gray-500">
@@ -78,7 +69,7 @@
                     <button type="submit" class="mt-3 inline-flex w-full items-center justify-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 sm:mt-0 sm:ml-3 sm:w-auto">Save</button>
                 </form>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Invoices -->
         <div class="bg-white shadow sm:rounded-lg">

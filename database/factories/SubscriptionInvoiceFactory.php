@@ -17,15 +17,8 @@ class SubscriptionInvoiceFactory extends Factory
      */
     public function definition()
     {
-        $lineItems = [
-            ['name' => $this->faker->word(), 'amount' => $this->faker->randomDigitNotZero() * 100],
-        ];
-
         return [
             'subscription_id' => Tithe::newSubscriptionModel()::factory(),
-            'line_items' => $lineItems,
-            'total' => collect($lineItems)->sum('amount'),
-            'due_date' => now(),
             'meta' => [],
             'subscriber_id' => $this->faker->randomNumber(),
             'subscriber_type' => $this->faker->word(),

@@ -22,4 +22,20 @@ class Team extends Model
     {
         return TeamFactory::new();
     }
+
+    /**
+     * Returns the display name of the team for Tithe.
+     */
+    public function titheDisplayName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * Returns the unique email of the team for Tithe.
+     */
+    public function titheEmail(): string
+    {
+        return $this->id.'@example.com';
+    }
 }

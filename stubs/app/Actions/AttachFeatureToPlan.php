@@ -11,11 +11,8 @@ class AttachFeatureToPlan implements AttachesFeaturesToPlans
 {
     /**
      * Validate and attach the provided feature to the plan.
-     *
-     * @param  mixed  $user
-     * @param  mixed  $plan
      */
-    public function attach($user, $plan, array $input): void
+    public function attach(mixed $user, mixed $plan, array $input): void
     {
         Gate::forUser($user)->authorize('attach-feature', $plan);
 

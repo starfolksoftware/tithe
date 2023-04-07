@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
-use Tithe\Enums\PeriodicityType;
+use Tithe\Enums\PeriodicityTypeEnum;
 use Tithe\Tithe;
 
 beforeAll(function () {
@@ -16,7 +16,7 @@ test('plan model can calculate yearly expiration', function () {
 
     $years = $this->faker->randomDigitNotNull();
     $plan = Tithe::planModel()::factory()->create([
-        'periodicity_type' => PeriodicityType::Year,
+        'periodicity_type' => PeriodicityTypeEnum::YEAR->value,
         'periodicity' => $years,
     ]);
 
@@ -28,7 +28,7 @@ test('plan model can calculate monthly expiration', function () {
 
     $months = $this->faker->randomDigitNotNull();
     $plan = Tithe::planModel()::factory()->create([
-        'periodicity_type' => PeriodicityType::Month,
+        'periodicity_type' => PeriodicityTypeEnum::MONTH->value,
         'periodicity' => $months,
     ]);
 
@@ -40,7 +40,7 @@ test('plan model can calculate weekly expiration', function () {
 
     $weeks = $this->faker->randomDigitNotNull();
     $plan = Tithe::planModel()::factory()->create([
-        'periodicity_type' => PeriodicityType::Week,
+        'periodicity_type' => PeriodicityTypeEnum::WEEK->value,
         'periodicity' => $weeks,
     ]);
 
@@ -52,7 +52,7 @@ test('plan model can calculate daily expiration', function () {
 
     $days = $this->faker->randomDigitNotNull();
     $plan = Tithe::planModel()::factory()->create([
-        'periodicity_type' => PeriodicityType::Day,
+        'periodicity_type' => PeriodicityTypeEnum::DAY->value,
         'periodicity' => $days,
     ]);
 
@@ -64,7 +64,7 @@ test('plan model can calculate expiration with a different start', function () {
 
     $weeks = $this->faker->randomDigitNotNull();
     $plan = Tithe::planModel()::factory()->create([
-        'periodicity_type' => PeriodicityType::Week,
+        'periodicity_type' => PeriodicityTypeEnum::WEEK->value,
         'periodicity' => $weeks,
     ]);
 
@@ -78,7 +78,7 @@ test('plan model can calculate expiration with a different start as date time st
 
     $weeks = $this->faker->randomDigitNotNull();
     $plan = Tithe::planModel()::factory()->create([
-        'periodicity_type' => PeriodicityType::Week,
+        'periodicity_type' => PeriodicityTypeEnum::WEEK->value,
         'periodicity' => $weeks,
     ]);
 

@@ -2,9 +2,9 @@ name: run-tests
 
 on:
   push:
-    branches: [main]
+    branches: [v1.x]
   pull_request:
-    branches: [main]
+    branches: [v1.x]
 
 jobs:
   test:
@@ -19,6 +19,7 @@ jobs:
         include:
           - laravel: 10.*
             testbench: 8.*
+            carbon: ^2.63
           - laravel: 9.*
             testbench: ^7.22
             carbon: ^2.63

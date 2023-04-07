@@ -20,6 +20,5 @@ function setTestModels(): void
         ->useSubscriptionRenewalModel(Mocks\SubscriptionRenewal::class)
         ->useSubscriptionInvoiceModel(Mocks\SubscriptionInvoice::class)
         ->useCreditCardModel(Mocks\CreditCard::class)
-        ->useCreditCardAuthorizationModel(Mocks\CreditCardAuthorization::class)
-        ->ignoreRoutes(false);
+        ->useCreditCardAuthorizationModel(Mocks\CreditCardAuthorization::class);
 }
