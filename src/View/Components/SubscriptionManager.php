@@ -22,7 +22,7 @@ class SubscriptionManager extends Component
         $this->plans = Tithe::planModel()::with(['features'])->get()
             ->map(function ($plan) use ($currentPlan, $subscriber) {
                 $plan->user_current = $plan->name == $currentPlan;
-                $plan->update_charge = PeriodicityTypeEnum::proration($subscriber, $plan);
+                $plan->update_charge = round((float) PeriodicityTypeEnum::proration($subscriber, $plan) / 100, 2);
                 $plan->periodicity_type_label = PeriodicityTypeEnum::from($plan->periodicity_type)
                     ->label();
                 $plan->features = $plan->features->map(function ($feature) {
