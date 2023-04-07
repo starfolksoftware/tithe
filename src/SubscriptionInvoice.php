@@ -4,8 +4,6 @@ namespace Tithe;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
-use Tithe\Enums\SubscriptionInvoiceStatusEnum;
 
 /**
  * Tithe\SubscriptionInvoice

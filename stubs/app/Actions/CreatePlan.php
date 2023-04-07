@@ -18,7 +18,7 @@ class CreatePlan implements CreatesPlans
     {
         Gate::forUser($user)->authorize('create', Tithe::newPlanModel());
 
-        $periodicities = implode(",", collect(PeriodicityTypeEnum::cases())->map(fn ($p) => $p->value)->toArray());
+        $periodicities = implode(',', collect(PeriodicityTypeEnum::cases())->map(fn ($p) => $p->value)->toArray());
 
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255', 'unique:'.Tithe::planModel().',name'],

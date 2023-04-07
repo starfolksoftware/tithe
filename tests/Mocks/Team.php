@@ -25,8 +25,6 @@ class Team extends Model
 
     /**
      * Returns the display name of the team for Tithe.
-     * 
-     * @return string
      */
     public function titheDisplayName(): string
     {
@@ -35,11 +33,9 @@ class Team extends Model
 
     /**
      * Returns the unique email of the team for Tithe.
-     * 
-     * @return string
      */
     public function titheEmail(): string
     {
-        return $this->id . "@example.com";
+        return $this->id.'@example.com';
     }
 }

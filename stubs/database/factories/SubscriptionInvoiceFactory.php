@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tithe\Enums\SubscriptionInvoiceStatusEnum;
 use Tithe\Tithe;
 
 class SubscriptionInvoiceFactory extends Factory

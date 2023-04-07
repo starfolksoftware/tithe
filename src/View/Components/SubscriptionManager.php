@@ -9,7 +9,7 @@ use Tithe\Tithe;
 
 class SubscriptionManager extends Component
 {
-    /** @var array $plans Holds the plans */
+    /** @var array Holds the plans */
     public mixed $plans;
 
     /**

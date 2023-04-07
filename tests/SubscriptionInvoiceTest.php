@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Foundation\Testing\WithFaker;
-use Tithe\Enums\SubscriptionInvoiceStatusEnum;
 use Tithe\Tests\Mocks\Team;
 use Tithe\Tithe;
 

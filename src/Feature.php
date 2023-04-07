@@ -68,14 +68,14 @@ abstract class Feature extends Model
     public function displayLabel(?float $charge = null): string
     {
         return match ($this->name) {
-            'users' => ++$charge . " user(s)",
+            'users' => ++$charge.' user(s)',
             'activity-history' => "{$charge} day(s) activity history",
             'flocks' => "{$charge} flock(s)",
             'stock-counts' => "{$charge} stock counts per month",
             'consumptions' => "{$charge} consumption records per month",
             'productions' => "{$charge} production records per month",
-            'recurring-reminders' => "Recurring reminders",
-            'reports' => "Reports",
+            'recurring-reminders' => 'Recurring reminders',
+            'reports' => 'Reports',
         };
     }
 }

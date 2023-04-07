@@ -14,8 +14,7 @@ enum PeriodicityTypeEnum: string
 
     public function label(): string
     {
-        return match($this) 
-        {
+        return match ($this) {
             self::YEAR => 'Yearly',
             self::MONTH => 'Monthly',
             self::WEEK => 'Weekly',
@@ -25,8 +24,7 @@ enum PeriodicityTypeEnum: string
 
     public function billingCycleRatio(): float
     {
-        return match($this) 
-        {
+        return match ($this) {
             self::YEAR => 12,
             self::MONTH => 1,
             self::WEEK => 0.25,
@@ -36,8 +34,7 @@ enum PeriodicityTypeEnum: string
 
     public function noOfDays(): float
     {
-        return match($this) 
-        {
+        return match ($this) {
             self::YEAR => 365,
             self::MONTH => 30.437,
             self::WEEK => 14,
@@ -49,7 +46,7 @@ enum PeriodicityTypeEnum: string
     {
         $unitInPlural = Str::plural($unit);
 
-        $differenceMethodName = 'diffIn' . $unitInPlural;
+        $differenceMethodName = 'diffIn'.$unitInPlural;
 
         return $from->{$differenceMethodName}($to);
     }

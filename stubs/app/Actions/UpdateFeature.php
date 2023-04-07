@@ -16,7 +16,7 @@ class UpdateFeature implements UpdatesFeatures
     {
         Gate::forUser($user)->authorize('update', $feature);
 
-        $periodicities = implode(",", collect(PeriodicityTypeEnum::cases())->map(fn ($p) => $p->value)->toArray());
+        $periodicities = implode(',', collect(PeriodicityTypeEnum::cases())->map(fn ($p) => $p->value)->toArray());
 
         Validator::make($input, [
             'consumable' => ['required', 'boolean'],

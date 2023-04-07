@@ -17,7 +17,7 @@ class CreateFeature implements CreatesFeatures
     {
         Gate::forUser($user)->authorize('create', Tithe::newFeatureModel());
 
-        $periodicities = implode(",", collect(PeriodicityTypeEnum::cases())->map(fn ($p) => $p->value)->toArray());
+        $periodicities = implode(',', collect(PeriodicityTypeEnum::cases())->map(fn ($p) => $p->value)->toArray());
 
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255', 'unique:'.Tithe::featureModel().',name'],
