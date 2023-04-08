@@ -167,6 +167,12 @@ trait HasSubscriptions
         return $newSubscription;
     }
 
+    public function hasPendingSwitch(): bool
+    {
+        return is_null($this->subscription->suppressed_at) &&
+            !!$this->subscription->was_switched;
+    }
+
     public function canConsume($featureName, ?float $consumption = null): bool
     {
         if (empty($feature = $this->getFeature($featureName))) {

@@ -18,7 +18,9 @@ class BillingController extends Controller
         return view('tithe::billing.index', [
             'subscriber' => call_user_func(Tithe::$activeSubscriberCallback),
             'permissions' => [
-                'canUpdateSubscription' => Gate::check('update', $subscriber) && (bool) $subscriber->defaultAuthorization(),
+                'canUpdateSubscription' => Gate::check('update', $subscriber) && 
+                    (bool) $subscriber->defaultAuthorization() &&
+                    ! $subscriber->hasPendingSwitch(),
             ],
         ]);
     }
