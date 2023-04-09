@@ -25,6 +25,13 @@ $defaultTab = collect($plans)->keys()->first();
         </span>
     </div>
     @enderror
+    @error('cancel-pending-downgrade-error', 'cancelPendingDowngrade')
+    <div class="px-4 py-5 sm:p-6">
+        <span class="text-sm text-red-600">
+            {{ $message }}
+        </span>
+    </div>
+    @enderror
     @if (session('upgrade-subscription-success') == true)
     <div class="rounded-md bg-green-50 p-4">
         <div class="flex">
@@ -52,6 +59,20 @@ $defaultTab = collect($plans)->keys()->first();
                     Your subscription has been flagged for downgrade at the end of the
                     current billing cycle. Feel free to cancel anytime before then.
                 </p>
+            </div>
+        </div>
+    </div>
+    @endif
+    @if (session('cancel-pending-downgrade-success') == true)
+    <div class="rounded-md bg-green-50 p-4">
+        <div class="flex">
+            <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="ml-3">
+                <p class="text-sm font-medium text-green-800">Your pending downgrade has been cancelled successfully.</p>
             </div>
         </div>
     </div>
@@ -101,11 +122,11 @@ $defaultTab = collect($plans)->keys()->first();
                     <h3 class="text-lg font-medium">Pending Downgrade</h3>
                 </div>
                 <div class="mt-2 mb-4 text-sm">
-                    Your subscription will be downgraded to [plan] at the end of the current
-                    billing cycle.
+                    Your subscription will be downgraded to <span class="font-bold">{{ $subscriber->fallback_subscription->plan->display_name }}</span> 
+                    on <span class="font-bold">{{ $subscriber->fallback_subscription->started_at->format('M d, Y') }}</span>.
                 </div>
                 <div class="flex">
-                    <button type="button" class="text-white bg-yellow-800 hover:bg-yellow-900 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 mr-2 text-center inline-flex items-center dark:bg-yellow-300 dark:text-gray-800 dark:hover:bg-yellow-400 dark:focus:ring-yellow-800">
+                    <button @click="$store.subscription.confirmingPendingDowngradeCancellation = true" type="button" class="text-white bg-yellow-800 hover:bg-yellow-900 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 mr-2 text-center inline-flex items-center dark:bg-yellow-300 dark:text-gray-800 dark:hover:bg-yellow-400 dark:focus:ring-yellow-800">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="-ml-0.5 mr-2 h-4 w-4">
                             <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
                         </svg>
@@ -304,6 +325,42 @@ $defaultTab = collect($plans)->keys()->first();
         </div>
     </div>
 </div>
+<div x-data x-cloak x-show="$store.subscription.confirmingPendingDowngradeCancellation" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                <div class="sm:flex sm:items-start">
+                    <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Pending Downgrade Cancellation</h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500">
+                                You are about to cancel your pending downgrade cancellation. Continue?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 sm:mt-4 sm:ml-10 sm:flex sm:pl-4">
+                    <form method="POST" action="{{ route('tithe.billing.cancel-pending-downgrade') }}">
+                        @csrf
+                        <button type="submit" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:w-auto">
+                            Cancel pending downgrade
+                        </button>
+                    </form>
+                    <button x-data @click="$store.subscription.confirmingPendingDowngradeCancellation = false" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:ml-3 sm:mt-0 sm:w-auto">
+                        Nevermind
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endpush
 @push('scripts')
 <script>
@@ -313,6 +370,7 @@ $defaultTab = collect($plans)->keys()->first();
             upgradingToPlan: null,
             confirmingSubscriptionDowngrade: false,
             downgradingToPlan: null,
+            confirmingPendingDowngradeCancellation: false,
 
             confirmSubscriptionUpgrade(plan) {
                 this.confirmingSubscriptionUpgrade = true;

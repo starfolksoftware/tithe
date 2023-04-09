@@ -54,6 +54,7 @@ class UpgradeSubscription implements UpgradesSubscriptions
                 ]);
             }
         } catch (\Throwable $th) {
+            report($th);
             Facades\Validator::make([], [])->after(function (Validator $validator) use ($th) {
                 $validator->errors()->add(
                     'upgrade-error', $th->getMessage()

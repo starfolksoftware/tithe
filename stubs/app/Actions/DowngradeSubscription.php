@@ -41,6 +41,7 @@ class DowngradeSubscription implements DowngradesSubscriptions
                 }
             });
         } catch (\Throwable $th) {
+            report($th);
             Facades\Validator::make([], [])->after(function (Validator $validator) use ($th) {
                 $validator->errors()->add(
                     'downgrade-error', $th->getMessage()
