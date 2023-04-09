@@ -12,6 +12,11 @@ use Tithe\Enums\PeriodicityTypeEnum;
 class UpgradeSubscription implements UpgradesSubscriptions
 {
     /**
+     * Holds the payment reference.
+     */
+    public string $reference;
+
+    /**
      * Validate and upgrade the given subscriber's subscription.
      */
     public function upgrade(mixed $user, mixed $subscriber, mixed $plan): void
@@ -20,9 +25,14 @@ class UpgradeSubscription implements UpgradesSubscriptions
 
         $prorationAmount = PeriodicityTypeEnum::proration($subscriber, $plan);
 
-        $currentPlanName = $subscriber->subscription?->plan->name;
-
         try {
+            $this->ensureCurrentSubscriptionCanBeUpgraded(
+                $subscriber,
+                $plan
+            );
+
+            $currentPlan = $subscriber->subscription?->plan;
+
             if ($this->charge($prorationAmount, $subscriber)) {
                 match (true) {
                     (bool) $subscriber->subscription => $subscriber->switchTo(
@@ -37,12 +47,14 @@ class UpgradeSubscription implements UpgradesSubscriptions
                     'paid_at' => now(),
                     'meta' => [
                         'action' => 'upgrade',
-                        'from' => $currentPlanName,
+                        'from' => $currentPlan->name,
                         'to' => $plan->name,
+                        'paystack_transaction_reference' => $this->reference,
                     ],
                 ]);
             }
         } catch (\Throwable $th) {
+            report($th);
             Facades\Validator::make([], [])->after(function (Validator $validator) use ($th) {
                 $validator->errors()->add(
                     'upgrade-error', $th->getMessage()
@@ -88,6 +100,24 @@ class UpgradeSubscription implements UpgradesSubscriptions
             'Couldnt confirm payment. Kindly, try again!'
         );
 
+        $this->reference = $reference;
+
         return true;
+    }
+
+    /**
+     * Ensures current subscription can be upgraded.
+     */
+    protected function ensureCurrentSubscriptionCanBeUpgraded(mixed $subscriber, $newPlan): void
+    {
+        $oldPlan = $subscriber->subscription?->plan;
+
+        throw_if(
+            (! is_null($oldPlan) &&
+            $newPlan->amount <= $oldPlan->amount) ||
+            $subscriber->hasPendingSwitch(),
+            'Exception',
+            'Current subscription can not be upgraded.'
+        );
     }
 }

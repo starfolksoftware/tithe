@@ -2,6 +2,7 @@
 
 namespace Tithe;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -165,6 +166,31 @@ trait HasSubscriptions
         $newSubscription = $this->subscribeTo($plan, startDate: $startDate);
 
         return $newSubscription;
+    }
+
+    public function hasPendingSwitch(): bool
+    {
+        return is_null($this->subscription->suppressed_at) &&
+            (bool) $this->subscription->was_switched;
+    }
+
+    public function getFallbackSubscription(): Model
+    {
+        return Tithe::subscriptionModel()::withoutGlobalScopes([
+            \Tithe\Scopes\ExpiringWithGraceDaysScope::class,
+            \Tithe\Scopes\StartingScope::class,
+            \Tithe\Scopes\SuppressingScope::class,
+        ])
+            ->whereSubscriberType(get_class($this))
+            ->whereSubscriberId($this->id)
+            ->where('started_at', '>', now())
+            ->whereCanceledAt(null)
+            ->first();
+    }
+
+    public function fallbackSubscription(): Attribute
+    {
+        return Attribute::make(fn () => $this->getFallbackSubscription());
     }
 
     public function canConsume($featureName, ?float $consumption = null): bool

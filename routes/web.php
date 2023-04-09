@@ -38,4 +38,6 @@ Route::middleware(config('tithe.ui_middlewares'))->prefix(Tithe::uiRoutesPrefix(
     Route::delete('/remove-authorization', Controllers\RemoveAuthorizationController::class)->name('tithe.billing.remove-authorization');
     Route::patch('/set-default-authorization', Controllers\SetDefaultAuthorizationController::class)->name('tithe.billing.set-default-authorization');
     Route::post('/upgrade-subscription', Controllers\UpgradeSubscriptionController::class)->name('tithe.billing.upgrade-subscription');
+    Route::post('/downgrade-subscription', Controllers\DowngradeSubscriptionController::class)->name('tithe.billing.downgrade-subscription');
+    Route::post('/cancel-pending-downgrade', Controllers\CancelPendingDowngradeController::class)->name('tithe.billing.cancel-pending-downgrade');
 });

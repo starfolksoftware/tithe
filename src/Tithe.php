@@ -3,10 +3,12 @@
 namespace Tithe;
 
 use Tithe\Contracts\AttachesFeaturesToPlans;
+use Tithe\Contracts\CancelsPendingDowngrades;
 use Tithe\Contracts\CreatesAuthorizations;
 use Tithe\Contracts\CreatesFeatures;
 use Tithe\Contracts\CreatesPlans;
 use Tithe\Contracts\DetachesFeaturesFromPlans;
+use Tithe\Contracts\DowngradesSubscriptions;
 use Tithe\Contracts\UpdatesFeatures;
 use Tithe\Contracts\UpdatesPlans;
 use Tithe\Contracts\UpgradesSubscriptions;
@@ -730,6 +732,26 @@ final class Tithe
     public static function upgradeSubscriptionsUsing(string $class)
     {
         app()->singleton(UpgradesSubscriptions::class, $class);
+    }
+
+    /**
+     * Register a class / callback that should be used to downgrade subscriptions.
+     *
+     * @return void
+     */
+    public static function downgradeSubscriptionsUsing(string $class)
+    {
+        app()->singleton(DowngradesSubscriptions::class, $class);
+    }
+
+    /**
+     * Register a class / callback that should be used to cancel pending subscriptions downgrades.
+     *
+     * @return void
+     */
+    public static function cancelPendingUpgradesUsing(string $class)
+    {
+        app()->singleton(CancelsPendingDowngrades::class, $class);
     }
 
     /**
