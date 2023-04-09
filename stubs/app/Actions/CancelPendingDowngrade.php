@@ -52,6 +52,6 @@ class CancelPendingDowngrade implements CancelsPendingDowngrades
      */
     protected function ensurePendingDowngradeCanBeCancelled(mixed $subscriber): void
     {
-        throw_if(!$subscriber->hasPendingSwitch(), 'Exception', "This subscriber does not have a pending downgrade");
+        throw_if(! $subscriber->hasPendingSwitch(), 'Exception', 'This subscriber does not have a pending downgrade');
     }
 }

@@ -36,7 +36,7 @@ class DowngradeSubscription implements DowngradesSubscriptions
                             'from' => $currentPlan->name,
                             'to' => $plan->name,
                             'paystack_transaction_reference' => null,
-                        ]
+                        ],
                     ]);
                 }
             });
@@ -56,7 +56,7 @@ class DowngradeSubscription implements DowngradesSubscriptions
     protected function ensureCurrentSubscriptionCanBeDowngraded(mixed $subscriber, $newPlan): void
     {
         $oldPlan = $subscriber->subscription?->plan;
-        
+
         throw_if(($newPlan->amount >= $oldPlan->amount) || $subscriber->hasPendingSwitch(), 'Exception', 'Current subscription can not be downgraded.');
     }
 }

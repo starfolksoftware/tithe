@@ -171,7 +171,7 @@ trait HasSubscriptions
     public function hasPendingSwitch(): bool
     {
         return is_null($this->subscription->suppressed_at) &&
-            !!$this->subscription->was_switched;
+            (bool) $this->subscription->was_switched;
     }
 
     public function getFallbackSubscription(): Model

@@ -2,8 +2,8 @@
 
 namespace App\Actions\Tithe;
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Validator;
 use StarfolkSoftware\Paystack\Client as PaystackClient;
 use Tithe\Contracts\UpgradesSubscriptions;
@@ -32,14 +32,14 @@ class UpgradeSubscription implements UpgradesSubscriptions
             );
 
             $currentPlan = $subscriber->subscription?->plan;
-            
+
             if ($this->charge($prorationAmount, $subscriber)) {
                 match (true) {
-                    !! $subscriber->subscription => $subscriber->switchTo(
-                        $plan, 
+                    (bool) $subscriber->subscription => $subscriber->switchTo(
+                        $plan,
                         immediately: true
                     ),
-                    !!! $subscriber->subscription => $subscriber->subscribeTo($plan)
+                    ! (bool) $subscriber->subscription => $subscriber->subscribeTo($plan)
                 };
 
                 $subscriber->subscriptionInvoices()->create([
@@ -50,7 +50,7 @@ class UpgradeSubscription implements UpgradesSubscriptions
                         'from' => $currentPlan->name,
                         'to' => $plan->name,
                         'paystack_transaction_reference' => $this->reference,
-                    ]
+                    ],
                 ]);
             }
         } catch (\Throwable $th) {
@@ -73,28 +73,28 @@ class UpgradeSubscription implements UpgradesSubscriptions
         }
 
         $paystack = new PaystackClient([
-            'secretKey' => config('tithe.paystack.secret_key')
+            'secretKey' => config('tithe.paystack.secret_key'),
         ]);
 
         $authCode = $subscriber->defaultAuthorization()?->code;
 
-        throw_if(!$authCode, 'Exception', "Couldn't find a payment method.");
+        throw_if(! $authCode, 'Exception', "Couldn't find a payment method.");
 
         $chargeResponse = $paystack->transactions
             ->charge([
-                'amount' => (string) $amount, 
-                'email' => $subscriber->titheEmail(), 
-                'authorization_code' => $authCode
+                'amount' => (string) $amount,
+                'email' => $subscriber->titheEmail(),
+                'authorization_code' => $authCode,
             ]);
 
-        $reference = data_get($chargeResponse, "data.reference");
+        $reference = data_get($chargeResponse, 'data.reference');
 
-        throw_if(!$reference, 'Exception', "Payment couldn't be confirmed.");
+        throw_if(! $reference, 'Exception', "Payment couldn't be confirmed.");
 
         $confirmationResponse = $paystack->transactions
             ->verify($reference);
 
-        throw_if(!$confirmationResponse['status'] || 
+        throw_if(! $confirmationResponse['status'] ||
             data_get($confirmationResponse, 'data.status') != 'success',
             'Exception',
             'Couldnt confirm payment. Kindly, try again!'
@@ -113,10 +113,10 @@ class UpgradeSubscription implements UpgradesSubscriptions
         $oldPlan = $subscriber->subscription?->plan;
 
         throw_if(
-            (! is_null($oldPlan) && 
+            (! is_null($oldPlan) &&
             $newPlan->amount <= $oldPlan->amount) ||
-            $subscriber->hasPendingSwitch(), 
-            'Exception', 
+            $subscriber->hasPendingSwitch(),
+            'Exception',
             'Current subscription can not be upgraded.'
         );
     }

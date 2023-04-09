@@ -76,6 +76,7 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/tests/PlanControllerTest.php', base_path('tests/Feature/PlanControllerTest.php'));
         copy(__DIR__.'/../../stubs/tests/PaymentMethodTest.php', base_path('tests/Feature/PaymentMethodTest.php'));
         copy(__DIR__.'/../../stubs/tests/UpgradeSubscriptionTest.php', base_path('tests/Feature/UpgradeSubscriptionTest.php'));
+        copy(__DIR__.'/../../stubs/tests/DowngradeSubscriptionTest.php', base_path('tests/Feature/DowngradeSubscriptionTest.php'));
 
         // Assets
         copy(__DIR__.'/../../resources/dist/tithe.css', public_path('vendor/tithe/main.css'));
