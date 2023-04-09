@@ -19,9 +19,11 @@ class DowngradeSubscription implements DowngradesSubscriptions
 
         try {
             $this->ensureCurrentSubscriptionCanBeDowngraded(
-                $currentPlan = $subscriber->subscription?->plan,
+                $subscriber,
                 $plan
             );
+
+            $currentPlan = $subscriber->subscription?->plan;
 
             DB::transaction(function () use ($subscriber, $plan, $currentPlan) {
                 $newSubscription = $subscriber->switchTo($plan, immediately: false);
@@ -50,8 +52,10 @@ class DowngradeSubscription implements DowngradesSubscriptions
     /**
      * Ensures current subscription can be downgraded.
      */
-    protected function ensureCurrentSubscriptionCanBeDowngraded(mixed $oldPlan, $newPlan): void
+    protected function ensureCurrentSubscriptionCanBeDowngraded(mixed $subscriber, $newPlan): void
     {
-        throw_if($newPlan->amount >= $oldPlan->amount, 'Exception', 'Current subscription can not be downgraded.');
+        $oldPlan = $subscriber->subscription?->plan;
+        
+        throw_if(($newPlan->amount >= $oldPlan->amount) || $subscriber->hasPendingSwitch(), 'Exception', 'Current subscription can not be downgraded.');
     }
 }

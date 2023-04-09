@@ -27,10 +27,12 @@ class UpgradeSubscription implements UpgradesSubscriptions
 
         try {
             $this->ensureCurrentSubscriptionCanBeUpgraded(
-                $currentPlan = $subscriber->subscription?->plan,
+                $subscriber,
                 $plan
             );
 
+            $currentPlan = $subscriber->subscription?->plan;
+            
             if ($this->charge($prorationAmount, $subscriber)) {
                 match (true) {
                     !! $subscriber->subscription => $subscriber->switchTo(
@@ -105,10 +107,14 @@ class UpgradeSubscription implements UpgradesSubscriptions
     /**
      * Ensures current subscription can be upgraded.
      */
-    protected function ensureCurrentSubscriptionCanBeUpgraded(mixed $oldPlan, $newPlan): void
+    protected function ensureCurrentSubscriptionCanBeUpgraded(mixed $subscriber, $newPlan): void
     {
+        $oldPlan = $subscriber->subscription?->plan;
+
         throw_if(
-            ! is_null($oldPlan) && $newPlan->amount <= $oldPlan->amount, 
+            (! is_null($oldPlan) && 
+            $newPlan->amount <= $oldPlan->amount) ||
+            $subscriber->hasPendingSwitch(), 
             'Exception', 
             'Current subscription can not be upgraded.'
         );
