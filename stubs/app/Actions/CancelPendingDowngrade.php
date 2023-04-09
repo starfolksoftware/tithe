@@ -21,9 +21,17 @@ class CancelPendingDowngrade implements CancelsPendingDowngrades
             $this->ensurePendingDowngradeCanBeCancelled($subscriber);
 
             DB::transaction(function () use ($subscriber) {
-                // elete the fallback subscription that was created
+                $fallbackSubscription = $subscriber->fallback_subscription;
+                $invoice = $fallbackSubscription->subscriptionInvoices()
+                    ->whereSubscriberType(get_class($subscriber))
+                    ->whereSubscriberId($subscriber->id)
+                    ->whereNull('paid_at')
+                    ->first();
+
+                // Delete the fallback subscription and invoice that were created
                 // during the switch
-                $subscriber->fallback_subscription?->delete();
+                $fallbackSubscription->delete();
+                $invoice->delete();
 
                 $subscriber->subscription->update([
                     'was_switched' => false,
