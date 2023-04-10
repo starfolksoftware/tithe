@@ -11,7 +11,7 @@ use Tithe\Contracts\CancelsPendingDowngrades;
 class CancelPendingDowngrade implements CancelsPendingDowngrades
 {
     /**
-     * Validate and upgrade the given subscriber's subscription.
+     * Cancel a pending downgrade of the provided subscriber.
      */
     public function cancel(mixed $user, mixed $subscriber): void
     {

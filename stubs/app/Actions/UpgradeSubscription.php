@@ -14,7 +14,7 @@ class UpgradeSubscription implements UpgradesSubscriptions
     /**
      * Holds the payment reference.
      */
-    public string $reference;
+    protected string $reference;
 
     /**
      * Validate and upgrade the given subscriber's subscription.

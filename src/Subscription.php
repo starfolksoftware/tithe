@@ -146,6 +146,57 @@ abstract class Subscription extends Model
     }
 
     /**
+     * Scope the records to subscriptions that are due for renewal.
+     */
+    public function scopeDueForRenewal(Builder $query): Builder
+    {
+        return $query->whereNull('canceled_at')
+            ->whereNull('suppressed_at')
+            ->whereDate('started_at', '<', today())
+            ->whereDate('expired_at', '>=', today())
+            ->whereDate('grace_days_ended_at', '<=', today());
+    }
+
+    /**
+     * Indicates that a subscription is cancelled.
+     */
+    public function isCanceled(): bool
+    {
+        return ! is_null($this->canceled_at) &&
+            $this->canceled_at->isPast();
+    }
+
+    /**
+     * Indicates that a subscription is suppressed.
+     */
+    public function isSuppressed(): bool
+    {
+        return ! is_null($this->suppressed_at) &&
+            $this->suppressed_at->isPast();
+    }
+
+    /**
+     * Indicates that a subscription has started.
+     */
+    public function hasStarted(): bool
+    {
+        return ! is_null($this->started_at) &&
+        $this->started_at->isPast();
+    }
+
+    /**
+     * Indicates that a subscription is due for renewal.
+     */
+    public function isDueForRenewal(): bool
+    {
+        return $this->hasStarted() && !$this->isCanceled() &&
+            !$this->isSuppressed() && now()->isBetween(
+                $this->expired_at,
+                $this->grace_days_ended_at
+            );
+    }
+
+    /**
      * Marks the subscription as switched.
      *
      * @return $this
