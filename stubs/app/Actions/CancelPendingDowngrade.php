@@ -20,25 +20,10 @@ class CancelPendingDowngrade implements CancelsPendingDowngrades
         try {
             $this->ensurePendingDowngradeCanBeCancelled($subscriber);
 
-            DB::transaction(function () use ($subscriber) {
-                $fallbackSubscription = $subscriber->fallback_subscription;
-                $invoice = $fallbackSubscription->subscriptionInvoices()
-                    ->whereSubscriberType(get_class($subscriber))
-                    ->whereSubscriberId($subscriber->id)
-                    ->whereNull('paid_at')
-                    ->first();
-
-                // Delete the fallback subscription and invoice that were created
-                // during the switch
-                $fallbackSubscription->delete();
-                $invoice->delete();
-
-                $subscriber->subscription->update([
-                    'was_switched' => false,
-                ]);
-            });
+            $subscriber->undoMarkForDowngrade();
         } catch (\Throwable $th) {
             report($th);
+            
             Facades\Validator::make([], [])->after(function (Validator $validator) use ($th) {
                 $validator->errors()->add(
                     'cancel-pending-downgrade-error', $th->getMessage()
@@ -52,6 +37,6 @@ class CancelPendingDowngrade implements CancelsPendingDowngrades
      */
     protected function ensurePendingDowngradeCanBeCancelled(mixed $subscriber): void
     {
-        throw_if(! $subscriber->hasPendingSwitch(), 'Exception', 'This subscriber does not have a pending downgrade');
+        throw_if(! $subscriber->hasPendingDowngrade(), 'Exception', 'This subscriber does not have a pending downgrade');
     }
 }

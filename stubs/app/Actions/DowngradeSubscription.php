@@ -3,7 +3,6 @@
 namespace App\Actions\Tithe;
 
 use Illuminate\Support\Facades;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Validator;
 use Tithe\Contracts\DowngradesSubscriptions;
@@ -23,25 +22,10 @@ class DowngradeSubscription implements DowngradesSubscriptions
                 $plan
             );
 
-            $currentPlan = $subscriber->subscription?->plan;
-
-            DB::transaction(function () use ($subscriber, $plan, $currentPlan) {
-                $newSubscription = $subscriber->switchTo($plan, immediately: false);
-
-                if ($newSubscription->plan->amount > 0) {
-                    $subscriber->subscriptionInvoices()->create([
-                        'subscription_id' => $newSubscription->id,
-                        'meta' => [
-                            'action' => 'downgrade',
-                            'from' => $currentPlan->name,
-                            'to' => $plan->name,
-                            'paystack_transaction_reference' => null,
-                        ],
-                    ]);
-                }
-            });
+            $subscriber->markForDowngrade($plan);
         } catch (\Throwable $th) {
             report($th);
+
             Facades\Validator::make([], [])->after(function (Validator $validator) use ($th) {
                 $validator->errors()->add(
                     'downgrade-error', $th->getMessage()
@@ -57,6 +41,6 @@ class DowngradeSubscription implements DowngradesSubscriptions
     {
         $oldPlan = $subscriber->subscription?->plan;
 
-        throw_if(($newPlan->amount >= $oldPlan->amount) || $subscriber->hasPendingSwitch(), 'Exception', 'Current subscription can not be downgraded.');
+        throw_if(($newPlan->amount >= $oldPlan->amount) || $subscriber->hasPendingDowngrade(), 'Exception', 'Current subscription can not be downgraded.');
     }
 }

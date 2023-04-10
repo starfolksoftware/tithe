@@ -4,6 +4,7 @@ namespace App\Actions\Tithe;
 
 use StarfolkSoftware\Paystack\Client as PaystackClient;
 use Tithe\Contracts\RenewsSubscriptions;
+use Tithe\Tithe;
 
 class RenewSubscription implements RenewsSubscriptions
 {
@@ -21,20 +22,33 @@ class RenewSubscription implements RenewsSubscriptions
 
         $subscriber = $subscription->subscriber;
 
-        if ($this->charge($subscription)) {
-            $subscription->renew();
+        $subscription = ! $subscriber->hasPendingDowngrade() ?
+            $subscription :
+            (object) [
+                'plan' => Tithe::planModel()::whereName(data_get($subscription->meta, 'to_plan'))->first(),
+                'subscriber' => $subscriber,
+                'expired_at' => $subscription->expired_at,
+            ];
 
-            $subscriber->subscriptionInvoices()->create([
-                'subscription_id' => $subscriber->fresh()->subscription->id,
-                'paid_at' => now(),
-                'meta' => [
-                    'action' => 'renewal',
-                    'paystack_transaction_reference' => $this->reference,
-                ]
-            ]);
-            
-            return;
+        $this->charge($subscription);
+
+        if ($subscriber->hasPendingDowngrade()) {
+            $startDate = $subscription->expired_at;
+            $subscriber->subscribeTo($subscription->plan, startDate: $startDate);
+        } else {
+            $subscription->renew();
         }
+
+        $subscriber->subscriptionInvoices()->create([
+            'subscription_id' => $subscriber->fresh()->subscription->id,
+            'paid_at' => now(),
+            'meta' => [
+                'action' => 'renewal',
+                'paystack_transaction_reference' => $this->reference,
+            ]
+        ]);
+        
+        return;
     }
 
     /**
