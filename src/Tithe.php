@@ -9,6 +9,7 @@ use Tithe\Contracts\CreatesFeatures;
 use Tithe\Contracts\CreatesPlans;
 use Tithe\Contracts\DetachesFeaturesFromPlans;
 use Tithe\Contracts\DowngradesSubscriptions;
+use Tithe\Contracts\HandlesOverdueSubscriptions;
 use Tithe\Contracts\RenewsSubscriptions;
 use Tithe\Contracts\UpdatesFeatures;
 use Tithe\Contracts\UpdatesPlans;
@@ -763,6 +764,16 @@ final class Tithe
     public static function renewSubscriptionsUsing(string $class)
     {
         app()->singleton(RenewsSubscriptions::class, $class);
+    }
+
+    /**
+     * Register a class / callback that should be used to handle overdue subscriptions.
+     *
+     * @return void
+     */
+    public static function handleOverdueSubscriptionsUsing(string $class)
+    {
+        app()->singleton(HandlesOverdueSubscriptions::class, $class);
     }
 
     /**

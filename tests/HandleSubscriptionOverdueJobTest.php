@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Bus;
-use Tithe\Jobs\SubscriptionRenewalJob;
+use Tithe\Jobs\HandleSubscriptionOverdueJob;
 use Tithe\Tests\Mocks\Team;
 use Tithe\Tithe;
 
-test('subscription due for renewal can be renewed', function () {
+test('overdue subscriptions can be handled', function () {
     Bus::fake();
 
     Carbon::setTestNow(now());
@@ -17,11 +17,11 @@ test('subscription due for renewal can be renewed', function () {
         ->for($plan)
         ->for($subscriber, 'subscriber')
         ->create([
-            'expired_at' => now(),
-            'grace_days_ended_at' => now()->addDays(3)
+            'expired_at' => now()->subDays(6),
+            'grace_days_ended_at' => now()->subDays(3)
         ]);
 
-    SubscriptionRenewalJob::dispatch();
+    HandleSubscriptionOverdueJob::dispatch();
 
-    Bus::assertDispatched(SubscriptionRenewalJob::class);
+    Bus::assertDispatched(HandleSubscriptionOverdueJob::class);
 });

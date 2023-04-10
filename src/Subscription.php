@@ -146,6 +146,19 @@ abstract class Subscription extends Model
     }
 
     /**
+     * Indicates that a subscription is overdue.
+     */
+    public function scopeOverdue(Builder $query): Builder
+    {
+        /**
+         * The assumption here is that grace_days_ended_at 
+         * is never null.
+         */
+        return $query->whereDate('expired_at', '<', now())
+            ->whereDate('grace_days_ended_at', '<', now());
+    }
+
+    /**
      * Scope the records to subscriptions that are due for renewal.
      */
     public function scopeDueForRenewal(Builder $query): Builder

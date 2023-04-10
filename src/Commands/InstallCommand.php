@@ -35,6 +35,7 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/app/Actions/DowngradeSubscription.php', app_path('Actions/Tithe/DowngradeSubscription.php'));
         copy(__DIR__.'/../../stubs/app/Actions/CancelPendingDowngrade.php', app_path('Actions/Tithe/CancelPendingDowngrade.php'));
         copy(__DIR__.'/../../stubs/app/Actions/RenewSubscription.php', app_path('Actions/Tithe/RenewSubscription.php'));
+        copy(__DIR__.'/../../stubs/app/Actions/HandleOverdueSubscription.php', app_path('Actions/Tithe/HandleOverdueSubscription.php'));
 
         // Models...
         copy(__DIR__.'/../../stubs/app/Models/TitheUser.php', app_path('Models/TitheUser.php'));
