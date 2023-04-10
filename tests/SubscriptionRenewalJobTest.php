@@ -18,7 +18,7 @@ test('subscription due for renewal can be renewed', function () {
         ->for($subscriber, 'subscriber')
         ->create([
             'expired_at' => now(),
-            'grace_days_ended_at' => now()->addDays(3)
+            'grace_days_ended_at' => now()->addDays(3),
         ]);
 
     SubscriptionRenewalJob::dispatch();

@@ -18,7 +18,7 @@ test('overdue subscriptions can be handled', function () {
         ->for($subscriber, 'subscriber')
         ->create([
             'expired_at' => now()->subDays(6),
-            'grace_days_ended_at' => now()->subDays(3)
+            'grace_days_ended_at' => now()->subDays(3),
         ]);
 
     HandleSubscriptionOverdueJob::dispatch();

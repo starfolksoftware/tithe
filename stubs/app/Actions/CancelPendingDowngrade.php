@@ -3,7 +3,6 @@
 namespace App\Actions\Tithe;
 
 use Illuminate\Support\Facades;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Validator;
 use Tithe\Contracts\CancelsPendingDowngrades;
@@ -23,7 +22,7 @@ class CancelPendingDowngrade implements CancelsPendingDowngrades
             $subscriber->undoMarkForDowngrade();
         } catch (\Throwable $th) {
             report($th);
-            
+
             Facades\Validator::make([], [])->after(function (Validator $validator) use ($th) {
                 $validator->errors()->add(
                     'cancel-pending-downgrade-error', $th->getMessage()

@@ -154,7 +154,7 @@ abstract class Subscription extends Model
     public function scopeOverdue(Builder $query): Builder
     {
         /**
-         * The assumption here is that grace_days_ended_at 
+         * The assumption here is that grace_days_ended_at
          * is never null.
          */
         return $query->whereDate('expired_at', '<', now())
@@ -205,8 +205,8 @@ abstract class Subscription extends Model
      */
     public function isDueForRenewal(): bool
     {
-        return $this->hasStarted() && !$this->isCanceled() &&
-            !$this->isSuppressed() && now()->isBetween(
+        return $this->hasStarted() && ! $this->isCanceled() &&
+            ! $this->isSuppressed() && now()->isBetween(
                 $this->expired_at,
                 $this->grace_days_ended_at
             );

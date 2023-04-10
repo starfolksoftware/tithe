@@ -2,7 +2,6 @@
 
 namespace Tithe;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -176,7 +175,7 @@ trait HasSubscriptions
                 'to_plan' => $toPlan->name,
                 'to_plan_label' => $toPlan->display_name,
                 'switch_starts_at' => $this->subscription->expired_at->format('M d, Y'),
-            ]
+            ],
         ]);
     }
 
@@ -188,7 +187,7 @@ trait HasSubscriptions
                 'to_plan_name' => null,
                 'to_plan_label' => null,
                 'switch_starts_at' => null,
-            ]
+            ],
         ]);
     }
 

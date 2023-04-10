@@ -25,8 +25,8 @@ class HandleOverdueSubscription implements HandlesOverdueSubscriptions
     protected function ensureSubscriptionIsOverdue(mixed $subscription): void
     {
         throw_if(
-            ! $subscription->is_overdue, 
-            'Exception', 
+            ! $subscription->is_overdue,
+            'Exception',
             'Subscription is not overdue.'
         );
     }

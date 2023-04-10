@@ -45,10 +45,9 @@ class RenewSubscription implements RenewsSubscriptions
             'meta' => [
                 'action' => 'renewal',
                 'paystack_transaction_reference' => $this->reference,
-            ]
+            ],
         ]);
-        
-        return;
+
     }
 
     /**
@@ -64,28 +63,28 @@ class RenewSubscription implements RenewsSubscriptions
         }
 
         $paystack = new PaystackClient([
-            'secretKey' => config('tithe.paystack.secret_key')
+            'secretKey' => config('tithe.paystack.secret_key'),
         ]);
 
         $authCode = $subscriber?->defaultAuthorization()?->code;
 
-        throw_if(!$authCode, 'Exception', "Couldn't find a payment method.");
+        throw_if(! $authCode, 'Exception', "Couldn't find a payment method.");
 
         $chargeResponse = $paystack->transactions
             ->charge([
-                'amount' => (string) $amount, 
-                'email' => $subscriber->titheEmail(), 
-                'authorization_code' => $authCode
+                'amount' => (string) $amount,
+                'email' => $subscriber->titheEmail(),
+                'authorization_code' => $authCode,
             ]);
 
-        $reference = data_get($chargeResponse, "data.reference");
+        $reference = data_get($chargeResponse, 'data.reference');
 
-        throw_if(!$reference, 'Exception', "Payment couldn't be confirmed.");
+        throw_if(! $reference, 'Exception', "Payment couldn't be confirmed.");
 
         $confirmationResponse = $paystack->transactions
             ->verify($reference);
 
-        throw_if(!$confirmationResponse['status'] || 
+        throw_if(! $confirmationResponse['status'] ||
             data_get($confirmationResponse, 'data.status') != 'success',
             'Exception',
             'Couldnt confirm payment. Kindly, try again!'
@@ -102,8 +101,8 @@ class RenewSubscription implements RenewsSubscriptions
     protected function ensureSubscriptionCanBeRenewed(mixed $subscription): void
     {
         throw_if(
-            ! $subscription->isDueForRenewal(), 
-            'Exception', 
+            ! $subscription->isDueForRenewal(),
+            'Exception',
             'Subscription can not be renewed.'
         );
     }

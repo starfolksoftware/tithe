@@ -3,7 +3,6 @@
 namespace Tithe\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -34,7 +33,7 @@ class SubscriptionRenewalJob implements ShouldQueue
                 report($th);
 
                 Notification::route('mail', $subscription->subscriber->titheEmail())->notify([
-                    new SubscriptionRenewalFailed
+                    new SubscriptionRenewalFailed,
                 ]);
             }
         }

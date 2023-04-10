@@ -35,7 +35,7 @@ class SubscriptionRenewalFailed extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->greeting("Ooops!")
+                    ->greeting('Ooops!')
                     ->line("We couldn't renew your subscription. Kindly update your payment method.")
                     ->line('Thank you!');
     }
