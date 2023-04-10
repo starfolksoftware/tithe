@@ -18,6 +18,9 @@ use Tithe\Scopes\SuppressingScope;
  * @property mixed $isOverdue
  * @property mixed $expired_at
  * @property mixed $grace_days_ended_at
+ * @property mixed $canceled_at
+ * @property mixed $suppressed_at
+ * @property mixed $started_at
  */
 abstract class Subscription extends Model
 {
@@ -143,6 +146,70 @@ abstract class Subscription extends Model
     public function scopeNotCanceled(Builder $query)
     {
         return $query->whereNull('canceled_at');
+    }
+
+    /**
+     * Indicates that a subscription is overdue.
+     */
+    public function scopeOverdue(Builder $query): Builder
+    {
+        /**
+         * The assumption here is that grace_days_ended_at
+         * is never null.
+         */
+        return $query->whereDate('expired_at', '<', now())
+            ->whereDate('grace_days_ended_at', '<', now());
+    }
+
+    /**
+     * Scope the records to subscriptions that are due for renewal.
+     */
+    public function scopeDueForRenewal(Builder $query): Builder
+    {
+        return $query->whereNull('canceled_at')
+            ->whereNull('suppressed_at')
+            ->whereDate('started_at', '<', today())
+            ->whereDate('expired_at', '>=', today())
+            ->whereDate('grace_days_ended_at', '<=', today());
+    }
+
+    /**
+     * Indicates that a subscription is cancelled.
+     */
+    public function isCanceled(): bool
+    {
+        return ! is_null($this->canceled_at) &&
+            $this->canceled_at->isPast();
+    }
+
+    /**
+     * Indicates that a subscription is suppressed.
+     */
+    public function isSuppressed(): bool
+    {
+        return ! is_null($this->suppressed_at) &&
+            $this->suppressed_at->isPast();
+    }
+
+    /**
+     * Indicates that a subscription has started.
+     */
+    public function hasStarted(): bool
+    {
+        return ! is_null($this->started_at) &&
+        $this->started_at->isPast();
+    }
+
+    /**
+     * Indicates that a subscription is due for renewal.
+     */
+    public function isDueForRenewal(): bool
+    {
+        return $this->hasStarted() && ! $this->isCanceled() &&
+            ! $this->isSuppressed() && now()->isBetween(
+                $this->expired_at,
+                $this->grace_days_ended_at
+            );
     }
 
     /**

@@ -112,7 +112,7 @@ $defaultTab = collect($plans)->keys()->first();
                     </div>
                 </div>
             </div>
-            @elseif ($subscriber->hasPendingSwitch())
+            @elseif ($subscriber->hasPendingDowngrade())
             <div class="p-4 mb-4 text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800" role="alert">
                 <div class="flex items-center">
                     <svg aria-hidden="true" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -122,8 +122,8 @@ $defaultTab = collect($plans)->keys()->first();
                     <h3 class="text-lg font-medium">Pending Downgrade</h3>
                 </div>
                 <div class="mt-2 mb-4 text-sm">
-                    Your subscription will be downgraded to <span class="font-bold">{{ $subscriber->fallback_subscription->plan->display_name }}</span> 
-                    on <span class="font-bold">{{ $subscriber->fallback_subscription->started_at->format('M d, Y') }}</span>.
+                    Your subscription will be downgraded to <span class="font-bold">{{ data_get($subscriber->subscription->meta, 'to_plan_label') }}</span> 
+                    on <span class="font-bold">{{ data_get($subscriber->subscription->meta, 'switch_starts_at') }}</span>.
                 </div>
                 <div class="flex">
                     <button @click="$store.subscription.confirmingPendingDowngradeCancellation = true" type="button" class="text-white bg-yellow-800 hover:bg-yellow-900 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 mr-2 text-center inline-flex items-center dark:bg-yellow-300 dark:text-gray-800 dark:hover:bg-yellow-400 dark:focus:ring-yellow-800">

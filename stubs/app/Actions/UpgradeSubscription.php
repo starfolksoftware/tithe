@@ -14,7 +14,7 @@ class UpgradeSubscription implements UpgradesSubscriptions
     /**
      * Holds the payment reference.
      */
-    public string $reference;
+    protected string $reference;
 
     /**
      * Validate and upgrade the given subscriber's subscription.
@@ -115,7 +115,7 @@ class UpgradeSubscription implements UpgradesSubscriptions
         throw_if(
             (! is_null($oldPlan) &&
             $newPlan->amount <= $oldPlan->amount) ||
-            $subscriber->hasPendingSwitch(),
+            $subscriber->hasPendingDowngrade(),
             'Exception',
             'Current subscription can not be upgraded.'
         );

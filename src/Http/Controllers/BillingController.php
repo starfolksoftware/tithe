@@ -20,7 +20,7 @@ class BillingController extends Controller
             'permissions' => [
                 'canUpdateSubscription' => Gate::check('update', $subscriber) &&
                     (bool) $subscriber->defaultAuthorization() &&
-                    ! $subscriber->hasPendingSwitch(),
+                    ! $subscriber->hasPendingDowngrade(),
             ],
         ]);
     }

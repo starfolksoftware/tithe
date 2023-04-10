@@ -2,7 +2,6 @@
 
 namespace Tithe;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -168,29 +167,34 @@ trait HasSubscriptions
         return $newSubscription;
     }
 
-    public function hasPendingSwitch(): bool
+    public function markForDowngrade(Plan $toPlan): void
+    {
+        $this->subscription->update([
+            'was_switched' => true,
+            'meta' => [
+                'to_plan' => $toPlan->name,
+                'to_plan_label' => $toPlan->display_name,
+                'switch_starts_at' => $this->subscription->expired_at->format('M d, Y'),
+            ],
+        ]);
+    }
+
+    public function undoMarkForDowngrade(): void
+    {
+        $this->subscription->update([
+            'was_switched' => false,
+            'meta' => [
+                'to_plan_name' => null,
+                'to_plan_label' => null,
+                'switch_starts_at' => null,
+            ],
+        ]);
+    }
+
+    public function hasPendingDowngrade(): bool
     {
         return is_null($this->subscription->suppressed_at) &&
             (bool) $this->subscription->was_switched;
-    }
-
-    public function getFallbackSubscription(): Model
-    {
-        return Tithe::subscriptionModel()::withoutGlobalScopes([
-            \Tithe\Scopes\ExpiringWithGraceDaysScope::class,
-            \Tithe\Scopes\StartingScope::class,
-            \Tithe\Scopes\SuppressingScope::class,
-        ])
-            ->whereSubscriberType(get_class($this))
-            ->whereSubscriberId($this->id)
-            ->where('started_at', '>', now())
-            ->whereCanceledAt(null)
-            ->first();
-    }
-
-    public function fallbackSubscription(): Attribute
-    {
-        return Attribute::make(fn () => $this->getFallbackSubscription());
     }
 
     public function canConsume($featureName, ?float $consumption = null): bool
