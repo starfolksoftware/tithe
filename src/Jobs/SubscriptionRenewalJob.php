@@ -29,7 +29,7 @@ class SubscriptionRenewalJob implements ShouldQueue
     {
         foreach (Tithe::subscriptionModel()::dueForRenewal()->cursor() as $subscription) {
             try {
-                (new RenewsSubscriptions)->renew($subscription);
+                app(RenewsSubscriptions::class)->renew($subscription);
             } catch (\Throwable $th) {
                 report($th);
 

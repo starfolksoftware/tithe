@@ -18,6 +18,9 @@ use Tithe\Scopes\SuppressingScope;
  * @property mixed $isOverdue
  * @property mixed $expired_at
  * @property mixed $grace_days_ended_at
+ * @property mixed $canceled_at
+ * @property mixed $suppressed_at
+ * @property mixed $started_at
  */
 abstract class Subscription extends Model
 {

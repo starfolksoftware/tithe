@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Tithe\Contracts\HandlesOverdueSubscriptions;
 use Tithe\Tithe;
 
 class HandleSubscriptionOverdueJob implements ShouldQueue
@@ -26,7 +27,7 @@ class HandleSubscriptionOverdueJob implements ShouldQueue
     {
         foreach (Tithe::subscriptionModel()::overdue()->cursor() as $subscription) {
             try {
-                (new HandleSubscriptionOverdueJob)->handle($subscription);
+                app(HandlesOverdueSubscriptions::class)->handle($subscription);
             } catch (\Throwable $th) {
                 report($th);
             }
