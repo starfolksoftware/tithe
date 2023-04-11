@@ -12,6 +12,9 @@ use Tithe\Enums\PeriodicityTypeEnum;
  *
  * @property string $status
  * @property mixed $paid_at
+ * @property mixed $meta
+ * @property mixed $expired_at
+ * @property mixed $plan
  */
 abstract class SubscriptionInvoice extends Model
 {
