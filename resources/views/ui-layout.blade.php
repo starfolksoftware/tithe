@@ -21,11 +21,17 @@
 
     <style>
         [x-cloak] { display: none !important; }
+
+        @media print {
+            #print-details-btn {
+                display: none;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-gray-50 font-sans antialiased">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 my-0 sm:my-12 border">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 my-0 sm:my-12">
         <div class="mx-auto max-w-3xl">
             @yield('content')
         </div>

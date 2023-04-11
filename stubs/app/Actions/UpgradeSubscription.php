@@ -49,6 +49,7 @@ class UpgradeSubscription implements UpgradesSubscriptions
                         'action' => 'upgrade',
                         'from' => $currentPlan->name,
                         'to' => $plan->name,
+                        'amount' => $prorationAmount,
                         'paystack_transaction_reference' => $this->reference,
                     ],
                 ]);

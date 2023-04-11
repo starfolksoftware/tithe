@@ -14,6 +14,7 @@ parameters:
     ignoreErrors:
         - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder\:\:#'
         - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:#'
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:#'
         - '#Access to an undefined property Illuminate\\Contracts\\Foundation\\Application\:\:\$config#'
         - '#Call to an undefined method Illuminate\\Foundation\\Auth\\User\:\:isOfRole\(\)#'
         - '#Match expression does not handle remaining value: mixed#'

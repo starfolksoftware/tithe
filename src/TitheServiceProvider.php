@@ -32,7 +32,8 @@ class TitheServiceProvider extends PackageServiceProvider
             ->hasCommand(Commands\InstallCommand::class)
             ->hasCommand(Commands\CreateUserCommand::class)
             ->hasViewComponent('tithe', Components\PaymentMethodManager::class)
-            ->hasViewComponent('tithe', Components\SubscriptionManager::class);
+            ->hasViewComponent('tithe', Components\SubscriptionManager::class)
+            ->hasViewComponent('tithe', Components\SubscriptionInvoices::class);
 
         if (! config('tithe.ignores_routes')) {
             $package->hasRoute('web');

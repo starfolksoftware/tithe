@@ -44,6 +44,7 @@ class RenewSubscription implements RenewsSubscriptions
             'paid_at' => now(),
             'meta' => [
                 'action' => 'renewal',
+                'amount' => $subscription?->plan->amount,
                 'paystack_transaction_reference' => $this->reference,
             ],
         ]);
