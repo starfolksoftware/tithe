@@ -26,7 +26,7 @@ return [
     'billing_address' => [
         'No 10H Hayatu Road',
         'K/Gayan Lowcost',
-        'Zaria, Kaduna'
+        'Zaria, Kaduna',
     ],
 
     /**

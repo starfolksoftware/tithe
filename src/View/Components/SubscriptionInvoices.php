@@ -12,7 +12,7 @@ class SubscriptionInvoices extends Component
      */
     public function __construct(public Collection $invoices)
     {
-        
+
     }
 
     public function render()

@@ -89,12 +89,12 @@ abstract class SubscriptionInvoice extends Model
         $action = data_get($this->meta, 'action');
 
         return Attribute::make(fn () => match ($action) {
-            'upgrade' => 'upgrade to ' . data_get($this->meta, 'to'),
+            'upgrade' => 'upgrade to '.data_get($this->meta, 'to'),
             'renewal' => match ($this->subscription->plan->periodicity_type) {
-                PeriodicityTypeEnum::YEAR->value => $this->subscription->expired_at->subYear()->format('Y') . '-' . $this->subscription->expired_at->format('Y'),
-                PeriodicityTypeEnum::MONTH->value => $this->subscription->expired_at->subMonth()->format('M d') . '-' . $this->subscription->expired_at->format('M d'),
-                PeriodicityTypeEnum::WEEK->value => $this->subscription->expired_at->subWeek()->format('W') . '-' . $this->subscription->expired_at->format('W'),
-                PeriodicityTypeEnum::DAY->value => $this->subscription->expired_at->subYear()->format('d') . '-' . $this->subscription->expired_at->format('d'),
+                PeriodicityTypeEnum::YEAR->value => $this->subscription->expired_at->subYear()->format('Y').'-'.$this->subscription->expired_at->format('Y'),
+                PeriodicityTypeEnum::MONTH->value => $this->subscription->expired_at->subMonth()->format('M d').'-'.$this->subscription->expired_at->format('M d'),
+                PeriodicityTypeEnum::WEEK->value => $this->subscription->expired_at->subWeek()->format('W').'-'.$this->subscription->expired_at->format('W'),
+                PeriodicityTypeEnum::DAY->value => $this->subscription->expired_at->subYear()->format('d').'-'.$this->subscription->expired_at->format('d'),
             },
         });
     }

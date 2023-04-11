@@ -3,7 +3,6 @@
 namespace Tithe\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Gate;
 use Tithe\Tithe;
 
 class ShowInvoiceController extends Controller
