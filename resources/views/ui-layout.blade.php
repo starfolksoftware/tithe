@@ -21,9 +21,13 @@
 
     <style>
         [x-cloak] { display: none !important; }
-    </style>
 
-    @stack('styles')
+        @media print {
+            #print-details-btn {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 font-sans antialiased">
