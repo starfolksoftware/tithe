@@ -193,6 +193,10 @@ trait HasSubscriptions
 
     public function hasPendingDowngrade(): bool
     {
+        if (is_null($this->subscription)) {
+            return false;
+        }
+        
         return is_null($this->subscription->suppressed_at) &&
             (bool) $this->subscription->was_switched;
     }

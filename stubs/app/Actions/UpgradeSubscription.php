@@ -23,7 +23,9 @@ class UpgradeSubscription implements UpgradesSubscriptions
     {
         Gate::forUser($user)->authorize('update', $subscriber);
 
-        $prorationAmount = PeriodicityTypeEnum::proration($subscriber, $plan);
+        $prorationAmount = (int) round(
+            PeriodicityTypeEnum::proration($subscriber, $plan)
+        );
 
         try {
             $this->ensureCurrentSubscriptionCanBeUpgraded(

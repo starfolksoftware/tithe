@@ -767,16 +767,6 @@ final class Tithe
     }
 
     /**
-     * Register a class / callback that should be used to handle overdue subscriptions.
-     *
-     * @return void
-     */
-    public static function handleOverdueSubscriptionsUsing(string $class)
-    {
-        app()->singleton(HandlesOverdueSubscriptions::class, $class);
-    }
-
-    /**
      * Register a callback that is responsible for getting the currently active subscriber.
      *
      * @return static

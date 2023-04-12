@@ -32,9 +32,8 @@ class SubscriptionRenewalJob implements ShouldQueue
             } catch (\Throwable $th) {
                 report($th);
 
-                Notification::route('mail', $subscription->subscriber->titheEmail())->notify([
-                    new SubscriptionRenewalFailed,
-                ]);
+                Notification::route('mail', $subscription->subscriber->titheEmail())
+                    ->notify(new SubscriptionRenewalFailed($subscription->subscriber));
             }
         }
     }

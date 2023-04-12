@@ -78,7 +78,14 @@ abstract class SubscriptionInvoice extends Model
      */
     public function amount(): Attribute
     {
-        return Attribute::make(fn () => data_get($this->meta, 'amount'));
+        $subscription = $this->subscription()
+            ->withExpired()
+            ->withSuppressed()
+            ->first();
+
+        $amount = data_get($this->meta, 'amount');
+
+        return Attribute::make(fn () => $amount ? $subscription?->plan->currency . ($amount/100) : '');
     }
 
     /**
@@ -86,15 +93,24 @@ abstract class SubscriptionInvoice extends Model
      */
     public function description(): Attribute
     {
+        $subscription = $this->subscription()
+            ->withExpired()
+            ->withSuppressed()
+            ->first();
+
+        if (is_null($subscription)) {
+            return Attribute::make(fn () => '');
+        }
+
         $action = data_get($this->meta, 'action');
 
         return Attribute::make(fn () => match ($action) {
             'upgrade' => 'upgrade to '.data_get($this->meta, 'to'),
-            'renewal' => match ($this->subscription->plan->periodicity_type) {
-                PeriodicityTypeEnum::YEAR->value => $this->subscription->expired_at->subYear()->format('Y').'-'.$this->subscription->expired_at->format('Y'),
-                PeriodicityTypeEnum::MONTH->value => $this->subscription->expired_at->subMonth()->format('M d').'-'.$this->subscription->expired_at->format('M d'),
-                PeriodicityTypeEnum::WEEK->value => $this->subscription->expired_at->subWeek()->format('W').'-'.$this->subscription->expired_at->format('W'),
-                PeriodicityTypeEnum::DAY->value => $this->subscription->expired_at->subYear()->format('d').'-'.$this->subscription->expired_at->format('d'),
+            'renewal' => match ($subscription->plan->periodicity_type) {
+                PeriodicityTypeEnum::YEAR->value => $subscription->expired_at->subYear()->format('Y').'-'.$subscription->expired_at->format('Y'),
+                PeriodicityTypeEnum::MONTH->value => $subscription->expired_at->subMonth()->format('M d').'-'.$subscription->expired_at->format('M d'),
+                PeriodicityTypeEnum::WEEK->value => $subscription->expired_at->subWeek()->format('W').'-'.$subscription->expired_at->format('W'),
+                PeriodicityTypeEnum::DAY->value => $subscription->expired_at->subYear()->format('d').'-'.$subscription->expired_at->format('d'),
             },
         });
     }

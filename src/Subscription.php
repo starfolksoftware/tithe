@@ -169,8 +169,8 @@ abstract class Subscription extends Model
         return $query->whereNull('canceled_at')
             ->whereNull('suppressed_at')
             ->whereDate('started_at', '<', today())
-            ->whereDate('expired_at', '>=', today())
-            ->whereDate('grace_days_ended_at', '<=', today());
+            ->whereDate('expired_at', '<=', today())
+            ->whereDate('grace_days_ended_at', '>=', today());
     }
 
     /**
@@ -201,15 +201,23 @@ abstract class Subscription extends Model
     }
 
     /**
+     * Indicates that a subscription is on grace period.
+     */
+    public function onGracePeriod(): bool
+    {
+        return now()->isBetween(
+            $this->expired_at,
+            $this->grace_days_ended_at
+        );
+    }
+
+    /**
      * Indicates that a subscription is due for renewal.
      */
     public function isDueForRenewal(): bool
     {
         return $this->hasStarted() && ! $this->isCanceled() &&
-            ! $this->isSuppressed() && now()->isBetween(
-                $this->expired_at,
-                $this->grace_days_ended_at
-            );
+            ! $this->isSuppressed() && $this->onGracePeriod();
     }
 
     /**
@@ -261,6 +269,9 @@ abstract class Subscription extends Model
 
         $this->update([
             'expired_at' => $expirationDate,
+            'grace_days_ended_at' => $this->getRenewedExpiration()->addDays(
+                $this->plan->grace_days
+            )
         ]);
 
         event(new Events\SubscriptionRenewed($this));

@@ -14,7 +14,7 @@ class SubscriptionRenewalFailed extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(public mixed $subscriber)
     {
         //
     }
@@ -34,9 +34,11 @@ class SubscriptionRenewalFailed extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $subscriberName = $this->subscriber->titheDisplayName();
+
         return (new MailMessage)
                     ->greeting('Ooops!')
-                    ->line("We couldn't renew your subscription. Kindly update your payment method.")
+                    ->line("We couldn't renew your subscription for {$subscriberName}. Kindly update your payment method.")
                     ->line('Thank you!');
     }
 

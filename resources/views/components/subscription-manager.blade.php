@@ -92,6 +92,34 @@ $defaultTab = collect($plans)->keys()->first();
         </div>
         @endif
         <div class="mt-5">
+            @if (is_null($subscriber->subscription))
+            <div class="p-4 mb-4 text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800" role="alert">
+                <div class="flex items-center">
+                    <svg aria-hidden="true" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Warning</span>
+                    <h3 class="text-lg font-medium">No Active Subscription</h3>
+                </div>
+                <div class="mt-2 mb-4 text-sm">
+                    You don't have an active subscription. Kindly use the button below to update your subscription.
+                </div>
+            </div>
+            @endif
+            @if ($subscriber->subscription?->onGracePeriod())
+            <div class="p-4 mb-4 text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800" role="alert">
+                <div class="flex items-center">
+                    <svg aria-hidden="true" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Warning</span>
+                    <h3 class="text-lg font-medium">Due For Renewal</h3>
+                </div>
+                <div class="mt-2 mb-4 text-sm">
+                    Your subsription is due for renewal. Make sure your payment method is up to date.
+                </div>
+            </div>
+            @endif
             @if (data_get($permissions, 'canUpdateSubscription'))
             <button @click="open = ! open" type="button" class="inline-flex items-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">
                 Update plan
@@ -122,8 +150,8 @@ $defaultTab = collect($plans)->keys()->first();
                     <h3 class="text-lg font-medium">Pending Downgrade</h3>
                 </div>
                 <div class="mt-2 mb-4 text-sm">
-                    Your subscription will be downgraded to <span class="font-bold">{{ data_get($subscriber->subscription->meta, 'to_plan_label') }}</span> 
-                    on <span class="font-bold">{{ data_get($subscriber->subscription->meta, 'switch_starts_at') }}</span>.
+                    Your subscription will be downgraded to <span class="font-bold">{{ data_get($subscriber->subscription?->meta, 'to_plan_label') }}</span> 
+                    on <span class="font-bold">{{ data_get($subscriber->subscription?->meta, 'switch_starts_at') }}</span>.
                 </div>
                 <div class="flex">
                     <button @click="$store.subscription.confirmingPendingDowngradeCancellation = true" type="button" class="text-white bg-yellow-800 hover:bg-yellow-900 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 mr-2 text-center inline-flex items-center dark:bg-yellow-300 dark:text-gray-800 dark:hover:bg-yellow-400 dark:focus:ring-yellow-800">
