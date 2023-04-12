@@ -9,7 +9,6 @@ use Tithe\Contracts\CreatesFeatures;
 use Tithe\Contracts\CreatesPlans;
 use Tithe\Contracts\DetachesFeaturesFromPlans;
 use Tithe\Contracts\DowngradesSubscriptions;
-use Tithe\Contracts\HandlesOverdueSubscriptions;
 use Tithe\Contracts\RenewsSubscriptions;
 use Tithe\Contracts\UpdatesFeatures;
 use Tithe\Contracts\UpdatesPlans;

@@ -85,7 +85,7 @@ abstract class SubscriptionInvoice extends Model
 
         $amount = data_get($this->meta, 'amount');
 
-        return Attribute::make(fn () => $amount ? $subscription?->plan->currency . ($amount/100) : '');
+        return Attribute::make(fn () => $amount ? $subscription?->plan->currency.($amount / 100) : '');
     }
 
     /**

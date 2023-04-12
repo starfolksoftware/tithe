@@ -271,7 +271,7 @@ abstract class Subscription extends Model
             'expired_at' => $expirationDate,
             'grace_days_ended_at' => $this->getRenewedExpiration()->addDays(
                 $this->plan->grace_days
-            )
+            ),
         ]);
 
         event(new Events\SubscriptionRenewed($this));
