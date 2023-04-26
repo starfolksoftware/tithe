@@ -22,7 +22,7 @@ composer require starfolksoftware/tithe
 You can publish, publish the config and run the migrations with:
 
 ```bash
-php artisan redo:install
+php artisan tithe:install
 php artisan migrate
 ```
 
