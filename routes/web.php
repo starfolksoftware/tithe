@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Tithe\Http\Controllers;
 use Tithe\Http\Middleware\Authenticate;
-use Tithe\Tithe;
 
-Route::middleware(config('tithe.admin_middlewares'))->prefix(Tithe::adminRoutesPrefix())->group(function () {
+Route::middleware(config('tithe.admin_middlewares'))->prefix(config('tithe.routes.admin'))->group(function () {
     // Login routes...
     Route::get('login', [Controllers\AuthenticatedSessionController::class, 'create'])->name('tithe.login');
     Route::post('login', [Controllers\AuthenticatedSessionController::class, 'store'])->name('tithe.authenticate');
@@ -32,7 +31,7 @@ Route::middleware(config('tithe.admin_middlewares'))->prefix(Tithe::adminRoutesP
     });
 });
 
-Route::middleware(config('tithe.ui_middlewares'))->prefix(Tithe::uiRoutesPrefix())->group(function () {
+Route::middleware(config('tithe.ui_middlewares'))->prefix(config('tithe.routes.ui'))->group(function () {
     Route::get('/', Controllers\BillingController::class)->name('tithe.billing.index');
     Route::get('/invoices/{invoiceId}', Controllers\ShowInvoiceController::class)->name('tithe.billing.invoices.show');
     Route::get('/create-authorization', Controllers\CreateAuthorizationController::class)->name('tithe.billing.create-authorization');

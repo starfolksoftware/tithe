@@ -13,9 +13,9 @@ test('reset password page renders', function () {
     $this->get(route('tithe.password.reset', [
         'token' => Str::random(60),
     ]))
-         ->assertSuccessful()
-         ->assertViewIs('tithe::auth.passwords.reset')
-         ->assertSeeText('Reset Password');
+        ->assertSuccessful()
+        ->assertViewIs('tithe::auth.passwords.reset')
+        ->assertSeeText('Reset Password');
 });
 
 test('tithe user password can be reset', function () {

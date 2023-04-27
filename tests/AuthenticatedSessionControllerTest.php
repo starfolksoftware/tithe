@@ -10,9 +10,9 @@ beforeAll(function () {
 
 test('login page renders', function () {
     $this->get(route('tithe.login'))
-            ->assertSuccessful()
-            ->assertViewIs('tithe::auth.login')
-            ->assertSeeText('Sign in to your account');
+        ->assertSuccessful()
+        ->assertViewIs('tithe::auth.login')
+        ->assertSeeText('Sign in to your account');
 });
 
 test('login request will check for invalid emails', function () {

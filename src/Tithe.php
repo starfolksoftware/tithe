@@ -45,20 +45,6 @@ final class Tithe
     public static $emailsInvoices = true;
 
     /**
-     * The default admin routes prefix.
-     *
-     * @var string
-     */
-    public static $adminRoutesPrefix = 'tithe';
-
-    /**
-     * The default ui routes prefix.
-     *
-     * @var string
-     */
-    public static $uiRoutesPrefix = 'billing';
-
-    /**
      * The user model table name.
      *
      * @var string
@@ -259,34 +245,6 @@ final class Tithe
         self::$emailsInvoices = $value;
 
         return new self();
-    }
-
-    /**
-     * Sets the default ui routes prefix.
-     *
-     * @return static
-     */
-    public static function defaultUiRoutesPrefix(string $prefix)
-    {
-        self::$uiRoutesPrefix = $prefix;
-
-        return new self();
-    }
-
-    /**
-     * Returns the default admin routes prefix.
-     */
-    public static function adminRoutesPrefix(): string
-    {
-        return self::$adminRoutesPrefix;
-    }
-
-    /**
-     * Returns the default ui routes prefix.
-     */
-    public static function uiRoutesPrefix(): string
-    {
-        return self::$uiRoutesPrefix;
     }
 
     /**
