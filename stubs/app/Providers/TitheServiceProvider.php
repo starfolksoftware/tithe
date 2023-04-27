@@ -33,5 +33,12 @@ class TitheServiceProvider extends ServiceProvider
         Tithe::detachFeaturesFromPlansUsing(TitheActions\DetachFeatureFromPlan::class);
         Tithe::createAuthorizationsUsing(TitheActions\CreateAuthorization::class);
         Tithe::upgradeSubscriptionsUsing(TitheActions\UpgradeSubscription::class);
+        Tithe::downgradeSubscriptionsUsing(TitheActions\DowngradeSubscription::class);
+        Tithe::cancelPendingUpgradesUsing(TitheActions\CancelPendingDowngrade::class);
+        Tithe::renewSubscriptionsUsing(TitheActions\RenewSubscription::class);
+        Tithe::getActiveSubscriberUsing(function () {
+            // edit the following line
+            return null;
+        });
     }
 }

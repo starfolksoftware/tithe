@@ -4,6 +4,11 @@
 return [
     'ignores_routes' => false,
 
+    'routes' => [
+        'ui' => 'billing',
+        'admin' => 'tithe',
+    ],
+
     'ignores_migrations' => false,
 
     'favicon' => '',
