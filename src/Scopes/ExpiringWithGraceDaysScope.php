@@ -18,8 +18,8 @@ class ExpiringWithGraceDaysScope implements Scope
     {
         $builder->where(
             fn (Builder $query) => $query
-            ->where('expired_at', '>', now())
-            ->orWhere('grace_days_ended_at', '>', now())
+                ->where('expired_at', '>', now())
+                ->orWhere('grace_days_ended_at', '>', now())
         );
     }
 

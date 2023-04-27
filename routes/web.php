@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Tithe\Http\Controllers;
 use Tithe\Http\Middleware\Authenticate;
-use Tithe\Tithe;
 
 Route::middleware(config('tithe.admin_middlewares'))->prefix(config('tithe.routes.admin'))->group(function () {
     // Login routes...
